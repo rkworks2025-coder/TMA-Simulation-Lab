@@ -5,105 +5,128 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>日常点検 | TMA-Simulation-Lab</title>
   <style>
-    body { font-family: -apple-system, sans-serif; background-color: #f0f2f5; margin: 0; padding-bottom: 80px; }
-    .header { background: #004098; color: white; padding: 12px; text-align: center; font-size: 16px; font-weight: bold; position: sticky; top: 0; z-index: 100; }
+    :root { --tma-blue: #004098; --tma-red: #d93025; }
+    body { font-family: -apple-system, sans-serif; background-color: #f2f2f7; margin: 0; padding-bottom: 80px; }
+    .header { background: var(--tma-blue); color: white; padding: 12px; text-align: center; font-weight: bold; position: sticky; top: 0; z-index: 100; }
     
-    /* 9タブ・スクロールメニュー */
-    .tab-container { display: flex; overflow-x: auto; background: #fff; border-bottom: 1px solid #ddd; position: sticky; top: 45px; z-index: 90; -webkit-overflow-scrolling: touch; }
-    .tab { padding: 12px 15px; font-size: 12px; white-space: nowrap; color: #666; border-bottom: 3px solid transparent; }
-    .tab.active { color: #004098; border-bottom-color: #004098; font-weight: bold; }
+    /* 9タブ：横スクロール対応 */
+    .tab-nav { display: flex; overflow-x: auto; background: white; border-bottom: 1px solid #d1d1d6; position: sticky; top: 45px; z-index: 99; -webkit-overflow-scrolling: touch; }
+    .tab-item { padding: 12px 15px; font-size: 13px; white-space: nowrap; color: #666; border-bottom: 3px solid transparent; cursor: pointer; }
+    .tab-item.active { color: var(--tma-blue); border-bottom-color: var(--tma-blue); font-weight: bold; }
 
-    .content-section { background: white; margin-bottom: 8px; padding: 15px; }
-    .item-title { font-size: 14px; font-weight: bold; margin-bottom: 4px; }
-    .item-sub { font-size: 11px; color: #777; margin-bottom: 10px; }
-    
-    /* ラジオボタンUI */
-    .radio-group { display: flex; gap: 4px; }
-    .radio-label { flex: 1; text-align: center; padding: 12px 2px; border: 1px solid #ccc; border-radius: 4px; font-size: 11px; background: #f9f9f9; }
+    /* 各セクションの表示制御 */
+    .tab-content { display: none; padding-top: 10px; }
+    .tab-content.active { display: block; }
+
+    .card { background: white; margin-bottom: 8px; padding: 15px; border-bottom: 1px solid #e5e5ea; }
+    .title { font-size: 14px; font-weight: bold; margin-bottom: 2px; }
+    .sub { font-size: 11px; color: #8e8e93; margin-bottom: 12px; }
+
+    /* 3択・2択ボタン */
+    .btn-group { display: flex; gap: 4px; }
+    .radio-btn { flex: 1; text-align: center; padding: 12px 0; border: 1px solid #c6c6c8; border-radius: 5px; font-size: 11px; background: #fff; color: #333; cursor: pointer; }
     input[type="radio"] { display: none; }
-    input[type="radio"]:checked + .radio-label { background-color: #004098; color: white; border-color: #004098; }
+    input[type="radio"]:checked + .radio-btn { background: var(--tma-blue); color: white; border-color: var(--tma-blue); font-weight: bold; }
 
-    /* タイヤ入力エリア */
-    .tire-block { background: #f8f9fa; padding: 10px; border-radius: 4px; margin-top: 5px; }
-    .tire-row { display: flex; align-items: center; margin-bottom: 8px; font-size: 13px; }
-    .tire-label { width: 60px; font-weight: bold; }
-    .input-box { border: 1px solid #ccc; padding: 8px; font-size: 16px; border-radius: 4px; width: 50px; text-align: center; }
-    
-    footer { position: fixed; bottom: 0; width: 100%; background: white; border-top: 1px solid #ddd; padding: 12px; display: flex; box-sizing: border-box; }
-    .btn-save { background-color: #d93025; color: white; flex: 1; padding: 15px; border-radius: 4px; border: none; font-weight: bold; font-size: 16px; }
-    .version-tag { position: absolute; right: 10px; top: 12px; font-size: 10px; }
+    /* タイヤ入力 */
+    .tire-box { background: #f9f9f9; padding: 10px; border-radius: 8px; margin-top: 8px; border: 1px solid #e5e5ea; }
+    .tire-row { display: flex; align-items: center; margin-bottom: 10px; font-size: 14px; }
+    .label { width: 70px; font-weight: 500; }
+    .val-input { border: 1px solid #c6c6c8; padding: 8px; font-size: 16px; border-radius: 4px; width: 55px; text-align: center; }
+
+    /* フッター */
+    footer { position: fixed; bottom: 0; width: 100%; background: rgba(255,255,255,0.9); border-top: 1px solid #d1d1d6; padding: 10px; display: flex; box-sizing: border-box; gap: 10px; }
+    .btn-save { background: var(--tma-red); color: white; flex: 1; padding: 15px; border-radius: 8px; border: none; font-weight: bold; font-size: 16px; }
   </style>
 </head>
 <body>
 
-<header>日常点検 <span class="version-tag">ver. 2025-11-01</span></header>
+<header>日常点検入力 <span style="position:absolute; right:10px; font-size:10px;">ver. 2025-11-01</span></header>
 
-<div class="tab-container">
-  <div class="tab">マニュアル</div>
-  <div class="tab active">エンジンルーム</div>
-  <div class="tab">タイヤ</div>
-  <div class="tab">動作確認</div>
-  <div class="tab">装備品(運転席周り)</div>
-  <div class="tab">装備確認</div>
-  <div class="tab">灯火装置</div>
-  <div class="tab">車両回り他</div>
-  <div class="tab">車載品(トランク周り)</div>
+<div class="tab-nav" id="tabNav">
+  <div class="tab-item" onclick="openTab(event, 'tab1')">マニュアル</div>
+  <div class="tab-item active" onclick="openTab(event, 'tab2')">エンジンルーム</div>
+  <div class="tab-item" onclick="openTab(event, 'tab3')">タイヤ</div>
+  <div class="tab-item" onclick="openTab(event, 'tab4')">動作確認</div>
+  <div class="tab-item" onclick="openTab(event, 'tab5')">装備品(運転席周り)</div>
+  <div class="tab-item" onclick="openTab(event, 'tab6')">装備確認</div>
+  <div class="tab-item" onclick="openTab(event, 'tab7')">灯火装置</div>
+  <div class="tab-item" onclick="openTab(event, 'tab8')">車両回り他</div>
+  <div class="tab-item" onclick="openTab(event, 'tab9')">車載品(トランク周り)</div>
 </div>
 
-<main>
-  <div class="content-section">
-    <div class="item-title">エンジン冷却水の量</div>
-    <div class="item-sub">(リザーブタンクの規定範囲内にあるか)</div>
-    <div class="radio-group">
-      <input type="radio" name="coolantGauge" id="c0" value="0"><label for="c0" class="radio-label">OK(未補充)</label>
-      <input type="radio" name="coolantGauge" id="c1" value="1" checked><label for="c1" class="radio-label">OK(補充)</label>
-      <input type="radio" name="coolantGauge" id="c9" value="9"><label for="c9" class="radio-label">NG(稼働停止)</label>
+<div id="tab2" class="tab-content active">
+  <div class="card">
+    <div class="title">エンジン冷却水の量</div>
+    <div class="sub">(リザーブタンクの規定範囲内にあるか)</div>
+    <div class="btn-group">
+      <input type="radio" name="coolant" id="c0" value="0"><label for="c0" class="radio-btn">OK(未補充)</label>
+      <input type="radio" name="coolant" id="c1" value="1" checked><label for="c1" class="radio-btn">OK(補充)</label>
+      <input type="radio" name="coolant" id="c9" value="9"><label for="c9" class="radio-btn">NG(稼働停止)</label>
     </div>
   </div>
+  <div class="card">
+    <div class="title">ウォッシャー液の量</div>
+    <div class="sub">(液量が十分か)</div>
+    <div class="btn-group">
+      <input type="radio" name="washer" id="w0" value="0"><label for="w0" class="radio-btn">OK(未補充)</label>
+      <input type="radio" name="washer" id="w1" value="1" checked><label for="w1" class="radio-btn">OK(補充)</label>
+      <input type="radio" name="washer" id="w9" value="9"><label for="w9" class="radio-btn">NG(稼働停止)</label>
+    </div>
+  </div>
+</div>
 
-  <div class="content-section">
-    <div class="item-title">ウォッシャー液の量</div>
-    <div class="radio-group">
-      <input type="radio" name="washerFluidGauge" id="w0" value="0"><label for="w0" class="radio-label">OK(未補充)</label>
-      <input type="radio" name="washerFluidGauge" id="w1" value="1" checked><label for="w1" class="radio-label">OK(補充)</label>
-      <input type="radio" name="washerFluidGauge" id="w9" value="9"><label for="w9" class="radio-label">NG(稼働停止)</label>
+<div id="tab3" class="tab-content">
+  <div class="card">
+    <div class="title">右前タイヤ (RF)</div>
+    <div class="tire-box">
+      <div class="tire-row">
+        <span class="label">溝</span>
+        <input type="number" id="tireGrooveFrontRightCmIp" class="val-input"> . <input type="number" id="tireGrooveFrontRightCmFp" class="val-input"> mm
+      </div>
+      <div class="tire-row">
+        <span class="label">セリアル</span>
+        <input type="number" id="tireMfrFrontRightCm" class="val-input" style="width:100px;" placeholder="4桁">
+      </div>
     </div>
   </div>
+  <div class="card">
+    <div class="title">左後タイヤ (LR)</div>
+    <div class="tire-box">
+      <div class="tire-row">
+        <span class="label">溝</span>
+        <input type="number" id="tireGrooveRearLeftBi4Ip" class="val-input"> . <input type="number" id="tireGrooveRearLeftBi4Fp" class="val-input"> mm
+      </div>
+    </div>
+  </div>
+</div>
 
-  <div class="content-section">
-    <div class="item-title">右前タイヤ</div>
-    <div class="tire-block">
-      <div class="tire-row">
-        <span class="tire-label">溝</span>
-        <input type="number" id="tireGrooveFrontRightCmIp" class="input-box"> . 
-        <input type="number" id="tireGrooveFrontRightCmFp" class="input-box"> mm
-      </div>
-      <div class="tire-row">
-        <span class="tire-label">セリアル</span>
-        <input type="number" id="tireMfrFrontRightCm" class="input-box" style="width:80px;" placeholder="4桁">
-      </div>
+<div id="tab1" class="tab-content"><div class="card">マニュアル確認内容...</div></div>
+<div id="tab4" class="tab-content"><div class="card">動作確認項目...</div></div>
+<div id="tab9" class="tab-content">
+  <div class="card">
+    <div class="title">非常信号用具（発炎筒）</div>
+    <div class="sub">(有効期限内か)</div>
+    <div class="tire-row">
+      有効期限：<input type="month" id="flaresLimit" class="val-input" style="width:140px;">
     </div>
   </div>
-
-  <div class="content-section">
-    <div class="item-title">左後タイヤ</div>
-    <div class="tire-block">
-      <div class="tire-row">
-        <span class="tire-label">溝</span>
-        <input type="number" id="tireGrooveRearLeftBi4Ip" class="input-box"> . 
-        <input type="number" id="tireGrooveRearLeftBi4Fp" class="input-box"> mm
-      </div>
-      <div class="tire-row">
-        <span class="tire-label">セリアル</span>
-        <input type="number" id="tireMfrRearLeftBi4" class="input-box" style="width:80px;">
-      </div>
-    </div>
-  </div>
-</main>
+</div>
 
 <footer>
   <button class="btn-save">一時保存</button>
 </footer>
 
+<script>
+function openTab(evt, tabName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tab-content");
+  for (i = 0; i < tabcontent.length; i++) { tabcontent[i].style.display = "none"; }
+  tablinks = document.getElementsByClassName("tab-item");
+  for (i = 0; i < tablinks.length; i++) { tablinks[i].className = tablinks[i].className.replace(" active", ""); }
+  document.getElementById(tabName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+</script>
 </body>
 </html>
