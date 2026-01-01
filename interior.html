@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>車内清掃</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-inner">
+            <p>【ＴＳ委託】カーケアジャパン</p>
+            <div class="menu-icon">≡</div>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <div class="page-header">
+            <h1>車内清掃</h1>
+            <span class="car-no">相模 6815</span>
+        </div>
+
+        <form>
+            <div class="content-section">
+                <h3 class="required">内装・窓ガラス清掃・異臭</h3>
+                <p class="desc">内装の清掃（重要箇所：ドアポケット・センターコンソール・ダッシュボード・シート下・ヘッドレスト）<br>内窓・外窓（油膜）・サイドミラー・バックミラーの清掃<br>各種伝票の回収、破棄<br><span class="red">ヘッドレストがない、極端な異臭や汚れが残る場合は「NG（稼動停止）」</span></p>
+                <div class="radio-group">
+                    <label><input type="radio" name="interior_clean" checked> OK</label>
+                    <label><input type="radio" name="interior_clean"> NG (稼動停止)</label>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h3 class="required">車内不具合確認</h3>
+                <p class="desc">運転席マットストッパー設置状況：破損、未設置がないか<br>エアコンの不具合確認：夏場は冷風が出るか、極端な異臭がないか<br><span class="red">上記の不具合が確認された場合は「NG（稼動停止）」</span></p>
+                <div class="radio-group">
+                    <label><input type="radio" name="interior_defect" checked> OK</label>
+                    <label><input type="radio" name="interior_defect"> NG (稼動停止)</label>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h3 class="required">カーナビ（ラジオ）・ETC・車内時計</h3>
+                <p class="desc">設定<br>カーナビ（ラジオ）・ETCの音量が0（ゼロ）でないことを確認<br>車両時刻とカーナビ時刻を確認（相違の場合、カーナビの時刻に合わせる）<br><span class="red">故障の場合は「NG（稼動停止）」</span></p>
+                <div class="radio-group">
+                    <label><input type="radio" name="navi" checked> OK</label>
+                    <label><input type="radio" name="navi"> NG (稼動停止)</label>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h3 class="required">オートパーキングメモリーの確認</h3>
+                <p class="desc">オートパーキングメモリーの設定がOFFになっているか確認<br>※設定がONになっていれば、OFFに設定<br>オートパーキングメモリー履歴が全て消去されているか確認<br>※履歴が残っている場合は消去</p>
+                <div class="radio-group">
+                    <label><input type="radio" name="auto_parking" checked> OK</label>
+                    <label><input type="radio" name="auto_parking"> NG</label>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h3 class="required">忘れ物</h3>
+                <div class="radio-group">
+                    <label><input type="radio" name="lost_item" checked> なし</label>
+                    <label><input type="radio" name="lost_item"> あり</label>
+                </div>
+            </div>
+        </form>
+
+        <div class="fixed-footer">
+            <button class="footer-btn btn-white" onclick="location.href='index.html'">中止</button>
+            <button class="footer-btn btn-white">一時保存</button>
+            <button class="footer-btn btn-yellow" onclick="completeTask('interior')">完了</button>
+        </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
