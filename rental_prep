@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>貸出準備 | TMA-Simulation-Lab</title>
+  <style>
+    body { font-family: -apple-system, sans-serif; background-color: #f0f2f5; margin: 0; text-align: center; padding-top: 50px; }
+    .header { background: #004098; color: white; padding: 12px; position: fixed; top: 0; width: 100%; font-weight: bold; }
+  </style>
+</head>
+<body>
+<header>貸出準備</header>
+<p>このページは自動化の対象外（スキップ）です。</p>
+<a href="index.html" style="color:#004098; font-weight:bold;">車両詳細へ戻る</a>
+</body>
+</html>
