@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>貸出準備</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-inner">
+            <p>【ＴＳ委託】カーケアジャパン</p>
+            <div class="menu-icon">≡</div>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <div class="page-header">
+            <h1>貸出準備</h1>
+            <span class="car-no">相模 6815</span>
+        </div>
+
+        <form>
+            <div class="content-section">
+                <h3 class="required">走行距離</h3>
+                <p class="desc">ODO（オド）メーター（積算走行距離計）に表示されている距離を入力</p>
+                <div class="input-unit"><input type="number" class="input-bg-pink"> km</div>
+            </div>
+
+            <div class="content-section">
+                <h3 class="required">給油</h3>
+                <p class="desc">エンプティランプが点灯している場合は、満タン給油</p>
+                <p class="desc"><strong>給油</strong></p>
+                <div class="radio-group">
+                    <label><input type="radio" name="refuel"> 実施</label>
+                    <label><input type="radio" name="refuel" checked> 未実施</label>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h3 class="required">給油カード</h3>
+                <p class="desc">車載されているカード情報（番号・有効期限）が以下入力項目と一致しているか確認<br>有効期限切れ・不一致、または新しくカードを車載する場合、OK（交換）を選択してカード情報を入力<br>車載可能なカードが無い場合は「NG（稼動停止）」</p>
+                <div class="radio-group">
+                    <label><input type="radio" name="fuel_card" checked> OK</label>
+                    <label><input type="radio" name="fuel_card"> OK (交換)</label>
+                    <label><input type="radio" name="fuel_card"> NG (稼動停止)</label>
+                </div>
+                <div class="input-row mt-10">
+                    <label>給油カード番号</label>
+                    <div class="card-inputs">
+                        <input type="text" value="2368"> - <input type="text" value="7268"> - <input type="text" value="3360">
+                    </div>
+                </div>
+                <div class="input-row mt-10">
+                    <label>給油カードの有効期限</label>
+                    <div class="date-selects">
+                        <select><option>2028年</option></select>
+                        <select><option>5月</option></select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h3 class="required">車両確認</h3>
+                <p class="desc">ルームスイッチモードがDOOR設定になっているか確認</p>
+                <p class="desc"><strong>ルームスイッチ</strong></p>
+                <label class="checkbox-box"><input type="checkbox"> OK</label>
+            </div>
+
+            <div class="content-section">
+                <h3 class="required">車室シール</h3>
+                <div class="radio-group">
+                    <label><input type="radio" name="room_seal" checked> OK</label>
+                    <label><input type="radio" name="room_seal"> NG</label>
+                    <label><input type="radio" name="room_seal"> 対象外</label>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h3 class="required">駐車時確認</h3>
+                <p class="desc">スリットボックスに鍵をセット・バリアポップの設置を確認</p>
+                <div class="radio-group">
+                    <label><input type="radio" name="park_check" checked> OK</label>
+                    <label><input type="radio" name="park_check"> 対象外</label>
+                </div>
+            </div>
+        </form>
+
+        <div class="fixed-footer">
+            <button class="footer-btn btn-white" onclick="location.href='index.html'">中止</button>
+            <button class="footer-btn btn-yellow" onclick="completeTask('lend')">完了</button>
+        </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
