@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>日常点検 | TMA-Simulation-Lab</title>
+  <style>
+    body { font-family: -apple-system, sans-serif; background-color: #f0f2f5; margin: 0; padding-bottom: 80px; }
+    .header { background: #004098; color: white; padding: 12px; text-align: center; font-size: 16px; font-weight: bold; position: sticky; top: 0; z-index: 100; }
+    
+    /* 9タブ・スクロールメニュー */
+    .tab-container { display: flex; overflow-x: auto; background: #fff; border-bottom: 1px solid #ddd; position: sticky; top: 45px; z-index: 90; -webkit-overflow-scrolling: touch; }
+    .tab { padding: 12px 15px; font-size: 12px; white-space: nowrap; color: #666; border-bottom: 3px solid transparent; }
+    .tab.active { color: #004098; border-bottom-color: #004098; font-weight: bold; }
+
+    .content-section { background: white; margin-bottom: 8px; padding: 15px; }
+    .item-title { font-size: 14px; font-weight: bold; margin-bottom: 4px; }
+    .item-sub { font-size: 11px; color: #777; margin-bottom: 10px; }
+    
+    /* ラジオボタンUI */
+    .radio-group { display: flex; gap: 4px; }
+    .radio-label { flex: 1; text-align: center; padding: 12px 2px; border: 1px solid #ccc; border-radius: 4px; font-size: 11px; background: #f9f9f9; }
+    input[type="radio"] { display: none; }
+    input[type="radio"]:checked + .radio-label { background-color: #004098; color: white; border-color: #004098; }
+
+    /* タイヤ入力エリア */
+    .tire-block { background: #f8f9fa; padding: 10px; border-radius: 4px; margin-top: 5px; }
+    .tire-row { display: flex; align-items: center; margin-bottom: 8px; font-size: 13px; }
+    .tire-label { width: 60px; font-weight: bold; }
+    .input-box { border: 1px solid #ccc; padding: 8px; font-size: 16px; border-radius: 4px; width: 50px; text-align: center; }
+    
+    footer { position: fixed; bottom: 0; width: 100%; background: white; border-top: 1px solid #ddd; padding: 12px; display: flex; box-sizing: border-box; }
+    .btn-save { background-color: #d93025; color: white; flex: 1; padding: 15px; border-radius: 4px; border: none; font-weight: bold; font-size: 16px; }
+    .version-tag { position: absolute; right: 10px; top: 12px; font-size: 10px; }
+  </style>
+</head>
+<body>
+
+<header>日常点検 <span class="version-tag">ver. 2025-11-01</span></header>
+
+<div class="tab-container">
+  <div class="tab">マニュアル</div>
+  <div class="tab active">エンジンルーム</div>
+  <div class="tab">タイヤ</div>
+  <div class="tab">動作確認</div>
+  <div class="tab">装備品(運転席周り)</div>
+  <div class="tab">装備確認</div>
+  <div class="tab">灯火装置</div>
+  <div class="tab">車両回り他</div>
+  <div class="tab">車載品(トランク周り)</div>
+</div>
+
+<main>
+  <div class="content-section">
+    <div class="item-title">エンジン冷却水の量</div>
+    <div class="item-sub">(リザーブタンクの規定範囲内にあるか)</div>
+    <div class="radio-group">
+      <input type="radio" name="coolantGauge" id="c0" value="0"><label for="c0" class="radio-label">OK(未補充)</label>
+      <input type="radio" name="coolantGauge" id="c1" value="1" checked><label for="c1" class="radio-label">OK(補充)</label>
+      <input type="radio" name="coolantGauge" id="c9" value="9"><label for="c9" class="radio-label">NG(稼働停止)</label>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <div class="item-title">ウォッシャー液の量</div>
+    <div class="radio-group">
+      <input type="radio" name="washerFluidGauge" id="w0" value="0"><label for="w0" class="radio-label">OK(未補充)</label>
+      <input type="radio" name="washerFluidGauge" id="w1" value="1" checked><label for="w1" class="radio-label">OK(補充)</label>
+      <input type="radio" name="washerFluidGauge" id="w9" value="9"><label for="w9" class="radio-label">NG(稼働停止)</label>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <div class="item-title">右前タイヤ</div>
+    <div class="tire-block">
+      <div class="tire-row">
+        <span class="tire-label">溝</span>
+        <input type="number" id="tireGrooveFrontRightCmIp" class="input-box"> . 
+        <input type="number" id="tireGrooveFrontRightCmFp" class="input-box"> mm
+      </div>
+      <div class="tire-row">
+        <span class="tire-label">セリアル</span>
+        <input type="number" id="tireMfrFrontRightCm" class="input-box" style="width:80px;" placeholder="4桁">
+      </div>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <div class="item-title">左後タイヤ</div>
+    <div class="tire-block">
+      <div class="tire-row">
+        <span class="tire-label">溝</span>
+        <input type="number" id="tireGrooveRearLeftBi4Ip" class="input-box"> . 
+        <input type="number" id="tireGrooveRearLeftBi4Fp" class="input-box"> mm
+      </div>
+      <div class="tire-row">
+        <span class="tire-label">セリアル</span>
+        <input type="number" id="tireMfrRearLeftBi4" class="input-box" style="width:80px;">
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <button class="btn-save">一時保存</button>
+</footer>
+
+</body>
+</html>
