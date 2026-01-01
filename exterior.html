@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>外装確認</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-inner">
+            <p>【ＴＳ委託】カーケアジャパン</p>
+            <div class="menu-icon">≡</div>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <div class="page-header">
+            <h1>外装確認</h1>
+            <span class="car-no">相模 6815</span>
+        </div>
+
+        <form>
+            <div class="content-section">
+                <h3 class="required">状態</h3>
+                <p class="desc">【重要チェック箇所】<br>下回り・アンダーカバー・タイヤハウスの損傷を確認<br><span class="red">走行に支障がでる損傷の場合は「NG（稼動停止）」</span><br>基準に満たない小さな擦り傷や凹みはNG（稼動停止）にしないでください<br>「車両修理判断基準書」を確認してください</p>
+                <div class="radio-group">
+                    <label><input type="radio" name="ext_status" checked> OK</label>
+                    <label><input type="radio" name="ext_status"> NG (稼動停止)</label>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h3 class="required">損傷箇所</h3>
+                <p class="desc">該当する車種を選択</p>
+                <select class="select-box">
+                    <option>乗用車</option>
+                </select>
+                <div class="paint-area">
+                    <div class="paint-header">
+                        <span>点検日：2025/12/16</span>
+                        <button type="button" class="btn-yellow-mini">ペイント開始</button>
+                    </div>
+                    <div class="car-diagram" style="background: #eee; height: 250px; display: flex; align-items: center; justify-content: center; border: 1px solid #ccc; margin-top: 10px;">
+                        <span style="color: #888;">(車両図 - ペイント機能なし)</span>
+                    </div>
+                    <p class="desc mt-10">線キズ（スリキズ）は赤線、凹みは青〇で記載</p>
+                </div>
+            </div>
+        </form>
+
+        <div class="fixed-footer">
+            <button class="footer-btn btn-white" onclick="location.href='index.html'">中止</button>
+            <button class="footer-btn btn-yellow" onclick="completeTask('exterior')">完了</button>
+        </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
