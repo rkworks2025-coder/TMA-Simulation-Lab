@@ -1,28 +1,129 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>TMA-Simulation-Lab | Index</title>
-  <style>
-    :root { --tma-blue: #004098; --bg-gray: #f2f2f7; }
-    body { font-family: -apple-system, sans-serif; background-color: var(--bg-gray); margin: 0; }
-    .header { background: var(--tma-blue); color: white; padding: 15px; text-align: center; font-weight: bold; position: sticky; top: 0; }
-    .version { position: absolute; right: 10px; top: 18px; font-size: 10px; font-weight: normal; }
-    .menu-list { margin-top: 20px; border-top: 1px solid #d1d1d6; border-bottom: 1px solid #d1d1d6; background: white; }
-    .menu-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; text-decoration: none; color: black; border-bottom: 1px solid #d1d1d6; font-size: 16px; }
-    .menu-item:last-child { border-bottom: none; }
-    .menu-item::after { content: ""; width: 10px; height: 10px; border-top: 2px solid #c7c7cc; border-right: 2px solid #c7c7cc; transform: rotate(45deg); }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>点検トップ</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="header">車両詳細 <span class="version">ver. 2025-11-01</span></div>
-  <div class="menu-list">
-    <a href="daily_check.html" class="menu-item">日常点検</a>
-    <a href="interior_clean.html" class="menu-item">車内清掃</a>
-    <a href="car_wash.html" class="menu-item">洗車</a>
-    <a href="exterior_check.html" class="menu-item">外装確認</a>
-    <a href="rental_prep.html" class="menu-item">貸出準備</a>
-  </div>
+    <header class="header">
+        <div class="header-inner">
+            <p>【ＴＳ委託】カーケアジャパン</p>
+            <div class="menu-icon">≡</div>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <div class="info-area">
+            <h1>点検トップ</h1>
+        </div>
+
+        <div class="car-info-section">
+            <h2>車両情報</h2>
+            <div class="status-box">
+                <p>車載機情報：2026/01/01 18:21 時点</p>
+                <button class="btn-grey-small">情報取得</button>
+            </div>
+            <table class="car-detail-table">
+                <tr><th>車両ナンバー</th><td>相模 501 ワ 6815</td></tr>
+                <tr><th>車種名</th><td>フィット 1300</td></tr>
+                <tr><th>色</th><td>エアーライトブルーメタリック</td></tr>
+                <tr><th>車台番号</th><td>GR11121029</td></tr>
+                <tr><th>燃料残量目安</th><td>○（50〜75%）<br><span class="note">燃料残量は目安となります、必ず現車を確認してください</span></td></tr>
+                <tr><th>電圧</th><td>12.77V<br><span class="note">電圧は目安となります、必ず現車を確認してください</span></td></tr>
+                <tr><th>運行状態</th><td>待機</td></tr>
+                <tr><th>車両状態</th><td>キーボックス状態：返却中<br>ドア状態：クローズ<br>ドアロック状態：ロック<br>IG状態：OFF<br>ACC：OFF</td></tr>
+                <tr><th rowspan="2">後予定</th><td>01月02日 08:00</td></tr>
+                <tr><td>イオン海老名ショッピングセンターG</td></tr>
+            </table>
+        </div>
+
+        <div class="check-section">
+            <h2>点検詳細</h2>
+            
+            <div class="check-item-card">
+                <h3>点検開始</h3>
+                <div class="check-content">
+                    <p>01月01日(木) 18時30分 ～<br>01月01日(木) 19時00分<br>予約中</p>
+                    <a href="#" class="link-text">▶ 予約延長</a>
+                </div>
+                <button class="btn-disabled" disabled>開始 ></button>
+            </div>
+
+            <p class="alert-text-red">ブレーキ点灯確認バーを使用する際は、車両が動かないよう点検開始前にタイヤストッパーを必ず設置してください</p>
+
+            <div class="check-item-card" id="card-daily">
+                <h3>日常点検 <span class="status-badge" id="badge-daily">一時保存</span></h3>
+                <div class="check-content">
+                    <p>2026/01/01 18:21 に<br>一時保存しました（2日間経過すると未点検になります）</p>
+                </div>
+                <div class="check-footer">
+                    <div class="prev-data">
+                        <span>前回</span><span>2025/12/16 04:00</span><a href="#">▶ 照会</a>
+                    </div>
+                    <button class="btn-yellow" id="btn-daily" onclick="location.href='daily_check.html'">点検再開 ></button>
+                </div>
+            </div>
+
+            <div class="check-item-card" id="card-interior">
+                <h3>車内清掃 <span class="status-badge" id="badge-interior">未実施</span></h3>
+                <div class="check-footer">
+                    <div class="prev-data">
+                        <span>前回</span><span>2025/12/16 03:47</span><a href="#">▶ 照会</a>
+                    </div>
+                    <button class="btn-yellow" id="btn-interior" onclick="location.href='interior.html'">点検 ></button>
+                </div>
+            </div>
+
+            <div class="check-item-card" id="card-wash">
+                <h3>洗車 <span class="status-badge" id="badge-wash">未実施</span></h3>
+                <div class="check-footer">
+                    <div class="prev-data">
+                        <span>前回</span><span>2025/12/16 03:47</span><a href="#">▶ 照会</a>
+                    </div>
+                    <button class="btn-yellow" id="btn-wash" onclick="location.href='wash.html'">点検 ></button>
+                </div>
+            </div>
+
+            <div class="check-item-card" id="card-exterior">
+                <h3>外装確認 <span class="status-badge" id="badge-exterior">未実施</span></h3>
+                <div class="check-footer">
+                    <div class="prev-data">
+                        <span>前回</span><span>2025/12/16 03:47</span><a href="#">▶ 照会</a>
+                    </div>
+                    <button class="btn-yellow" id="btn-exterior" onclick="location.href='exterior.html'">点検 ></button>
+                </div>
+            </div>
+
+            <div class="check-item-card" id="card-lend">
+                <h3>貸出準備 <span class="status-badge" id="badge-lend">未実施</span></h3>
+                <div class="check-footer">
+                    <div class="prev-data">
+                        <span>前回</span><span>2025/12/16 04:00</span><a href="#">▶ 照会</a>
+                    </div>
+                    <button class="btn-yellow" id="btn-lend" onclick="location.href='lend_prep.html'">点検 ></button>
+                </div>
+            </div>
+
+            <p class="alert-text-red">タイヤストッパーを設置した場合は、忘れずに回収してください</p>
+
+            <div class="check-item-card">
+                <h3>点検終了</h3>
+                <div class="check-content">
+                    <p class="alert-text-red">※未登録の点検があります</p>
+                </div>
+                <button class="btn-disabled" disabled>終了 ></button>
+            </div>
+
+        </div>
+    </main>
+    <script src="script.js"></script>
+    <script>
+        // ページ読み込み時に状態を反映
+        window.onload = function() {
+            updateIndexStatus();
+        };
+    </script>
 </body>
 </html>
