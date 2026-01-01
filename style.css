@@ -244,31 +244,37 @@ body {
     margin-right: 5px;
 }
 
+/* Input Row (修正: スマホ幅に合わせて調整) */
 .input-row {
     display: flex;
     align-items: center;
+    justify-content: space-between; /* ラベルと入力欄を左右に配置 */
     margin-bottom: 5px;
+    flex-wrap: nowrap; /* 折り返し禁止 */
 }
 .input-row label {
-    width: 80px;
     font-size: 12px;
     font-weight: bold;
+    flex-shrink: 0; /* ラベルは縮小しない */
+    margin-right: 10px;
 }
 .input-unit {
     display: flex;
     align-items: center;
+    flex-shrink: 0; /* 入力エリアも縮小しない */
 }
 .input-unit input {
-    width: 80px;
-    padding: 5px;
+    width: 60px; /* 幅を縮小 (80px -> 60px) */
+    padding: 6px;
     margin-right: 5px;
     border: 1px solid #ccc;
     text-align: right;
+    font-size: 14px;
 }
 .input-text {
-    padding: 5px;
+    padding: 6px;
     border: 1px solid #ccc;
-    width: 80px;
+    width: 70px; /* 幅を縮小 */
 }
 .input-bg-pink { background-color: #ffebee; }
 .input-bg-grey { background-color: #f5f5f5; }
@@ -284,6 +290,7 @@ body {
     font-size: 12px;
     display: flex;
     align-items: center;
+    white-space: nowrap;
 }
 .checkbox-box {
     display: block;
@@ -293,7 +300,7 @@ body {
 }
 
 .card-inputs input {
-    width: 60px;
+    width: 50px;
     padding: 5px;
     margin: 0 2px;
     text-align: center;
@@ -313,17 +320,19 @@ body {
     margin-top: 15px;
 }
 
-/* 溝入力用の分割スタイル */
+/* 溝入力用の分割スタイル (修正: 幅を厳密に指定して1行に収める) */
 .input-split-unit {
     display: flex;
     align-items: center;
+    white-space: nowrap;
 }
 .input-split-unit input {
-    width: 50px;
-    padding: 5px;
+    width: 40px; /* 幅をかなり小さく設定 */
+    padding: 6px;
     border: 1px solid #ccc;
     text-align: center;
-    margin: 0 5px;
+    margin: 0 3px;
+    font-size: 14px;
 }
 
 /* Paint Area */
