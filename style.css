@@ -244,7 +244,38 @@ body {
     margin-right: 5px;
 }
 
-/* Input Row (旧バージョン - 他の部分で使用されているため残す) */
+/* Contents List (横並びリスト構造 - スタイル修正の肝) */
+.contents-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex; /* 横並び */
+    justify-content: space-between;
+}
+.contents-list li {
+    width: 48%; /* 2つ並べるため50%以下に */
+}
+.contents-list li .item-title {
+    font-weight: bold;
+    font-size: 12px;
+    margin: 0 0 5px 0;
+}
+.contents-list li .item-input {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* 右寄せ */
+}
+.contents-list li .item-input input {
+    width: 100%; /* 親要素に合わせて伸縮 */
+    max-width: 80px; /* 広がりすぎ防止 */
+    padding: 6px;
+    font-size: 14px;
+    text-align: right;
+    margin-right: 5px;
+    border: 1px solid #ccc;
+}
+
+/* Input Row (旧バージョン - 他の部分で使用) */
 .input-row {
     display: flex;
     align-items: center;
@@ -259,42 +290,7 @@ body {
     margin-right: 10px;
 }
 
-/* Contents List (新構造: 本物に合わせてリスト形式に変更) */
-.contents-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-.contents-list li {
-    display: flex;
-    justify-content: space-between; /* 左右に配置 */
-    align-items: center;
-    padding: 8px 0;
-    border-bottom: 1px solid #f0f0f0; /* 薄い区切り線 */
-}
-.contents-list li:last-child {
-    border-bottom: none;
-}
-.contents-list li .item-title {
-    font-weight: bold;
-    font-size: 12px;
-    margin: 0;
-}
-.contents-list li .item-input {
-    display: flex;
-    align-items: center;
-}
-/* Input within the new list structure */
-.contents-list li .item-input input {
-    width: 60px; /* 入力幅を適切に */
-    padding: 4px;
-    font-size: 14px;
-    text-align: right;
-    margin-right: 5px;
-    border: 1px solid #ccc;
-}
-
-/* Common inputs styling (Legacy support for other sections) */
+/* Common inputs styling */
 .input-unit {
     display: flex;
     align-items: center;
