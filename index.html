@@ -3,85 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>点検トップ | TMA-Simulation-Lab</title>
+  <title>TMA-Simulation-Lab | Index</title>
   <style>
-    body { font-family: -apple-system, "Helvetica Neue", Arial, sans-serif; background-color: #f2f2f2; margin: 0; color: #333; font-size: 14px; }
-    .header { background: #333; color: white; padding: 10px; display: flex; justify-content: space-between; align-items: center; }
-    .nav-title { font-weight: bold; font-size: 16px; }
-    
-    /* 車両情報セクション */
-    .section-title { background: #333; color: white; padding: 8px 15px; font-weight: bold; }
-    .info-table { width: 100%; border-collapse: collapse; background: white; }
-    .info-table th, .info-table td { border: 1px solid #ccc; padding: 8px; text-align: left; }
-    .info-table th { background: #f9f9f9; width: 30%; font-size: 12px; }
-    
-    /* 点検詳細ボタンエリア */
-    .check-list { background: white; padding: 15px; margin-top: 10px; }
-    .check-item { border: 1px solid #ddd; border-radius: 4px; padding: 15px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; position: relative; }
-    .check-label { font-weight: bold; font-size: 16px; }
-    .check-status { font-size: 10px; background: #666; color: white; padding: 2px 8px; border-radius: 10px; margin-top: 5px; display: inline-block; }
-    .btn-start { background: #ffd700; background: linear-gradient(to bottom, #ffeb3b, #fbc02d); color: #333; border: 1px solid #fbc02d; padding: 10px 20px; border-radius: 5px; font-weight: bold; text-decoration: none; font-size: 14px; box-shadow: 0 2px 2px rgba(0,0,0,0.1); }
-    
-    .last-check { font-size: 11px; color: #666; margin-top: 10px; border-top: 1px dotted #ccc; padding-top: 5px; }
+    :root { --tma-blue: #004098; --bg-gray: #f2f2f7; }
+    body { font-family: -apple-system, sans-serif; background-color: var(--bg-gray); margin: 0; }
+    .header { background: var(--tma-blue); color: white; padding: 15px; text-align: center; font-weight: bold; position: sticky; top: 0; }
+    .version { position: absolute; right: 10px; top: 18px; font-size: 10px; font-weight: normal; }
+    .menu-list { margin-top: 20px; border-top: 1px solid #d1d1d6; border-bottom: 1px solid #d1d1d6; background: white; }
+    .menu-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; text-decoration: none; color: black; border-bottom: 1px solid #d1d1d6; font-size: 16px; }
+    .menu-item:last-child { border-bottom: none; }
+    .menu-item::after { content: ""; width: 10px; height: 10px; border-top: 2px solid #c7c7cc; border-right: 2px solid #c7c7cc; transform: rotate(45deg); }
   </style>
 </head>
 <body>
-  <div class="header">
-    <div class="nav-title">【ＴＳ委託】カーケアジャパン</div>
-    <div style="font-size:20px;">≡</div>
-  </div>
-
-  <div class="section-title">点検トップ</div>
-  
-  <div class="section-title" style="background:#444; font-size:13px;">車両情報</div>
-  <table class="info-table">
-    <tr><th>車両ナンバー</th><td>相模 501 ワ 6815</td></tr>
-    <tr><th>車種名</th><td>フィット 1300</td></tr>
-    <tr><th>車台番号</th><td>GR11121029</td></tr>
-    <tr><th>電圧</th><td>12.77V</td></tr>
-  </table>
-
-  <div class="section-title" style="background:#444; font-size:13px; margin-top:10px;">点検詳細</div>
-  <div class="check-list">
-    <div class="check-item">
-      <div>
-        <div class="check-label">日常点検</div>
-        <div class="check-status">一時保存</div>
-      </div>
-      <a href="daily_check.html" class="btn-start">点検再開 ＞</a>
-    </div>
-
-    <div class="check-item">
-      <div>
-        <div class="check-label">車内清掃</div>
-        <div class="check-status" style="background:#999;">未実施</div>
-      </div>
-      <a href="interior_clean.html" class="btn-start">点検 ＞</a>
-    </div>
-
-    <div class="check-item">
-      <div>
-        <div class="check-label">洗車</div>
-        <div class="check-status" style="background:#999;">未実施</div>
-      </div>
-      <a href="car_wash.html" class="btn-start">点検 ＞</a>
-    </div>
-    
-    <div class="check-item">
-      <div>
-        <div class="check-label">外装確認</div>
-        <div class="check-status" style="background:#999;">未実施</div>
-      </div>
-      <a href="exterior_check.html" class="btn-start">点検 ＞</a>
-    </div>
-
-    <div class="check-item">
-      <div>
-        <div class="check-label">貸出準備</div>
-        <div class="check-status" style="background:#999;">未実施</div>
-      </div>
-      <a href="rental_prep.html" class="btn-start">点検 ＞</a>
-    </div>
+  <div class="header">車両詳細 <span class="version">ver. 2025-11-01</span></div>
+  <div class="menu-list">
+    <a href="daily_check.html" class="menu-item">日常点検</a>
+    <a href="interior_clean.html" class="menu-item">車内清掃</a>
+    <a href="car_wash.html" class="menu-item">洗車</a>
+    <a href="exterior_check.html" class="menu-item">外装確認</a>
+    <a href="rental_prep.html" class="menu-item">貸出準備</a>
   </div>
 </body>
 </html>
