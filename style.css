@@ -132,9 +132,6 @@ body {
     border-radius: 10px;
     margin-left: 10px;
 }
-.status-badge.temp-save {
-    background: #666; /* Image shows dark grey for temp save too */
-}
 .check-content {
     background: #f9f9f9;
     padding: 10px;
@@ -156,6 +153,12 @@ body {
 .link-text {
     color: #007bff;
     text-decoration: none;
+}
+.alert-text-red {
+    color: red;
+    font-size: 12px;
+    margin-bottom: 15px;
+    font-weight: bold;
 }
 
 /* Forms & Tabs */
@@ -240,10 +243,6 @@ body {
 .radio-group input {
     margin-right: 5px;
 }
-/* Highlight selected label - simplified for pure CSS/HTML */
-.radio-group label:has(input:checked) {
-    /* Optional: style for checked state if needed, browser support varies */
-}
 
 .input-row {
     display: flex;
@@ -269,6 +268,7 @@ body {
 .input-text {
     padding: 5px;
     border: 1px solid #ccc;
+    width: 80px;
 }
 .input-bg-pink { background-color: #ffebee; }
 .input-bg-grey { background-color: #f5f5f5; }
@@ -304,14 +304,35 @@ body {
 }
 
 /* Tire Block Specific */
-.tire-block {
-    border-top: 5px solid #333;
-    padding-top: 10px;
-    margin-top: 20px;
-}
-.tire-header {
+.tire-block-header {
+    background-color: #333;
+    color: #fff;
+    padding: 5px 10px;
+    font-size: 12px;
     font-weight: bold;
+    margin-top: 15px;
+}
+
+/* 溝入力用の分割スタイル */
+.input-split-unit {
+    display: flex;
+    align-items: center;
+}
+.input-split-unit input {
+    width: 50px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    text-align: center;
+    margin: 0 5px;
+}
+
+/* Paint Area */
+.paint-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 10px;
+    font-size: 12px;
 }
 
 /* Buttons */
@@ -330,6 +351,7 @@ body {
     padding: 4px 10px;
     font-size: 11px;
     font-weight: bold;
+    cursor: pointer;
 }
 .btn-white {
     background-color: #fff;
@@ -371,6 +393,7 @@ body {
     display: flex;
     justify-content: space-between;
     box-sizing: border-box;
+    z-index: 99;
 }
 .footer-btn {
     width: 30%;
