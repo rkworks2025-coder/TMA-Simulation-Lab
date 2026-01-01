@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>TMA-Simulation-Lab | 車両詳細</title>
+  <style>
+    body { font-family: -apple-system, sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; }
+    .header { background: #004098; color: white; padding: 15px; text-align: center; font-weight: bold; margin: -20px -20px 20px -20px; }
+    .menu-container { display: flex; flex-direction: column; gap: 15px; }
+    .menu-btn { background: white; padding: 20px; border-radius: 8px; text-decoration: none; color: #333; font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center; }
+    .menu-btn::after { content: '>'; color: #ccc; }
+    .version { text-align: center; font-size: 10px; color: #999; margin-top: 30px; }
+  </style>
+</head>
+<body>
+  <div class="header">車両詳細 <span style="font-size:10px; font-weight:normal;">[TMA-Simulation-Lab]</span></div>
+  <div class="menu-container">
+    <a href="daily_check.html" class="menu-btn">日常点検</a>
+    <a href="interior_clean.html" class="menu-btn">車内清掃</a>
+    <a href="car_wash.html" class="menu-btn">洗車</a>
+    <a href="exterior_check.html" class="menu-btn">外装確認</a>
+    <a href="rental_prep.html" class="menu-btn">貸出準備</a>
+  </div>
+  <div class="version">ver. 2025-11-01</div>
+</body>
+</html>
