@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>洗車</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-inner">
+            <p>【ＴＳ委託】カーケアジャパン</p>
+            <div class="menu-icon">≡</div>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <div class="page-header">
+            <h1>洗車</h1>
+            <span class="car-no">相模 6815</span>
+        </div>
+
+        <form>
+            <div class="content-section">
+                <h3 class="required">外装の汚れ</h3>
+                <p class="desc">車体・外窓・サイドミラーの汚れ、油膜を確認</p>
+                <div class="radio-group">
+                    <label><input type="radio" name="wash_status" checked> 洗車済み</label>
+                    <label><input type="radio" name="wash_status"> 洗車不要</label>
+                </div>
+            </div>
+        </form>
+
+        <div class="fixed-footer">
+            <button class="footer-btn btn-white" onclick="location.href='index.html'">中止</button>
+            <button class="footer-btn btn-yellow" onclick="completeTask('wash')">完了</button>
+        </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
