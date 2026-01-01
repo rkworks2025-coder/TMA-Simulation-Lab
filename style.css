@@ -244,13 +244,13 @@ body {
     margin-right: 5px;
 }
 
-/* Input Row (修正: スマホ幅に合わせて調整 & 1行強制) */
+/* Input Row (旧バージョン - 他の部分で使用されているため残す) */
 .input-row {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* ラベル左、入力右 */
+    justify-content: space-between;
     margin-bottom: 5px;
-    flex-wrap: nowrap; /* 折り返し禁止 */
+    flex-wrap: nowrap;
 }
 .input-row label {
     font-size: 12px;
@@ -258,13 +258,50 @@ body {
     flex-shrink: 0;
     margin-right: 10px;
 }
+
+/* Contents List (新構造: 本物に合わせてリスト形式に変更) */
+.contents-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.contents-list li {
+    display: flex;
+    justify-content: space-between; /* 左右に配置 */
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0; /* 薄い区切り線 */
+}
+.contents-list li:last-child {
+    border-bottom: none;
+}
+.contents-list li .item-title {
+    font-weight: bold;
+    font-size: 12px;
+    margin: 0;
+}
+.contents-list li .item-input {
+    display: flex;
+    align-items: center;
+}
+/* Input within the new list structure */
+.contents-list li .item-input input {
+    width: 60px; /* 入力幅を適切に */
+    padding: 4px;
+    font-size: 14px;
+    text-align: right;
+    margin-right: 5px;
+    border: 1px solid #ccc;
+}
+
+/* Common inputs styling (Legacy support for other sections) */
 .input-unit {
     display: flex;
     align-items: center;
     flex-shrink: 0;
 }
 .input-unit input {
-    width: 60px; /* 幅を縮小 */
+    width: 60px;
     padding: 6px;
     margin-right: 5px;
     border: 1px solid #ccc;
@@ -274,7 +311,7 @@ body {
 .input-text {
     padding: 6px;
     border: 1px solid #ccc;
-    width: 70px; /* 幅を縮小 */
+    width: 70px;
     font-size: 14px;
 }
 .input-bg-pink { background-color: #ffebee; }
@@ -321,7 +358,7 @@ body {
     margin-top: 15px;
 }
 
-/* 溝入力用の分割スタイル (修正: 1行に収まるよう幅を縮小) */
+/* 溝入力用の分割スタイル */
 .input-split-unit {
     display: flex;
     align-items: center;
