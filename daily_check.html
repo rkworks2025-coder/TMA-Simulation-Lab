@@ -6,7 +6,7 @@
     <title>日常点検（照会）</title>
     <style>
         /* 基本スタイル */
-        body { font-family: "Hiragino Kaku Gothic ProN", Meiryo, sans-serif; margin: 0; background: #f5f5f5; color: #333; padding-bottom: 80px; /* フッターの裏に隠れないように余白確保 */ }
+        body { font-family: "Hiragino Kaku Gothic ProN", Meiryo, sans-serif; margin: 0; background: #f5f5f5; color: #333; padding-bottom: 80px; }
         .header { background: #333; color: #fff; padding: 10px; text-align: center; }
         .header-inner { display: flex; justify-content: center; align-items: center; position: relative; }
         .menu-icon { position: absolute; right: 10px; font-size: 1.5rem; cursor: pointer; }
@@ -15,7 +15,7 @@
         .page-header h1 { font-size: 1.2rem; margin: 0; }
         .car-no { color: #666; font-size: 0.9rem; }
 
-        /* タブナビゲーション (スクリプト用構造に修正) */
+        /* タブナビゲーション */
         .tab-scroll-container { overflow-x: auto; background: #fff; border-bottom: 1px solid #ccc; white-space: nowrap; -webkit-overflow-scrolling: touch; }
         .tabs { display: flex; }
         .tab-button { padding: 12px 15px; cursor: pointer; color: #666; border-bottom: 3px solid transparent; font-size: 0.9rem; border: none; background: none; }
@@ -42,22 +42,21 @@
         .contents-list { list-style: none; padding: 0; }
         .contents-list li { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 5px; }
 
-        /* フッター固定設定 (ここが修正ポイント) */
+        /* フッター固定設定 */
         .footer {
-            position: fixed; /* 画面に固定 */
-            bottom: 0;       /* 最下部に配置 */
+            position: fixed;
+            bottom: 0;
             left: 0;
             width: 100%;
-            background: #333; /* 背景色 */
+            background: #333;
             padding: 10px 0;
             text-align: center;
-            z-index: 9999;    /* 最前面に表示 */
+            z-index: 9999;
             box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
         }
         
         .footer-button { display: flex; justify-content: center; gap: 10px; padding: 0 10px; }
         
-        /* ボタンのデザイン (本番のaタグ形式に対応) */
         .footer-button a {
             display: flex;
             justify-content: center;
@@ -70,13 +69,11 @@
             font-size: 1rem;
             cursor: pointer;
         }
-        /* 一時保存ボタン */
         .footer-button a.is-stop {
             background: #fff;
             color: #333;
             border: 1px solid #ccc;
         }
-        /* 完了ボタン */
         .footer-button a.is-complete {
             background: #ffd700;
             color: #333;
@@ -596,10 +593,10 @@
 
         <div class="footer">
             <div class="footer-button">
-                <a href="#" class="is-stop">
+                <a href="#" class="is-stop" onclick="location.href='index.html'">
                     <p style="margin:0;">一時保存</p>
                 </a>
-                <a href="#" class="is-complete">
+                <a href="#" class="is-complete" onclick="location.href='index.html'">
                     <p style="margin:0;">完了</p>
                 </a>
             </div>
@@ -607,22 +604,14 @@
     </main>
 
     <script>
-        // タブ切り替えロジック
-        // HTML属性の data-name を読み取り、対応するIDのコンテンツを表示する
         document.addEventListener('DOMContentLoaded', function() {
             var tabs = document.querySelectorAll('.tab-button');
             tabs.forEach(function(tab) {
                 tab.addEventListener('click', function() {
                     var targetName = this.getAttribute('data-name');
-                    
-                    // 全タブボタンからactiveクラス削除
                     document.querySelectorAll('.tab-button').forEach(t => t.classList.remove('active'));
-                    // 全コンテンツからactiveクラス削除
                     document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-                    
-                    // クリックされたタブをactive化
                     this.classList.add('active');
-                    // 対応するコンテンツを表示
                     var targetContent = document.getElementById(targetName);
                     if (targetContent) {
                         targetContent.classList.add('active');
