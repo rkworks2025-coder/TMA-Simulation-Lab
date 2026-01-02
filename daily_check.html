@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>日常点検（照会）</title>
+    <title>日常点検（照会）- Blank</title>
     <style>
         /* 基本スタイル */
         body { font-family: "Hiragino Kaku Gothic ProN", Meiryo, sans-serif; margin: 0; background: #f5f5f5; color: #333; padding-bottom: 80px; }
@@ -122,7 +122,7 @@
                     <h3 class="required">冷却水量</h3>
                     <p class="desc">タンク内の「FULL」と「LOW」の間が適量<br>液量が「LOW」より下回っている場合は、補充 <span class="red">※水道水の補充は不可</span><br>補充できない、または液漏れの場合は「NG（稼動停止）」</p>
                     <div class="radio-group">
-                        <label><input type="radio" name="coolantGauge" id="coolantGauge1" value="2" checked> OK (未補充)</label>
+                        <label><input type="radio" name="coolantGauge" id="coolantGauge1" value="2"> OK (未補充)</label>
                         <label><input type="radio" name="coolantGauge" id="coolantGauge2" value="1"> OK (補充)</label>
                         <label><input type="radio" name="coolantGauge" id="coolantGauge3" value="9"> NG (稼動停止)</label>
                     </div>
@@ -132,7 +132,7 @@
                     <p class="desc red">エンジン稼動前に点検</p>
                     <p class="desc">タンクの「MAX」と「MIN」の間が適量<br>液漏れ、または液量が「MIN」より下回っている場合は「NG（稼動停止）」</p>
                     <div class="radio-group">
-                        <label><input type="radio" name="engineOilGauge" id="engineOilGauge1" value="1" checked> OK</label>
+                        <label><input type="radio" name="engineOilGauge" id="engineOilGauge1" value="1"> OK</label>
                         <label><input type="radio" name="engineOilGauge" id="engineOilGauge2" value="9"> NG (稼動停止)</label>
                     </div>
                 </div>
@@ -140,7 +140,7 @@
                     <h3 class="required">ブレーキ液量</h3>
                     <p class="desc">タンクの「MAX」と「MIN」の間が適量<br>液漏れ、または液量が「MIN」より下回っている場合は「NG（稼動停止）」</p>
                     <div class="radio-group">
-                        <label><input type="radio" name="brakeFluidGauge" id="brakeFluidGauge1" value="1" checked> OK</label>
+                        <label><input type="radio" name="brakeFluidGauge" id="brakeFluidGauge1" value="1"> OK</label>
                         <label><input type="radio" name="brakeFluidGauge" id="brakeFluidGauge2" value="9"> NG (稼動停止)</label>
                     </div>
                 </div>
@@ -149,7 +149,7 @@
                     <p class="desc">タンク内の水面が見えない場合は、補充<br>液漏れの場合は「NG（稼動停止）」</p>
                     <div class="radio-group">
                         <label><input type="radio" name="washerFluidGauge" id="washerFluidGauge1" value="2"> OK (未補充)</label>
-                        <label><input type="radio" name="washerFluidGauge" id="washerFluidGauge2" value="1" checked> OK (補充)</label>
+                        <label><input type="radio" name="washerFluidGauge" id="washerFluidGauge2" value="1"> OK (補充)</label>
                         <label><input type="radio" name="washerFluidGauge" id="washerFluidGauge3" value="9"> NG (稼動停止)</label>
                     </div>
                 </div>
@@ -160,7 +160,7 @@
                     <h3 class="required">タイヤ種別</h3>
                     <p class="desc">車両に装着されているタイヤの種別を選択</p>
                     <div class="radio-group">
-                        <label><input type="radio" name="tireType" id="tireType1" value="1" checked> ノーマル</label>
+                        <label><input type="radio" name="tireType" id="tireType1" value="1"> ノーマル</label>
                         <label><input type="radio" name="tireType" id="tireType2" value="2"> スタッドレス</label>
                     </div>
                     <p class="desc mt-10">ランフラットタイヤの場合は下記を選択</p>
@@ -173,11 +173,11 @@
                     <ul class="contents-list">
                         <li>
                             <p class="item-title">前輪</p>
-                            <div class="item-input"><input type="number" id="tireFrontRegularPressure" name="tireFrontRegularPressure" value="230"> kPa</div>
+                            <div class="item-input"><input type="number" id="tireFrontRegularPressure" name="tireFrontRegularPressure" value=""> kPa</div>
                         </li>
                         <li>
                             <p class="item-title">後輪</p>
-                            <div class="item-input"><input type="number" id="tireRearRegularPressure" name="tireRearRegularPressure" value="230"> kPa</div>
+                            <div class="item-input"><input type="number" id="tireRearRegularPressure" name="tireRearRegularPressure" value=""> kPa</div>
                         </li>
                     </ul>
                 </div>
@@ -189,7 +189,7 @@
                     <div class="input-row">
                         <label>右前</label>
                         <div style="display:flex; align-items:center;">
-                            <input type="number" class="single-input" id="tireMfrFrontRightCm" name="tireMfrFrontRightCm" value="1224">
+                            <input type="number" class="single-input" id="tireMfrFrontRightCm" name="tireMfrFrontRightCm" value="">
                             <label class="checkbox-label ml-10"><input type="checkbox" id="tireMfrCheckRowFlgFrontRightCm" name="tireMfrCheckRowFlgFrontRightCm" value="true"> 確認不可</label>
                         </div>
                     </div>
@@ -198,7 +198,7 @@
                     <h3 class="required">（右前）亀裂、損傷、変形、干渉</h3>
                     <p class="desc">異常がある場合は「NG（稼動停止）」</p>
                     <div class="radio-group">
-                        <label><input type="radio" name="tireDamage" id="tireDamage1" value="1" checked> OK</label>
+                        <label><input type="radio" name="tireDamage" id="tireDamage1" value="1"> OK</label>
                         <label><input type="radio" name="tireDamage" id="tireDamage2" value="9"> NG (稼動停止)</label>
                     </div>
                 </div>
@@ -207,7 +207,7 @@
                     <div class="input-row">
                         <label>右前</label>
                         <div style="display:flex; align-items:baseline;">
-                            <input type="number" class="single-input" id="tireGrooveFrontRightCmIp" name="tireGrooveFrontRightCmIp" value="4"> . <input type="number" class="single-input" id="tireGrooveFrontRightCmFp" name="tireGrooveFrontRightCmFp" value="6"> mm
+                            <input type="number" class="single-input" id="tireGrooveFrontRightCmIp" name="tireGrooveFrontRightCmIp" value=""> . <input type="number" class="single-input" id="tireGrooveFrontRightCmFp" name="tireGrooveFrontRightCmFp" value=""> mm
                         </div>
                     </div>
                 </div>
@@ -216,7 +216,7 @@
                     <ul class="contents-list">
                         <li>
                             <p class="item-title">調整前</p>
-                            <div class="item-input"><input type="number" class="single-input" id="tirePressureFrontRightCm" name="tirePressureFrontRightCm" value="250"> kPa</div>
+                            <div class="item-input"><input type="number" class="single-input" id="tirePressureFrontRightCm" name="tirePressureFrontRightCm" value=""> kPa</div>
                         </li>
                         <li>
                             <p class="item-title">調整後<span class="red">*</span></p>
@@ -231,7 +231,7 @@
                     <div class="input-row">
                         <label>左前</label>
                         <div style="display:flex; align-items:center;">
-                            <input type="number" class="single-input" id="tireMfrFrontLeftCm" name="tireMfrFrontLeftCm" value="1025">
+                            <input type="number" class="single-input" id="tireMfrFrontLeftCm" name="tireMfrFrontLeftCm" value="">
                             <label class="checkbox-label ml-10"><input type="checkbox" id="tireMfrCheckRowFlgFrontLeftCm" name="tireMfrCheckRowFlgFrontLeftCm" value="true"> 確認不可</label>
                         </div>
                     </div>
@@ -239,7 +239,7 @@
                 <div class="content-section">
                     <h3 class="required">（左前）亀裂、損傷、変形、干渉</h3>
                     <div class="radio-group">
-                        <label><input type="radio" name="tireDamage" id="tireDamage1" value="1" checked> OK</label>
+                        <label><input type="radio" name="tireDamage" id="tireDamage1" value="1"> OK</label>
                         <label><input type="radio" name="tireDamage" id="tireDamage2" value="9"> NG (稼動停止)</label>
                     </div>
                 </div>
@@ -248,7 +248,7 @@
                     <div class="input-row">
                         <label>左前</label>
                         <div style="display:flex; align-items:baseline;">
-                            <input type="number" class="single-input" id="tireGrooveFrontLeftCmIp" name="tireGrooveFrontLeftCmIp" value="5"> . <input type="number" class="single-input" id="tireGrooveFrontLeftCmFp" name="tireGrooveFrontLeftCmFp" value="2"> mm
+                            <input type="number" class="single-input" id="tireGrooveFrontLeftCmIp" name="tireGrooveFrontLeftCmIp" value=""> . <input type="number" class="single-input" id="tireGrooveFrontLeftCmFp" name="tireGrooveFrontLeftCmFp" value=""> mm
                         </div>
                     </div>
                 </div>
@@ -257,7 +257,7 @@
                     <ul class="contents-list">
                         <li>
                             <p class="item-title">調整前</p>
-                            <div class="item-input"><input type="number" class="single-input" id="tirePressureFrontLeftCm" name="tirePressureFrontLeftCm" value="250"> kPa</div>
+                            <div class="item-input"><input type="number" class="single-input" id="tirePressureFrontLeftCm" name="tirePressureFrontLeftCm" value=""> kPa</div>
                         </li>
                         <li>
                             <p class="item-title">調整後<span class="red">*</span></p>
@@ -272,7 +272,7 @@
                     <div class="input-row">
                         <label>左後</label>
                         <div style="display:flex; align-items:center;">
-                            <input type="number" class="single-input" id="tireMfrRearLeftBi4" name="tireMfrRearLeftBi4" value="1024">
+                            <input type="number" class="single-input" id="tireMfrRearLeftBi4" name="tireMfrRearLeftBi4" value="">
                             <label class="checkbox-label ml-10"><input type="checkbox" id="tireMfrCheckRowFlgRearLeftBi4" name="tireMfrCheckRowFlgRearLeftBi4" value="true"> 確認不可</label>
                         </div>
                     </div>
@@ -280,7 +280,7 @@
                 <div class="content-section">
                     <h3 class="required">（左後）亀裂、損傷、変形、干渉</h3>
                     <div class="radio-group">
-                        <label><input type="radio" name="tireDamage" id="tireDamage1" value="1" checked> OK</label>
+                        <label><input type="radio" name="tireDamage" id="tireDamage1" value="1"> OK</label>
                         <label><input type="radio" name="tireDamage" id="tireDamage2" value="9"> NG (稼動停止)</label>
                     </div>
                 </div>
@@ -289,7 +289,7 @@
                     <div class="input-row">
                         <label>左後</label>
                         <div style="display:flex; align-items:baseline;">
-                            <input type="number" class="single-input" id="tireGrooveRearLeftBi4Ip" name="tireGrooveRearLeftBi4Ip" value="4"> . <input type="number" class="single-input" id="tireGrooveRearLeftBi4Fp" name="tireGrooveRearLeftBi4Fp" value="5"> mm
+                            <input type="number" class="single-input" id="tireGrooveRearLeftBi4Ip" name="tireGrooveRearLeftBi4Ip" value=""> . <input type="number" class="single-input" id="tireGrooveRearLeftBi4Fp" name="tireGrooveRearLeftBi4Fp" value=""> mm
                         </div>
                     </div>
                 </div>
@@ -298,7 +298,7 @@
                     <ul class="contents-list">
                         <li>
                             <p class="item-title">調整前</p>
-                            <div class="item-input"><input type="number" class="single-input" id="tirePressureRearLeftBi4" name="tirePressureRearLeftBi4" value="240"> kPa</div>
+                            <div class="item-input"><input type="number" class="single-input" id="tirePressureRearLeftBi4" name="tirePressureRearLeftBi4" value=""> kPa</div>
                         </li>
                         <li>
                             <p class="item-title">調整後<span class="red">*</span></p>
@@ -313,7 +313,7 @@
                     <div class="input-row">
                         <label>右後</label>
                         <div style="display:flex; align-items:center;">
-                            <input type="number" class="single-input" id="tireMfrRearRightBi4" name="tireMfrRearRightBi4" value="1124">
+                            <input type="number" class="single-input" id="tireMfrRearRightBi4" name="tireMfrRearRightBi4" value="">
                             <label class="checkbox-label ml-10"><input type="checkbox" id="tireMfrCheckRowFlgRearRightBi4" name="tireMfrCheckRowFlgRearRightBi4" value="true"> 確認不可</label>
                         </div>
                     </div>
@@ -321,7 +321,7 @@
                 <div class="content-section">
                     <h3 class="required">（右後）亀裂、損傷、変形、干渉</h3>
                     <div class="radio-group">
-                        <label><input type="radio" name="tireDamage" id="tireDamage1" value="1" checked> OK</label>
+                        <label><input type="radio" name="tireDamage" id="tireDamage1" value="1"> OK</label>
                         <label><input type="radio" name="tireDamage" id="tireDamage2" value="9"> NG (稼動停止)</label>
                     </div>
                 </div>
@@ -330,7 +330,7 @@
                     <div class="input-row">
                         <label>右後</label>
                         <div style="display:flex; align-items:baseline;">
-                            <input type="number" class="single-input" id="tireGrooveRearRightBi4Ip" name="tireGrooveRearRightBi4Ip" value="3"> . <input type="number" class="single-input" id="tireGrooveRearRightBi4Fp" name="tireGrooveRearRightBi4Fp" value="4"> mm
+                            <input type="number" class="single-input" id="tireGrooveRearRightBi4Ip" name="tireGrooveRearRightBi4Ip" value=""> . <input type="number" class="single-input" id="tireGrooveRearRightBi4Fp" name="tireGrooveRearRightBi4Fp" value=""> mm
                         </div>
                     </div>
                 </div>
@@ -339,7 +339,7 @@
                     <ul class="contents-list">
                         <li>
                             <p class="item-title">調整前</p>
-                            <div class="item-input"><input type="number" class="single-input" id="tirePressureRearRightBi4" name="tirePressureRearRightBi4" value="240"> kPa</div>
+                            <div class="item-input"><input type="number" class="single-input" id="tirePressureRearRightBi4" name="tirePressureRearRightBi4" value=""> kPa</div>
                         </li>
                         <li>
                             <p class="item-title">調整後<span class="red">*</span></p>
@@ -353,35 +353,35 @@
                 <div class="content-section">
                     <h3 class="required">エンジンのかかり具合、異音</h3>
                     <div class="radio-group">
-                        <label><input type="radio" name="engineCondition" id="engineCondition1" value="1" checked> OK</label>
+                        <label><input type="radio" name="engineCondition" id="engineCondition1" value="1"> OK</label>
                         <label><input type="radio" name="engineCondition" id="engineCondition2" value="9"> NG (稼動停止)</label>
                     </div>
                 </div>
                 <div class="content-section">
                     <h3 class="required">ブレーキの踏みしろ、効き</h3>
                     <div class="radio-group">
-                        <label><input type="radio" name="brakeCondition" id="brakeCondition1" value="1" checked> OK</label>
+                        <label><input type="radio" name="brakeCondition" id="brakeCondition1" value="1"> OK</label>
                         <label><input type="radio" name="brakeCondition" id="brakeCondition2" value="9"> NG (稼動停止)</label>
                     </div>
                 </div>
                 <div class="content-section">
                     <h3 class="required">駐車ブレーキ・レバーの引きしろ</h3>
                     <div class="radio-group">
-                        <label><input type="radio" name="parkingBrakeCondition" id="parkingBrakeCondition1" value="1" checked> OK</label>
+                        <label><input type="radio" name="parkingBrakeCondition" id="parkingBrakeCondition1" value="1"> OK</label>
                         <label><input type="radio" name="parkingBrakeCondition" id="parkingBrakeCondition2" value="9"> NG (稼動停止)</label>
                     </div>
                 </div>
                 <div class="content-section">
                     <h3 class="required">ウォッシャーの噴霧状態</h3>
                     <div class="radio-group">
-                        <label><input type="radio" name="washerSprayCondition" id="washerSprayCondition1" value="1" checked> OK</label>
+                        <label><input type="radio" name="washerSprayCondition" id="washerSprayCondition1" value="1"> OK</label>
                         <label><input type="radio" name="washerSprayCondition" id="washerSprayCondition2" value="9"> NG (稼動停止)</label>
                     </div>
                 </div>
                 <div class="content-section">
                     <h3 class="required">ワイパーの払拭状態</h3>
                     <div class="radio-group">
-                        <label><input type="radio" name="wiperWipeCondition" id="wiperWipeCondition1" value="1" checked> OK</label>
+                        <label><input type="radio" name="wiperWipeCondition" id="wiperWipeCondition1" value="1"> OK</label>
                         <label><input type="radio" name="wiperWipeCondition" id="wiperWipeCondition2" value="9"> NG (稼動停止)</label>
                     </div>
                 </div>
@@ -391,35 +391,35 @@
                 <div class="content-section">
                     <h3 class="required">車検証（適合証）</h3>
                     <div class="radio-group">
-                        <label><input type="radio" name="inspectionCertificateExist" id="inspectionCertificateExist1" value="1" checked> OK</label>
+                        <label><input type="radio" name="inspectionCertificateExist" id="inspectionCertificateExist1" value="1"> OK</label>
                         <label><input type="radio" name="inspectionCertificateExist" id="inspectionCertificateExist2" value="9"> NG (稼動停止)</label>
                     </div>
                 </div>
                 <div class="content-section">
                     <h3 class="required">車検証シール</h3>
                     <div class="radio-group">
-                        <label><input type="radio" name="inspectionStickerExist" id="inspectionStickerExist1" value="1" checked> OK</label>
+                        <label><input type="radio" name="inspectionStickerExist" id="inspectionStickerExist1" value="1"> OK</label>
                         <label><input type="radio" name="inspectionStickerExist" id="inspectionStickerExist2" value="9"> NG (稼動停止)</label>
                     </div>
                 </div>
                 <div class="content-section">
                     <h3 class="required">自賠責保険証</h3>
                     <div class="radio-group">
-                        <label><input type="radio" name="autoLiabilityExist" id="autoLiabilityExist1" value="1" checked> OK</label>
+                        <label><input type="radio" name="autoLiabilityExist" id="autoLiabilityExist1" value="1"> OK</label>
                         <label><input type="radio" name="autoLiabilityExist" id="autoLiabilityExist2" value="9"> NG (稼動停止)</label>
                     </div>
                 </div>
                 <div class="content-section">
                     <h3 class="required">点検シール</h3>
                     <div class="radio-group">
-                        <label><input type="radio" name="maintenanceStickerExist" id="maintenanceStickerExist1" value="1" checked> OK</label>
+                        <label><input type="radio" name="maintenanceStickerExist" id="maintenanceStickerExist1" value="1"> OK</label>
                         <label><input type="radio" name="maintenanceStickerExist" id="maintenanceStickerExist2" value="8"> NG</label>
                     </div>
                 </div>
                 <div class="content-section">
                     <h3 class="required">発炎筒の種別</h3>
                     <div class="radio-group">
-                        <label><input type="radio" name="flaresExist" id="flaresExist1" value="1" checked> 発炎式</label>
+                        <label><input type="radio" name="flaresExist" id="flaresExist1" value="1"> 発炎式</label>
                         <label><input type="radio" name="flaresExist" id="flaresExist2" value="2"> LED式</label>
                         <label><input type="radio" name="flaresExist" id="flaresExist3" value="9"> 紛失</label>
                     </div>
@@ -433,13 +433,13 @@
                     <div class="radio-group">
                         <label><input type="radio" name="passCardExist" id="passCardExist1" value="1"> OK</label>
                         <label><input type="radio" name="passCardExist" id="passCardExist2" value="9"> NG (稼動停止)</label>
-                        <label><input type="radio" name="passCardExist" id="passCardExist3" value="0" checked> 対象外</label>
+                        <label><input type="radio" name="passCardExist" id="passCardExist3" value="0"> 対象外</label>
                     </div>
                 </div>
                 <div class="content-section">
                     <h3 class="required">室内シール</h3>
                     <div class="radio-group">
-                        <label><input type="radio" name="roomStickerExist" id="roomStickerExist1" value="1" checked> OK (未交換)</label>
+                        <label><input type="radio" name="roomStickerExist" id="roomStickerExist1" value="1"> OK (未交換)</label>
                         <label><input type="radio" name="roomStickerExist" id="roomStickerExist2" value="2"> OK (交換)</label>
                         <label><input type="radio" name="roomStickerExist" id="roomStickerExist3" value="8"> NG</label>
                     </div>
@@ -447,7 +447,7 @@
                 <div class="content-section">
                     <h3 class="required">消臭剤/除菌シート/ゴミ袋</h3>
                     <div class="radio-group">
-                        <label><input type="radio" name="deodorantsExist" id="deodorantsExist1" value="1" checked> OK (未交換)</label>
+                        <label><input type="radio" name="deodorantsExist" id="deodorantsExist1" value="1"> OK (未交換)</label>
                         <label><input type="radio" name="deodorantsExist" id="deodorantsExist2" value="2"> OK (交換)</label>
                         <label><input type="radio" name="deodorantsExist" id="deodorantsExist3" value="8"> NG</label>
                     </div>
@@ -460,35 +460,35 @@
                 <div class="content-section">
                     <h3>バックモニター</h3>
                     <div class="radio-group">
-                        <label><input type="radio" name="backMonitor" id="backMonitor1" value="1" checked> OK</label>
+                        <label><input type="radio" name="backMonitor" id="backMonitor1" value="1"> OK</label>
                         <label><input type="radio" name="backMonitor" id="backMonitor2" value="9"> NG (稼動停止)</label>
                     </div>
                 </div>
                 <div class="content-section">
                     <h3>コーナーセンサー</h3>
                     <div class="radio-group">
-                        <label><input type="radio" name="cornerSensor" id="cornerSensor1" value="1" checked> OK</label>
+                        <label><input type="radio" name="cornerSensor" id="cornerSensor1" value="1"> OK</label>
                         <label><input type="radio" name="cornerSensor" id="cornerSensor2" value="9"> NG (稼動停止)</label>
                     </div>
                 </div>
                 <div class="content-section">
                     <h3>ブレーキサポート</h3>
                     <div class="radio-group">
-                        <label><input type="radio" name="brakeSupport" id="brakeSupport1" value="1" checked> OK</label>
+                        <label><input type="radio" name="brakeSupport" id="brakeSupport1" value="1"> OK</label>
                         <label><input type="radio" name="brakeSupport" id="brakeSupport2" value="9"> NG (稼動停止)</label>
                     </div>
                 </div>
                 <div class="content-section">
                     <h3>車線逸脱警報</h3>
                     <div class="radio-group">
-                        <label><input type="radio" name="laneDevianceAlert" id="laneDevianceAlert1" value="1" checked> OK</label>
+                        <label><input type="radio" name="laneDevianceAlert" id="laneDevianceAlert1" value="1"> OK</label>
                         <label><input type="radio" name="laneDevianceAlert" id="laneDevianceAlert2" value="9"> NG (稼動停止)</label>
                     </div>
                 </div>
                 <div class="content-section">
                     <h3>ドライブレコーダー</h3>
                     <div class="radio-group">
-                        <label><input type="radio" name="driveRecorder" id="driveRecorder1" value="1" checked> OK</label>
+                        <label><input type="radio" name="driveRecorder" id="driveRecorder1" value="1"> OK</label>
                         <label><input type="radio" name="driveRecorder" id="driveRecorder2" value="9"> NG (稼動停止)</label>
                     </div>
                 </div>
@@ -498,7 +498,7 @@
                 <div class="content-section">
                     <h3 class="required">点灯状態</h3>
                     <div class="radio-group">
-                        <label><input type="radio" name="turnSignal" id="turnSignal1" value="1" checked> OK</label>
+                        <label><input type="radio" name="turnSignal" id="turnSignal1" value="1"> OK</label>
                         <label><input type="radio" name="turnSignal" id="turnSignal2" value="9"> NG (稼動停止)</label>
                     </div>
                 </div>
@@ -508,14 +508,14 @@
                 <div class="content-section">
                     <h3 class="required">給油口</h3>
                     <div class="radio-group">
-                        <label><input type="radio" name="fuelCap" id="fuelCap1" value="1" checked> OK</label>
+                        <label><input type="radio" name="fuelCap" id="fuelCap1" value="1"> OK</label>
                         <label><input type="radio" name="fuelCap" id="fuelCap2" value="9"> NG (稼動停止)</label>
                     </div>
                 </div>
                 <div class="content-section">
                     <h3 class="required">車両シール</h3>
                     <div class="radio-group">
-                        <label><input type="radio" name="carStickerExist" id="carStickerExist1" value="1" checked> OK</label>
+                        <label><input type="radio" name="carStickerExist" id="carStickerExist1" value="1"> OK</label>
                         <label><input type="radio" name="carStickerExist" id="carStickerExist2" value="8"> NG</label>
                     </div>
                 </div>
@@ -525,14 +525,14 @@
                 <div class="content-section">
                     <h3 class="required">三角停止板</h3>
                     <div class="radio-group">
-                        <label><input type="radio" name="warningTrianglePlateDamage" id="warningTrianglePlateDamage1" value="1" checked> OK</label>
+                        <label><input type="radio" name="warningTrianglePlateDamage" id="warningTrianglePlateDamage1" value="1"> OK</label>
                         <label><input type="radio" name="warningTrianglePlateDamage" id="warningTrianglePlateDamage2" value="9"> NG (稼動停止)</label>
                     </div>
                 </div>
                 <div class="content-section">
                     <h3 class="required">パンク修理キット</h3>
                     <div class="radio-group">
-                        <label><input type="radio" name="puncRepairKitExist" id="puncRepairKitExist1" value="1" checked> OK</label>
+                        <label><input type="radio" name="puncRepairKitExist" id="puncRepairKitExist1" value="1"> OK</label>
                         <label><input type="radio" name="puncRepairKitExist" id="puncRepairKitExist2" value="9"> NG (稼動停止)</label>
                         <label><input type="radio" name="puncRepairKitExist" id="puncRepairKitExist3" value="0"> 対象外</label>
                     </div>
@@ -546,22 +546,22 @@
                     <div class="radio-group">
                         <label><input type="radio" name="spearTireDamage" id="spearTireDamage1" value="1"> OK</label>
                         <label><input type="radio" name="spearTireDamage" id="spearTireDamage2" value="9"> NG (稼動停止)</label>
-                        <label><input type="radio" name="spearTireDamage" id="spearTireDamage3" value="0" checked> 対象外</label>
+                        <label><input type="radio" name="spearTireDamage" id="spearTireDamage3" value="0"> 対象外</label>
                     </div>
                 </div>
                 <div class="content-section">
                     <h3>スペアタイヤの指定空気圧</h3>
-                    <div class="item-input"><input type="number" class="single-input" id="frontSpearRegularPressure" name="frontSpearRegularPressure"> kPa</div>
+                    <div class="item-input"><input type="number" class="single-input" id="frontSpearRegularPressure" name="frontSpearRegularPressure" value=""> kPa</div>
                 </div>
                 <div class="content-section">
                     <h3>スペアタイヤの空気圧</h3>
                     <div class="input-row">
                         <label>調整前<span class="red">*</span></label>
-                        <div class="item-input"><input type="number" class="single-input" id="frontSpearPressure" name="frontSpearPressure"> kPa</div>
+                        <div class="item-input"><input type="number" class="single-input" id="frontSpearPressure" name="frontSpearPressure" value=""> kPa</div>
                     </div>
                     <div class="input-row">
                         <label>調整後</label>
-                        <div class="item-input"><input type="number" class="single-input" id="frontSpearPressureAdjusted" name="frontSpearPressureAdjusted"> kPa</div>
+                        <div class="item-input"><input type="number" class="single-input" id="frontSpearPressureAdjusted" name="frontSpearPressureAdjusted" value=""> kPa</div>
                     </div>
                 </div>
                 <div class="content-section">
@@ -569,13 +569,13 @@
                     <div class="radio-group">
                         <label><input type="radio" name="tireJackupSetExist" id="tireJackupSetExist1" value="1"> OK</label>
                         <label><input type="radio" name="tireJackupSetExist" id="tireJackupSetExist2" value="9"> NG (稼動停止)</label>
-                        <label><input type="radio" name="tireJackupSetExist" id="tireJackupSetExist3" value="0" checked> 対象外</label>
+                        <label><input type="radio" name="tireJackupSetExist" id="tireJackupSetExist3" value="0"> 対象外</label>
                     </div>
                 </div>
                 <div class="content-section">
                     <h3 class="required">清掃キット</h3>
                     <div class="radio-group">
-                        <label><input type="radio" name="cleaningKit" id="cleaningKit1" value="1" checked> OK (未交換)</label>
+                        <label><input type="radio" name="cleaningKit" id="cleaningKit1" value="1"> OK (未交換)</label>
                         <label><input type="radio" name="cleaningKit" id="cleaningKit2" value="2"> OK (交換)</label>
                         <label><input type="radio" name="cleaningKit" id="cleaningKit3" value="8"> NG</label>
                     </div>
@@ -584,7 +584,7 @@
                     <h3 class="required">ジュニアシート</h3>
                     <div class="radio-group">
                         <label><input type="radio" name="juniorSeat" id="juniorSeat1" value="3"> 車載あり</label>
-                        <label><input type="radio" name="juniorSeat" id="juniorSeat2" value="4" checked> 車載なし</label>
+                        <label><input type="radio" name="juniorSeat" id="juniorSeat2" value="4"> 車載なし</label>
                     </div>
                 </div>
             </div>
