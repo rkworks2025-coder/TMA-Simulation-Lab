@@ -4,184 +4,91 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", sans-serif;
+    font-family: "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
     background-color: #f5f5f5;
     color: #333;
     font-size: 14px;
-    padding-bottom: 80px; /* Space for footer */
+    padding-bottom: 100px; /* フッター固定用に余白を多めに確保 */
 }
 
+/* Utilities */
+.txt-red { color: #d32f2f; }
+.mt-10 { margin-top: 10px; }
+.ml-10 { margin-left: 10px; }
+.mt15 { margin-top: 15px; }
+
 /* Header */
-.header {
+.header, .new-wb-header {
     background-color: #333;
     color: white;
-    padding: 15px;
+    padding: 10px;
+    text-align: center;
     position: fixed;
     top: 0;
     width: 100%;
     z-index: 100;
     box-sizing: border-box;
 }
-.header-inner {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-weight: bold;
-    font-size: 16px;
-}
-.menu-icon {
-    font-size: 24px;
-    cursor: pointer;
-}
-
-/* Layout */
-.main-container {
-    margin-top: 60px; /* Height of header */
-    padding: 10px;
-}
-
-.page-header {
-    background-color: #eee;
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #ddd;
-    margin: -10px -10px 10px -10px;
-}
-.page-header h1 {
+.header p, .new-wb-header p {
     margin: 0;
-    font-size: 18px;
     font-weight: bold;
 }
-.car-no {
-    font-size: 12px;
-    color: #666;
+
+/* Layout Container */
+.main-container, .main, .detail-main {
+    margin-top: 60px; /* Header height */
+    padding: 10px;
+    max-width: 600px; /* PCで見やすくするため幅制限 */
+    margin-left: auto;
+    margin-right: auto;
 }
 
-/* Info Area (Index) */
-.info-area h1 {
-    font-size: 18px;
-    margin: 10px 0;
-    background-color: #eee;
+/* Page Titles */
+.page-header, .info-area {
+    background-color: #fff;
     padding: 10px;
-}
-
-/* Car Info Table */
-.car-info-section {
-    background: #fff;
-    border: 1px solid #ccc;
-    margin-bottom: 20px;
-}
-.car-info-section h2 {
-    background: #333;
-    color: #fff;
-    margin: 0;
-    padding: 8px;
-    font-size: 14px;
-}
-.status-box {
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #f9f9f9;
     border-bottom: 1px solid #ddd;
-}
-.car-detail-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 12px;
-}
-.car-detail-table th, .car-detail-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-}
-.car-detail-table th {
-    background-color: #eee;
-    width: 30%;
-    font-weight: normal;
-}
-
-/* Check List Items (Index) */
-.check-section h2 {
-    background: #333;
-    color: #fff;
-    margin: 0 0 10px 0;
-    padding: 8px;
-    font-size: 14px;
-}
-.check-item-card {
-    background: #fff;
-    border: 1px solid #ccc;
-    margin-bottom: 15px;
-    padding: 10px;
-}
-.check-item-card h3 {
-    margin: 0 0 10px 0;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-}
-.status-badge {
-    background: #666;
-    color: #fff;
-    font-size: 10px;
-    padding: 2px 6px;
-    border-radius: 10px;
-    margin-left: 10px;
-}
-.check-content {
-    background: #f9f9f9;
-    padding: 10px;
     margin-bottom: 10px;
-    font-size: 12px;
 }
-.check-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.prev-data {
-    font-size: 11px;
-    color: #666;
-}
-.prev-data span {
-    margin-right: 10px;
-}
-.link-text {
-    color: #007bff;
-    text-decoration: none;
-}
-.alert-text-red {
-    color: red;
-    font-size: 12px;
-    margin-bottom: 15px;
+.page-header h1, .car-another-title {
+    margin: 0;
+    font-size: 1.1rem;
     font-weight: bold;
 }
+.car-no, .car-number-text {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 5px;
+}
 
-/* Forms & Tabs */
+/* ----------------------------------------------------
+   Tabs (日常点検用)
+   ---------------------------------------------------- */
 .tab-scroll-container {
     overflow-x: auto;
     white-space: nowrap;
-    background: #333;
-    margin: -10px -10px 10px -10px;
+    background: #fff;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 15px;
+    -webkit-overflow-scrolling: touch;
 }
 .tabs {
-    display: inline-flex;
+    display: flex;
 }
-.tab-btn {
-    background: #eee;
-    border: none;
-    padding: 10px 15px;
+.tab-button, .tab-btn {
+    padding: 12px 15px;
     cursor: pointer;
-    font-weight: bold;
-    border-right: 1px solid #ccc;
+    color: #666;
+    border-bottom: 3px solid transparent;
+    font-size: 0.9rem;
+    background: none;
+    border: none;
+    white-space: nowrap;
 }
-.tab-btn.active {
-    background: #333;
-    color: #fff;
+.tab-button.active, .tab-btn.active {
+    color: #d00;
+    border-bottom: 3px solid #d00;
+    font-weight: bold;
 }
 .tab-content {
     display: none;
@@ -190,259 +97,247 @@ body {
     display: block;
 }
 
-/* Content Sections (Forms) */
-.content-section {
+/* ----------------------------------------------------
+   Content Sections (共通)
+   ---------------------------------------------------- */
+.content-section, .contents-block, .car-info-section, .info-box {
     background: #fff;
-    border: 1px solid #ccc;
-    margin-bottom: 10px;
-    padding: 10px;
+    margin-bottom: 15px;
+    padding: 15px;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
 }
-.content-header {
+
+/* 見出しスタイル */
+.content-section h3, .contents-title, .car-detail-title, .info-title {
+    font-size: 1rem;
+    margin: 0 0 10px 0;
+    border-left: 4px solid #d00;
+    padding-left: 8px;
+    display: flex;
+    align-items: center;
     font-weight: bold;
-    margin-bottom: 5px;
 }
-.content-section h3 {
-    margin: 0 0 5px 0;
-    font-size: 14px;
-}
-.content-section h3.required::before {
+
+/* 「必須」バッジ */
+.required::before, .content-section h3.required::before {
     content: "必須";
-    background: #d32f2f;
+    background: #d00;
     color: #fff;
-    font-size: 10px;
-    padding: 1px 4px;
-    margin-right: 5px;
+    font-size: 0.7rem;
+    padding: 2px 6px;
     border-radius: 2px;
+    margin-right: 8px;
 }
-.desc {
-    font-size: 12px;
+
+/* 説明文 */
+.desc, .contents-inner-text {
+    font-size: 0.85rem;
+    color: #666;
     margin-bottom: 10px;
     line-height: 1.4;
 }
-.red { color: #d32f2f; }
-.note { font-size: 11px; color: #666; }
 
-/* Inputs */
-.radio-group {
+/* ----------------------------------------------------
+   Radio Buttons (本番HTMLクラス対応)
+   ---------------------------------------------------- */
+/* コンテナ */
+.content-radio, .radio-group {
     display: flex;
-    gap: 5px;
+    gap: 10px;
+    width: 100%;
 }
-.radio-group label {
-    flex: 1;
+
+/* 2択などのブロック */
+.content-radio-block, .radio-group label {
+    flex: 1; /* 横幅いっぱいに広げる */
+    position: relative;
     border: 1px solid #ccc;
-    padding: 10px 5px;
-    text-align: center;
-    background: #fff;
     border-radius: 4px;
+    background: #fff;
+    text-align: center;
     cursor: pointer;
-    font-size: 13px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.radio-group input {
-    margin-right: 5px;
 }
 
-/* Contents List (横並びリスト構造 - スタイル修正の肝) */
+/* ラジオボタン本体は非表示にし、ラベルで操作 */
+.content-radio-block input[type="radio"], 
+.radio-group input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+    z-index: 1;
+}
+
+/* ラベルの見た目 */
+.content-radio-block label,
+.radio-group label {
+    display: flex; /* 上下中央揃えのため */
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 12px 5px;
+    margin: 0;
+    box-sizing: border-box;
+    font-weight: bold;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+/* 選択時のスタイル (CSSで擬似的に表現) */
+/* inputがチェックされた直後のlabel、またはinputがチェックされた親要素内のlabel */
+.content-radio-block input:checked + label,
+.radio-group input:checked + label,
+/* Geminicodeの構造用 */
+.radio-group input:checked {
+    background-color: #e3f2fd; /* 薄い青 */
+    color: #007bff;
+    border-color: #007bff;
+}
+/* ※注意: 本番HTML構造(div > input + label)に対応するため、
+   JSでactiveクラスを付けるか、:checkedセレクタを活用します */
+.content-radio-block:has(input:checked),
+.radio-group label:has(input:checked) {
+    background-color: #e3f2fd;
+    border: 2px solid #007bff;
+    color: #007bff;
+}
+
+
+/* ----------------------------------------------------
+   Inputs & Forms
+   ---------------------------------------------------- */
+input[type="number"], input[type="text"], .input-text, .select-box, textarea {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+.single-input, .item-input input {
+    width: 80px;
+    text-align: center;
+}
+.u-input-text--xl {
+    width: 100%;
+    max-width: 100%;
+}
+
+/* リスト形式の入力欄 (タイヤ空気圧など) */
 .contents-list {
     list-style: none;
     padding: 0;
     margin: 0;
-    display: flex; /* 横並び */
-    justify-content: space-between;
 }
 .contents-list li {
-    width: 48%; /* 2つ並べるため50%以下に */
-}
-.contents-list li .item-title {
-    font-weight: bold;
-    font-size: 12px;
-    margin: 0 0 5px 0;
-}
-.contents-list li .item-input {
     display: flex;
-    align-items: center;
-    justify-content: flex-end; /* 右寄せ */
-}
-.contents-list li .item-input input {
-    width: 100%; /* 親要素に合わせて伸縮 */
-    max-width: 80px; /* 広がりすぎ防止 */
-    padding: 6px;
-    font-size: 14px;
-    text-align: right;
-    margin-right: 5px;
-    border: 1px solid #ccc;
-}
-
-/* Input Row (旧バージョン - 他の部分で使用) */
-.input-row {
-    display: flex;
-    align-items: center;
     justify-content: space-between;
-    margin-bottom: 5px;
-    flex-wrap: nowrap;
-}
-.input-row label {
-    font-size: 12px;
-    font-weight: bold;
-    flex-shrink: 0;
-    margin-right: 10px;
-}
-
-/* Common inputs styling */
-.input-unit {
-    display: flex;
     align-items: center;
-    flex-shrink: 0;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
 }
-.input-unit input {
-    width: 60px;
-    padding: 6px;
-    margin-right: 5px;
-    border: 1px solid #ccc;
-    text-align: right;
-    font-size: 14px;
-}
-.input-text {
-    padding: 6px;
-    border: 1px solid #ccc;
-    width: 70px;
-    font-size: 14px;
-}
-.input-bg-pink { background-color: #ffebee; }
-.input-bg-grey { background-color: #f5f5f5; }
 
-.select-box {
+/* ----------------------------------------------------
+   Tables (車両詳細画面用)
+   ---------------------------------------------------- */
+.car-contents table {
     width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
+    border-collapse: collapse;
+    font-size: 0.9rem;
     background: #fff;
 }
-
-.checkbox-label {
-    font-size: 12px;
-    display: flex;
-    align-items: center;
-    white-space: nowrap;
-}
-.checkbox-box {
-    display: block;
-    border: 1px solid #ccc;
+.car-contents th, .car-contents td {
+    border: 1px solid #ddd;
     padding: 10px;
-    background: #fff;
+    text-align: left;
+}
+.car-contents th {
+    background-color: #f9f9f9;
+    width: 35%;
+    font-weight: normal;
+    color: #666;
 }
 
-.card-inputs input {
-    width: 50px;
-    padding: 5px;
-    margin: 0 2px;
-    text-align: center;
-}
-.date-selects select {
-    padding: 5px;
-    margin-right: 5px;
-}
-
-/* Tire Block Specific */
-.tire-block-header {
-    background-color: #333;
-    color: #fff;
-    padding: 5px 10px;
-    font-size: 12px;
-    font-weight: bold;
-    margin-top: 15px;
-}
-
-/* 溝入力用の分割スタイル */
-.input-split-unit {
-    display: flex;
-    align-items: center;
-    white-space: nowrap;
-}
-.input-split-unit input {
-    width: 40px;
-    padding: 6px;
-    border: 1px solid #ccc;
-    text-align: center;
-    margin: 0 3px;
-    font-size: 14px;
-}
-
-/* Paint Area */
-.paint-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-    font-size: 12px;
-}
-
-/* Buttons */
-.btn-yellow {
-    background-color: #FDD835;
-    border: 1px solid #FBC02D;
-    padding: 8px 20px;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 4px;
-    color: #000;
-}
-.btn-yellow-mini {
-    background-color: #FDD835;
-    border: none;
-    padding: 4px 10px;
-    font-size: 11px;
-    font-weight: bold;
-    cursor: pointer;
-}
-.btn-white {
-    background-color: #fff;
-    border: 1px solid #ccc;
-    padding: 8px 20px;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 4px;
-}
-.btn-grey-small {
-    background: #ddd;
-    border: 1px solid #ccc;
-    padding: 2px 8px;
-    font-size: 10px;
-}
-.btn-disabled {
-    background: #eee;
-    border: 1px solid #ccc;
-    color: #aaa;
-    padding: 8px 20px;
-    width: 100px;
-}
-.btn-mini {
-    background: #fff;
-    border: 1px solid #ccc;
-    font-size: 10px;
-    padding: 2px 5px;
-    margin-left: 5px;
-}
-
-/* Fixed Footer */
-.fixed-footer {
+/* ----------------------------------------------------
+   Footer (固定フッター)
+   ---------------------------------------------------- */
+.footer, .fixed-footer {
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
     background: #333;
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-    box-sizing: border-box;
-    z-index: 99;
-}
-.footer-btn {
-    width: 30%;
     padding: 10px 0;
+    text-align: center;
+    z-index: 999;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
 }
 
-/* Utilities */
-.mt-10 { margin-top: 10px; }
-.ml-10 { margin-left: 10px; }
+.footer-button, .footer-btn-area {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 0 10px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* ボタン共通スタイル (aタグ) */
+.footer-button a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45%; /* 2つ並び用 */
+    height: 45px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+/* 一時保存 / 戻る (白) */
+.footer-button a.is-stop, 
+.footer-button a.is-return {
+    background: #fff;
+    color: #333;
+    border: 1px solid #ccc;
+}
+/* 1つだけのボタン(戻る)の場合は幅を広く */
+.footer-button a.is-return {
+    width: 90%;
+}
+
+/* 完了 / 登録 (黄色) */
+.footer-button a.is-complete {
+    background: #ffd700;
+    color: #333;
+    border: 1px solid #e6c200;
+}
+
+/* ----------------------------------------------------
+   Others (バッジなど)
+   ---------------------------------------------------- */
+.info-status-temporarily {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+.result-ok {
+    background-color: #d4edda;
+    color: #155724;
+}
+.tire-block-header {
+    background: #333;
+    color: #fff;
+    padding: 5px 10px;
+    font-weight: bold;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
