@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>外装確認</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 </head>
 <body>
     <header class="header">
@@ -17,43 +18,58 @@
     <main class="main-container">
         <div class="page-header">
             <h1>外装確認</h1>
-            <span class="car-no">相模 6815</span>
+            <span class="car-no">相模 7725</span>
         </div>
 
-        <form>
+        <form id="exterior-check-form">
+            
             <div class="content-section">
-                <h3 class="required">状態</h3>
-                <p class="desc">【重要チェック箇所】<br>下回り・アンダーカバー・タイヤハウスの損傷を確認<br><span class="red">走行に支障がでる損傷の場合は「NG（稼動停止）」</span><br>基準に満たない小さな擦り傷や凹みはNG（稼動停止）にしないでください<br>「車両修理判断基準書」を確認してください</p>
-                <div class="radio-group">
-                    <label><input type="radio" name="ext_status" checked> OK</label>
-                    <label><input type="radio" name="ext_status"> NG (稼動停止)</label>
+                <h2 class="contents-title">状態</h2>
+                <div class="contents-block" style="box-shadow:none; padding:0; margin:0;">
+                    <p class="contents-inner-text">
+                        【重要チェック箇所】<br>
+                        下回り・アンダーカバー・タイヤハウスの損傷を確認
+                    </p>
+                    <p class="contents-inner-text">
+                        走行に支障がでる損傷の場合は「NG（稼動停止）」
+                    </p>
+                    
+                    <div class="content-radio twoChoices">
+                        <div class="content-radio-block">
+                            <input type="radio" class="radio-select" name="exteriorState" id="exteriorState01" value="1">
+                            <label for="exteriorState01">OK</label>
+                        </div>
+                        <div class="content-radio-block">
+                            <input type="radio" class="radio-select error" name="exteriorState" id="exteriorState02" value="9">
+                            <label for="exteriorState02">NG（稼動停止）</label>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <div class="content-section">
-                <h3 class="required">損傷箇所</h3>
-                <p class="desc">該当する車種を選択</p>
-                <select class="select-box">
-                    <option>乗用車</option>
-                </select>
-                <div class="paint-area">
-                    <div class="paint-header">
-                        <span>点検日：2025/12/16</span>
-                        <button type="button" class="btn-yellow-mini">ペイント開始</button>
-                    </div>
-                    <div class="car-diagram" style="background: #eee; height: 250px; display: flex; align-items: center; justify-content: center; border: 1px solid #ccc; margin-top: 10px;">
-                        <span style="color: #888;">(車両図 - ペイント機能なし)</span>
-                    </div>
-                    <p class="desc mt-10">線キズ（スリキズ）は赤線、凹みは青〇で記載</p>
+                <h2 class="contents-title">損傷箇所</h2>
+                <div class="contents-block" style="box-shadow:none; padding:0; margin:0;">
+                    <p class="contents-inner-text">
+                        ※ここに損傷箇所の詳細や画像が表示されます（テスト用ダミー）
+                    </p>
                 </div>
             </div>
+
         </form>
 
-        <div class="fixed-footer">
-            <button class="footer-btn btn-white" onclick="location.href='index.html'">中止</button>
-            <button class="footer-btn btn-yellow" onclick="completeTask('exterior')">完了</button>
+        <div class="footer">
+            <div class="footer-button">
+                <a href="index.html" class="is-stop">
+                    <p style="margin:0;">一時保存</p>
+                </a>
+                <a href="#" class="is-complete" onclick="completeTask('exterior'); return false;">
+                    <p style="margin:0;">完了</p>
+                </a>
+            </div>
         </div>
     </main>
+
     <script src="script.js"></script>
 </body>
 </html>
