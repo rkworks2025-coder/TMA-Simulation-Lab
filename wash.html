@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>洗車</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 </head>
 <body>
     <header class="header">
@@ -17,25 +18,45 @@
     <main class="main-container">
         <div class="page-header">
             <h1>洗車</h1>
-            <span class="car-no">相模 6815</span>
+            <span class="car-no">相模 7725</span>
         </div>
 
-        <form>
+        <form id="wash-check-form">
+            
             <div class="content-section">
-                <h3 class="required">外装の汚れ</h3>
-                <p class="desc">車体・外窓・サイドミラーの汚れ、油膜を確認</p>
-                <div class="radio-group">
-                    <label><input type="radio" name="wash_status" checked> 洗車済み</label>
-                    <label><input type="radio" name="wash_status"> 洗車不要</label>
+                <h3 class="contents-title">外装の汚れ</h3>
+                <div class="contents-block" style="box-shadow:none; padding:0; margin:0;">
+                    <p class="contents-inner-text">
+                        車体・ホイール・外窓・サイドミラーの汚れ、油膜を確認
+                    </p>
+                    
+                    <div class="content-radio twoChoices">
+                        <div class="content-radio-block">
+                            <input type="radio" class="radio-select" name="exteriorDirt" id="exteriorDirt01" value="1">
+                            <label for="exteriorDirt01">洗車済み</label>
+                        </div>
+                        <div class="content-radio-block">
+                            <input type="radio" class="radio-select" name="exteriorDirt" id="exteriorDirt02" value="2">
+                            <label for="exteriorDirt02">洗車不要</label>
+                        </div>
+                    </div>
                 </div>
             </div>
+
         </form>
 
-        <div class="fixed-footer">
-            <button class="footer-btn btn-white" onclick="location.href='index.html'">中止</button>
-            <button class="footer-btn btn-yellow" onclick="completeTask('wash')">完了</button>
+        <div class="footer">
+            <div class="footer-button">
+                <a href="index.html" class="is-stop">
+                    <p style="margin:0;">一時保存</p>
+                </a>
+                <a href="#" class="is-complete" onclick="completeTask('wash'); return false;">
+                    <p style="margin:0;">完了</p>
+                </a>
+            </div>
         </div>
     </main>
+
     <script src="script.js"></script>
 </body>
 </html>
