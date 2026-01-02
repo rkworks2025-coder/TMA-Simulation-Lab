@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>点検トップ</title>
-    <link rel="stylesheet" href="style.css">
+    <title>車両詳細（メニュー）</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 </head>
 <body>
     <header class="header">
@@ -15,115 +16,108 @@
     </header>
 
     <main class="main-container">
-        <div class="info-area">
+        <div class="page-header">
             <h1>点検トップ</h1>
+            <span class="car-no">相模 7725</span>
         </div>
 
         <div class="car-info-section">
             <h2>車両情報</h2>
-            <div class="status-box">
-                <p>車載機情報：2026/01/01 18:21 時点</p>
-                <button class="btn-grey-small">情報取得</button>
+            <div class="car-contents">
+                <table>
+                    <tr>
+                        <th>車両ナンバー</th>
+                        <td>相模 501 ワ 7725</td>
+                    </tr>
+                    <tr>
+                        <th>車種名</th>
+                        <td>ヤリス(ハイブリッド)</td>
+                    </tr>
+                    <tr>
+                        <th>車台番号</th>
+                        <td>MXPH102128987</td>
+                    </tr>
+                    <tr>
+                        <th>燃料残量</th>
+                        <td>◎（75～100％）</td>
+                    </tr>
+                </table>
             </div>
-            <table class="car-detail-table">
-                <tr><th>車両ナンバー</th><td>相模 501 ワ 6815</td></tr>
-                <tr><th>車種名</th><td>フィット 1300</td></tr>
-                <tr><th>色</th><td>エアーライトブルーメタリック</td></tr>
-                <tr><th>車台番号</th><td>GR11121029</td></tr>
-                <tr><th>燃料残量目安</th><td>○（50〜75%）<br><span class="note">燃料残量は目安となります、必ず現車を確認してください</span></td></tr>
-                <tr><th>電圧</th><td>12.77V<br><span class="note">電圧は目安となります、必ず現車を確認してください</span></td></tr>
-                <tr><th>運行状態</th><td>待機</td></tr>
-                <tr><th>車両状態</th><td>キーボックス状態：返却中<br>ドア状態：クローズ<br>ドアロック状態：ロック<br>IG状態：OFF<br>ACC：OFF</td></tr>
-                <tr><th rowspan="2">後予定</th><td>01月02日 08:00</td></tr>
-                <tr><td>イオン海老名ショッピングセンターG</td></tr>
-            </table>
         </div>
 
-        <div class="check-section">
-            <h2>点検詳細</h2>
-            
-            <div class="check-item-card">
-                <h3>点検開始</h3>
-                <div class="check-content">
-                    <p>01月01日(木) 18時30分 ～<br>01月01日(木) 19時00分<br>予約中</p>
-                    <a href="#" class="link-text">▶ 予約延長</a>
-                </div>
-                <button class="btn-disabled" disabled>開始 ></button>
+        <div class="content-section">
+            <h3 style="justify-content: space-between;">
+                日常点検
+                <span id="badge-daily" style="background:#d32f2f; color:#fff; font-size:0.8em; padding:2px 8px; border-radius:10px;">未実施</span>
+            </h3>
+            <p class="desc">エンジンルーム、タイヤ、車載品などの確認</p>
+            <div style="text-align:center; margin-top:10px;">
+                <a href="daily_check.html" id="btn-daily" class="btn-yellow" style="display:block; text-decoration:none; text-align:center;">点検</a>
             </div>
-
-            <p class="alert-text-red">ブレーキ点灯確認バーを使用する際は、車両が動かないよう点検開始前にタイヤストッパーを必ず設置してください</p>
-
-            <div class="check-item-card" id="card-daily">
-                <h3>日常点検 <span class="status-badge" id="badge-daily">一時保存</span></h3>
-                <div class="check-content">
-                    <p>2026/01/01 18:21 に<br>一時保存しました（2日間経過すると未点検になります）</p>
-                </div>
-                <div class="check-footer">
-                    <div class="prev-data">
-                        <span>前回</span><span>2025/12/16 04:00</span><a href="#">▶ 照会</a>
-                    </div>
-                    <button class="btn-yellow" id="btn-daily" onclick="location.href='daily_check.html'">点検再開 ></button>
-                </div>
-            </div>
-
-            <div class="check-item-card" id="card-interior">
-                <h3>車内清掃 <span class="status-badge" id="badge-interior">未実施</span></h3>
-                <div class="check-footer">
-                    <div class="prev-data">
-                        <span>前回</span><span>2025/12/16 03:47</span><a href="#">▶ 照会</a>
-                    </div>
-                    <button class="btn-yellow" id="btn-interior" onclick="location.href='interior.html'">点検 ></button>
-                </div>
-            </div>
-
-            <div class="check-item-card" id="card-wash">
-                <h3>洗車 <span class="status-badge" id="badge-wash">未実施</span></h3>
-                <div class="check-footer">
-                    <div class="prev-data">
-                        <span>前回</span><span>2025/12/16 03:47</span><a href="#">▶ 照会</a>
-                    </div>
-                    <button class="btn-yellow" id="btn-wash" onclick="location.href='wash.html'">点検 ></button>
-                </div>
-            </div>
-
-            <div class="check-item-card" id="card-exterior">
-                <h3>外装確認 <span class="status-badge" id="badge-exterior">未実施</span></h3>
-                <div class="check-footer">
-                    <div class="prev-data">
-                        <span>前回</span><span>2025/12/16 03:47</span><a href="#">▶ 照会</a>
-                    </div>
-                    <button class="btn-yellow" id="btn-exterior" onclick="location.href='exterior.html'">点検 ></button>
-                </div>
-            </div>
-
-            <div class="check-item-card" id="card-lend">
-                <h3>貸出準備 <span class="status-badge" id="badge-lend">未実施</span></h3>
-                <div class="check-footer">
-                    <div class="prev-data">
-                        <span>前回</span><span>2025/12/16 04:00</span><a href="#">▶ 照会</a>
-                    </div>
-                    <button class="btn-yellow" id="btn-lend" onclick="location.href='lend_prep.html'">点検 ></button>
-                </div>
-            </div>
-
-            <p class="alert-text-red">タイヤストッパーを設置した場合は、忘れずに回収してください</p>
-
-            <div class="check-item-card">
-                <h3>点検終了</h3>
-                <div class="check-content">
-                    <p class="alert-text-red">※未登録の点検があります</p>
-                </div>
-                <button class="btn-disabled" disabled>終了 ></button>
-            </div>
-
         </div>
+
+        <div class="content-section">
+            <h3 style="justify-content: space-between;">
+                車内清掃
+                <span id="badge-interior" style="background:#d32f2f; color:#fff; font-size:0.8em; padding:2px 8px; border-radius:10px;">未実施</span>
+            </h3>
+            <p class="desc">ゴミ回収、掃除機、窓拭きなど</p>
+            <div style="text-align:center; margin-top:10px;">
+                <a href="interior.html" id="btn-interior" class="btn-yellow" style="display:block; text-decoration:none; text-align:center;">点検</a>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h3 style="justify-content: space-between;">
+                洗車
+                <span id="badge-wash" style="background:#d32f2f; color:#fff; font-size:0.8em; padding:2px 8px; border-radius:10px;">未実施</span>
+            </h3>
+            <p class="desc">水洗い、拭き上げ、タイヤワックス</p>
+            <div style="text-align:center; margin-top:10px;">
+                <a href="wash.html" id="btn-wash" class="btn-yellow" style="display:block; text-decoration:none; text-align:center;">点検</a>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h3 style="justify-content: space-between;">
+                外装確認
+                <span id="badge-exterior" style="background:#d32f2f; color:#fff; font-size:0.8em; padding:2px 8px; border-radius:10px;">未実施</span>
+            </h3>
+            <p class="desc">傷・ヘコミのチェック</p>
+            <div style="text-align:center; margin-top:10px;">
+                <a href="exterior.html" id="btn-exterior" class="btn-yellow" style="display:block; text-decoration:none; text-align:center;">点検</a>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h3 style="justify-content: space-between;">
+                貸出準備
+                <span id="badge-lend" style="background:#d32f2f; color:#fff; font-size:0.8em; padding:2px 8px; border-radius:10px;">未実施</span>
+            </h3>
+            <p class="desc">三角停止板、ジュニアシート等の最終確認</p>
+            <div style="text-align:center; margin-top:10px;">
+                <a href="lend_prep.html" id="btn-lend" class="btn-yellow" style="display:block; text-decoration:none; text-align:center;">点検</a>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="footer-button single">
+                <a href="#" class="is-complete" onclick="alert('全業務完了としてサーバー送信する処理（ダミー）'); return false;">
+                    <p>業務終了報告</p>
+                </a>
+            </div>
+        </div>
+
     </main>
+
     <script src="script.js"></script>
     <script>
-        // ページ読み込み時に状態を反映
-        window.onload = function() {
-            updateIndexStatus();
-        };
+        // ページ読み込み時に完了状態をチェックして表示を更新
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof updateIndexStatus === 'function') {
+                updateIndexStatus();
+            }
+        });
     </script>
 </body>
 </html>
