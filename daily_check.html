@@ -3,31 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>日常点検（照会）- Mock</title>
+    <title>日常点検（照会）- Mock Fixed</title>
     <style>
-        /* 簡易スタイル（本番の見た目に近づけるための最小限のCSS） */
+        /* Geminicode本来のスタイルを維持 */
         body { font-family: sans-serif; margin: 0; background: #f0f0f0; }
         .header { background: #333; color: #fff; padding: 10px; text-align: center; }
         .tab-scroll-container { overflow-x: auto; background: #fff; border-bottom: 1px solid #ccc; }
         .tabs { display: flex; white-space: nowrap; }
+        /* 本番に合わせたクラス名 tab-button */
         .tab-button { padding: 10px 15px; cursor: pointer; color: #666; border-bottom: 3px solid transparent; }
         .tab-button.active { color: #d00; border-bottom: 3px solid #d00; font-weight: bold; }
-        .tab-contents { display: none; padding: 10px; padding-bottom: 80px; } /* Footer space */
+        .tab-button a { text-decoration: none; color: inherit; pointer-events: none; } /* リンク無効化 */
+        
+        .tab-contents { display: none; padding: 10px; padding-bottom: 80px; }
         .tab-contents.active { display: block; }
         .content-section { background: #fff; margin-bottom: 10px; padding: 15px; border-radius: 4px; }
+        .contents-title { font-size: 1.1em; margin-bottom: 10px; border-left: 4px solid #d00; padding-left: 10px; }
+        
         .required::before { content: "必須"; background: #d00; color: #fff; padding: 2px 5px; font-size: 0.8em; margin-right: 5px; border-radius: 3px; }
         .tire-block-header { background: #333; color: #fff; padding: 5px 10px; font-weight: bold; margin-top: 20px; }
         .desc { font-size: 0.9em; color: #666; margin: 5px 0; }
         .txt-red { color: #d00; }
         .radio-group label { display: block; margin: 5px 0; padding: 10px; border: 1px solid #ddd; border-radius: 4px; background: #f9f9f9; }
+        .content-radio label { margin-right: 15px; }
         .input-row { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; }
         .single-input { padding: 8px; border: 1px solid #ccc; border-radius: 4px; width: 80px; text-align: center; }
         
-        /* フッター（本番模倣） */
+        /* フッター（本番構造に合わせる） */
         .footer { position: fixed; bottom: 0; left: 0; width: 100%; background: #333; padding: 10px; text-align: center; }
-        .footer-button a { display: inline-block; background: #fff; color: #333; padding: 10px 30px; text-decoration: none; border-radius: 4px; font-weight: bold; margin: 0 5px; }
+        .footer-button a { display: inline-block; background: #fff; color: #333; padding: 10px 30px; text-decoration: none; border-radius: 4px; font-weight: bold; margin: 0 5px; cursor: pointer; }
         .footer-button a.is-stop { background: #fff; border: 1px solid #ccc; }
         .footer-button a.is-complete { background: #ffd700; border: 1px solid #e6c200; }
+        .footer-button p { margin: 0; }
     </style>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 </head>
@@ -44,14 +51,14 @@
 
         <div class="tab-scroll-container">
             <div class="tabs">
-                <div class="tab-button active" data-name="engine">エンジンルーム</div>
-                <div class="tab-button" data-name="tire">タイヤ</div>
-                <div class="tab-button" data-name="motion">動作確認</div>
-                <div class="tab-button" data-name="in-car">車載品（運転席周り）</div>
-                <div class="tab-button" data-name="equipment">装備確認</div>
-                <div class="tab-button" data-name="light">灯火装置</div>
-                <div class="tab-button" data-name="perimeter">車両周り他</div>
-                <div class="tab-button" data-name="trunk">車載品（トランク周り）</div>
+                <div class="tab-button active" data-name="engine"><a href="#">エンジンルーム</a></div>
+                <div class="tab-button" data-name="tire"><a href="#">タイヤ</a></div>
+                <div class="tab-button" data-name="motion"><a href="#">動作確認</a></div>
+                <div class="tab-button" data-name="in-car"><a href="#">車載品（運転席周り）</a></div>
+                <div class="tab-button" data-name="equipment"><a href="#">装備確認</a></div>
+                <div class="tab-button" data-name="light"><a href="#">灯火装置</a></div>
+                <div class="tab-button" data-name="perimeter"><a href="#">車両周り他</a></div>
+                <div class="tab-button" data-name="trunk"><a href="#">車載品（トランク周り）</a></div>
             </div>
         </div>
 
@@ -60,6 +67,7 @@
             <div class="tab-contents active" id="engine">
                 <div class="content-section">
                     <h3 class="contents-title">冷却水量</h3>
+                    <p class="desc">タンク内の「FULL」と「LOW」の間が適量</p>
                     <div class="content-radio">
                         <label><input type="radio" name="coolantGauge" id="coolantGauge1" value="2" checked> OK（未補充）</label>
                         <label><input type="radio" name="coolantGauge" id="coolantGauge2" value="1"> OK（補充）</label>
@@ -68,22 +76,43 @@
                 </div>
                 <div class="content-section">
                     <h3 class="contents-title">エンジンオイル量</h3>
-                    <label><input type="radio" name="engineOilGauge" id="engineOilGauge1" value="1" checked> OK</label>
-                    <label><input type="radio" name="engineOilGauge" id="engineOilGauge2" value="9"> NG（稼動停止）</label>
+                    <p class="desc txt-red">エンジン稼動前に点検</p>
+                    <div class="content-radio">
+                        <label><input type="radio" name="engineOilGauge" id="engineOilGauge1" value="1" checked> OK</label>
+                        <label><input type="radio" name="engineOilGauge" id="engineOilGauge2" value="9"> NG（稼動停止）</label>
+                    </div>
+                </div>
+                <div class="content-section">
+                    <h3 class="contents-title">ブレーキ液量</h3>
+                    <div class="content-radio">
+                        <label><input type="radio" name="brakeFluidGauge" id="brakeFluidGauge1" value="1" checked> OK</label>
+                        <label><input type="radio" name="brakeFluidGauge" id="brakeFluidGauge2" value="9"> NG（稼動停止）</label>
+                    </div>
+                </div>
+                <div class="content-section">
+                    <h3 class="contents-title">ウォッシャー液量</h3>
+                    <div class="content-radio">
+                        <label><input type="radio" name="washerFluidGauge" id="washerFluidGauge1" value="2"> OK（未補充）</label>
+                        <label><input type="radio" name="washerFluidGauge" id="washerFluidGauge2" value="1" checked> OK（補充）</label>
+                        <label><input type="radio" name="washerFluidGauge" id="washerFluidGauge3" value="9"> NG（稼動停止）</label>
+                    </div>
                 </div>
             </div>
 
             <div class="tab-contents" id="tire">
                 <div class="content-section">
                     <h3 class="contents-title">タイヤ種別</h3>
-                    <label><input type="radio" name="tireType" id="tireType1" value="1" checked> ノーマル</label>
-                    <label><input type="radio" name="tireType" id="tireType2" value="2"> スタッドレス</label>
+                    <div class="content-radio">
+                        <label><input type="radio" name="tireType" id="tireType1" value="1" checked> ノーマル</label>
+                        <label><input type="radio" name="tireType" id="tireType2" value="2"> スタッドレス</label>
+                    </div>
                     <br>
                     <label><input type="checkbox" id="runFlatTireFlg" name="runFlatTireFlg" value="true"> ランフラットタイヤ</label>
                 </div>
 
                 <div class="content-section">
                     <h3 class="contents-title">指定空気圧</h3>
+                    <p class="desc">運転席ドアを開けたボディ側に貼付されているラベルを確認</p>
                     <p>前輪：<input type="number" class="single-input" id="tireFrontRegularPressure" name="tireFrontRegularPressure" value="250"> kPa</p>
                     <p>後輪：<input type="number" class="single-input" id="tireRearRegularPressure" name="tireRearRegularPressure" value="240"> kPa</p>
                 </div>
@@ -91,13 +120,14 @@
                 <div class="tire-block-header">右前タイヤ</div>
                 <div class="content-section">
                     <h3>（右前）製造年週</h3>
+                    <p class="desc">4桁数値（週2桁＋年2桁）を入力</p>
                     <input type="number" class="single-input" id="tireMfrFrontRightCm" name="tireMfrFrontRightCm" value="1224">
-                    <label><input type="checkbox" id="tireMfrCheckRowFlgFrontRightCm"> 確認不可</label>
+                    <label style="display:inline-block; margin-left:10px;"><input type="checkbox" id="tireMfrCheckRowFlgFrontRightCm"> 確認不可</label>
                 </div>
                 
                 <div class="content-section">
                     <h3>（右前）亀裂、損傷、変形、干渉</h3>
-                    <p class="desc txt-red">※本番見た目再現配置</p>
+                    <p class="desc">異常がある場合は「NG（稼動停止）」</p>
                     <div class="content-radio">
                         <label><input type="radio" name="tireDamage" id="tireDamage1" value="1" checked> OK</label>
                         <label><input type="radio" name="tireDamage" id="tireDamage2" value="9"> NG（稼動停止）</label>
@@ -197,129 +227,173 @@
 
             <div class="tab-contents" id="motion">
                 <div class="content-section">
-                    <h3>エンジンのかかり具合</h3>
-                    <label><input type="radio" name="engineCondition" id="engineCondition1" value="1" checked> OK</label>
-                    <label><input type="radio" name="engineCondition" id="engineCondition2" value="9"> NG</label>
+                    <h3 class="contents-title">エンジンのかかり具合</h3>
+                    <div class="content-radio">
+                        <label><input type="radio" name="engineCondition" id="engineCondition1" value="1" checked> OK</label>
+                        <label><input type="radio" name="engineCondition" id="engineCondition2" value="9"> NG</label>
+                    </div>
                 </div>
                 <div class="content-section">
-                    <h3>ブレーキの踏みしろ</h3>
-                    <label><input type="radio" name="brakeCondition" id="brakeCondition1" value="1" checked> OK</label>
-                    <label><input type="radio" name="brakeCondition" id="brakeCondition2" value="9"> NG</label>
+                    <h3 class="contents-title">ブレーキの踏みしろ</h3>
+                    <div class="content-radio">
+                        <label><input type="radio" name="brakeCondition" id="brakeCondition1" value="1" checked> OK</label>
+                        <label><input type="radio" name="brakeCondition" id="brakeCondition2" value="9"> NG</label>
+                    </div>
                 </div>
                 <div class="content-section">
-                    <h3>駐車ブレーキ</h3>
-                    <label><input type="radio" name="parkingBrakeCondition" id="parkingBrakeCondition1" value="1" checked> OK</label>
-                    <label><input type="radio" name="parkingBrakeCondition" id="parkingBrakeCondition2" value="9"> NG</label>
+                    <h3 class="contents-title">駐車ブレーキ</h3>
+                    <div class="content-radio">
+                        <label><input type="radio" name="parkingBrakeCondition" id="parkingBrakeCondition1" value="1" checked> OK</label>
+                        <label><input type="radio" name="parkingBrakeCondition" id="parkingBrakeCondition2" value="9"> NG</label>
+                    </div>
                 </div>
                 <div class="content-section">
-                    <h3>ウォッシャー噴霧</h3>
-                    <label><input type="radio" name="washerSprayCondition" id="washerSprayCondition1" value="1" checked> OK</label>
-                    <label><input type="radio" name="washerSprayCondition" id="washerSprayCondition2" value="9"> NG</label>
+                    <h3 class="contents-title">ウォッシャー噴霧</h3>
+                    <div class="content-radio">
+                        <label><input type="radio" name="washerSprayCondition" id="washerSprayCondition1" value="1" checked> OK</label>
+                        <label><input type="radio" name="washerSprayCondition" id="washerSprayCondition2" value="9"> NG</label>
+                    </div>
                 </div>
                 <div class="content-section">
-                    <h3>ワイパー払拭</h3>
-                    <label><input type="radio" name="wiperWipeCondition" id="wiperWipeCondition1" value="1" checked> OK</label>
-                    <label><input type="radio" name="wiperWipeCondition" id="wiperWipeCondition2" value="9"> NG</label>
+                    <h3 class="contents-title">ワイパー払拭</h3>
+                    <div class="content-radio">
+                        <label><input type="radio" name="wiperWipeCondition" id="wiperWipeCondition1" value="1" checked> OK</label>
+                        <label><input type="radio" name="wiperWipeCondition" id="wiperWipeCondition2" value="9"> NG</label>
+                    </div>
                 </div>
             </div>
 
             <div class="tab-contents" id="in-car">
                 <div class="content-section">
-                    <h3>車検証（適合証）</h3>
-                    <label><input type="radio" name="inspectionCertificateExist" id="inspectionCertificateExist1" value="1" checked> OK</label>
-                    <label><input type="radio" name="inspectionCertificateExist" id="inspectionCertificateExist2" value="9"> NG</label>
+                    <h3 class="contents-title">車検証（適合証）</h3>
+                    <div class="content-radio">
+                        <label><input type="radio" name="inspectionCertificateExist" id="inspectionCertificateExist1" value="1" checked> OK</label>
+                        <label><input type="radio" name="inspectionCertificateExist" id="inspectionCertificateExist2" value="9"> NG</label>
+                    </div>
                 </div>
                 <div class="content-section">
-                    <h3>車検証シール</h3>
-                    <label><input type="radio" name="inspectionStickerExist" id="inspectionStickerExist1" value="1" checked> OK</label>
-                    <label><input type="radio" name="inspectionStickerExist" id="inspectionStickerExist2" value="9"> NG</label>
+                    <h3 class="contents-title">車検証シール</h3>
+                    <div class="content-radio">
+                        <label><input type="radio" name="inspectionStickerExist" id="inspectionStickerExist1" value="1" checked> OK</label>
+                        <label><input type="radio" name="inspectionStickerExist" id="inspectionStickerExist2" value="9"> NG</label>
+                    </div>
                 </div>
                 <div class="content-section">
-                    <h3>自賠責保険証</h3>
-                    <label><input type="radio" name="autoLiabilityExist" id="autoLiabilityExist1" value="1" checked> OK</label>
-                    <label><input type="radio" name="autoLiabilityExist" id="autoLiabilityExist2" value="9"> NG</label>
+                    <h3 class="contents-title">自賠責保険証</h3>
+                    <div class="content-radio">
+                        <label><input type="radio" name="autoLiabilityExist" id="autoLiabilityExist1" value="1" checked> OK</label>
+                        <label><input type="radio" name="autoLiabilityExist" id="autoLiabilityExist2" value="9"> NG</label>
+                    </div>
                 </div>
                 <div class="content-section">
-                    <h3>点検シール</h3>
-                    <label><input type="radio" name="maintenanceStickerExist" id="maintenanceStickerExist1" value="1" checked> OK</label>
-                    <label><input type="radio" name="maintenanceStickerExist" id="maintenanceStickerExist2" value="8"> NG</label>
+                    <h3 class="contents-title">点検シール</h3>
+                    <div class="content-radio">
+                        <label><input type="radio" name="maintenanceStickerExist" id="maintenanceStickerExist1" value="1" checked> OK</label>
+                        <label><input type="radio" name="maintenanceStickerExist" id="maintenanceStickerExist2" value="8"> NG</label>
+                    </div>
                 </div>
                 <div class="content-section">
-                    <h3>室内シール</h3>
-                    <label><input type="radio" name="roomStickerExist" id="roomStickerExist1" value="1" checked> OK(未交換)</label>
-                    <label><input type="radio" name="roomStickerExist" id="roomStickerExist2" value="2"> OK(交換)</label>
+                    <h3 class="contents-title">室内シール</h3>
+                    <div class="content-radio">
+                        <label><input type="radio" name="roomStickerExist" id="roomStickerExist1" value="1" checked> OK(未交換)</label>
+                        <label><input type="radio" name="roomStickerExist" id="roomStickerExist2" value="2"> OK(交換)</label>
+                    </div>
                 </div>
                 <div class="content-section">
-                    <h3>消臭剤/除菌シート</h3>
-                    <label><input type="radio" name="deodorantsExist" id="deodorantsExist1" value="1" checked> OK(未交換)</label>
-                    <label><input type="radio" name="deodorantsExist" id="deodorantsExist2" value="2"> OK(交換)</label>
+                    <h3 class="contents-title">消臭剤/除菌シート</h3>
+                    <div class="content-radio">
+                        <label><input type="radio" name="deodorantsExist" id="deodorantsExist1" value="1" checked> OK(未交換)</label>
+                        <label><input type="radio" name="deodorantsExist" id="deodorantsExist2" value="2"> OK(交換)</label>
+                    </div>
                 </div>
             </div>
 
             <div class="tab-contents" id="equipment">
                 <div class="content-section">
-                    <h3>バックモニター</h3>
-                    <label><input type="radio" name="backMonitor" id="backMonitor1" value="1" checked> OK</label>
-                    <label><input type="radio" name="backMonitor" id="backMonitor2" value="9"> NG</label>
+                    <h3 class="contents-title">バックモニター</h3>
+                    <div class="content-radio">
+                        <label><input type="radio" name="backMonitor" id="backMonitor1" value="1" checked> OK</label>
+                        <label><input type="radio" name="backMonitor" id="backMonitor2" value="9"> NG</label>
+                    </div>
                 </div>
                 <div class="content-section">
-                    <h3>コーナーセンサー</h3>
-                    <label><input type="radio" name="cornerSensor" id="cornerSensor1" value="1" checked> OK</label>
-                    <label><input type="radio" name="cornerSensor" id="cornerSensor2" value="9"> NG</label>
+                    <h3 class="contents-title">コーナーセンサー</h3>
+                    <div class="content-radio">
+                        <label><input type="radio" name="cornerSensor" id="cornerSensor1" value="1" checked> OK</label>
+                        <label><input type="radio" name="cornerSensor" id="cornerSensor2" value="9"> NG</label>
+                    </div>
                 </div>
                 <div class="content-section">
-                    <h3>ブレーキサポート</h3>
-                    <label><input type="radio" name="brakeSupport" id="brakeSupport1" value="1" checked> OK</label>
-                    <label><input type="radio" name="brakeSupport" id="brakeSupport2" value="9"> NG</label>
+                    <h3 class="contents-title">ブレーキサポート</h3>
+                    <div class="content-radio">
+                        <label><input type="radio" name="brakeSupport" id="brakeSupport1" value="1" checked> OK</label>
+                        <label><input type="radio" name="brakeSupport" id="brakeSupport2" value="9"> NG</label>
+                    </div>
                 </div>
                 <div class="content-section">
-                    <h3>車線逸脱警報</h3>
-                    <label><input type="radio" name="laneDevianceAlert" id="laneDevianceAlert1" value="1" checked> OK</label>
-                    <label><input type="radio" name="laneDevianceAlert" id="laneDevianceAlert2" value="9"> NG</label>
+                    <h3 class="contents-title">車線逸脱警報</h3>
+                    <div class="content-radio">
+                        <label><input type="radio" name="laneDevianceAlert" id="laneDevianceAlert1" value="1" checked> OK</label>
+                        <label><input type="radio" name="laneDevianceAlert" id="laneDevianceAlert2" value="9"> NG</label>
+                    </div>
                 </div>
                 <div class="content-section">
-                    <h3>ドライブレコーダー</h3>
-                    <label><input type="radio" name="driveRecorder" id="driveRecorder1" value="1" checked> OK</label>
-                    <label><input type="radio" name="driveRecorder" id="driveRecorder2" value="9"> NG</label>
+                    <h3 class="contents-title">ドライブレコーダー</h3>
+                    <div class="content-radio">
+                        <label><input type="radio" name="driveRecorder" id="driveRecorder1" value="1" checked> OK</label>
+                        <label><input type="radio" name="driveRecorder" id="driveRecorder2" value="9"> NG</label>
+                    </div>
                 </div>
             </div>
 
             <div class="tab-contents" id="light">
                 <div class="content-section">
-                    <h3>点灯状態</h3>
-                    <label><input type="radio" name="turnSignal" id="turnSignal1" value="1" checked> OK</label>
-                    <label><input type="radio" name="turnSignal" id="turnSignal2" value="9"> NG</label>
+                    <h3 class="contents-title">点灯状態</h3>
+                    <div class="content-radio">
+                        <label><input type="radio" name="turnSignal" id="turnSignal1" value="1" checked> OK</label>
+                        <label><input type="radio" name="turnSignal" id="turnSignal2" value="9"> NG</label>
+                    </div>
                 </div>
             </div>
 
             <div class="tab-contents" id="perimeter">
                 <div class="content-section">
-                    <h3>給油口</h3>
-                    <label><input type="radio" name="fuelCap" id="fuelCap1" value="1" checked> OK</label>
-                    <label><input type="radio" name="fuelCap" id="fuelCap2" value="9"> NG</label>
+                    <h3 class="contents-title">給油口</h3>
+                    <div class="content-radio">
+                        <label><input type="radio" name="fuelCap" id="fuelCap1" value="1" checked> OK</label>
+                        <label><input type="radio" name="fuelCap" id="fuelCap2" value="9"> NG</label>
+                    </div>
                 </div>
                 <div class="content-section">
-                    <h3>車両シール</h3>
-                    <label><input type="radio" name="carStickerExist" id="carStickerExist1" value="1" checked> OK</label>
-                    <label><input type="radio" name="carStickerExist" id="carStickerExist2" value="8"> NG</label>
+                    <h3 class="contents-title">車両シール</h3>
+                    <div class="content-radio">
+                        <label><input type="radio" name="carStickerExist" id="carStickerExist1" value="1" checked> OK</label>
+                        <label><input type="radio" name="carStickerExist" id="carStickerExist2" value="8"> NG</label>
+                    </div>
                 </div>
             </div>
 
             <div class="tab-contents" id="trunk">
                 <div class="content-section">
-                    <h3>三角停止板</h3>
-                    <label><input type="radio" name="warningTrianglePlateDamage" id="warningTrianglePlateDamage1" value="1" checked> OK</label>
-                    <label><input type="radio" name="warningTrianglePlateDamage" id="warningTrianglePlateDamage2" value="9"> NG</label>
+                    <h3 class="contents-title">三角停止板</h3>
+                    <div class="content-radio">
+                        <label><input type="radio" name="warningTrianglePlateDamage" id="warningTrianglePlateDamage1" value="1" checked> OK</label>
+                        <label><input type="radio" name="warningTrianglePlateDamage" id="warningTrianglePlateDamage2" value="9"> NG</label>
+                    </div>
                 </div>
                 <div class="content-section">
-                    <h3>パンク修理キット</h3>
-                    <label><input type="radio" name="puncRepairKitExist" id="puncRepairKitExist1" value="1" checked> OK</label>
-                    <label><input type="radio" name="puncRepairKitExist" id="puncRepairKitExist2" value="9"> NG</label>
+                    <h3 class="contents-title">パンク修理キット</h3>
+                    <div class="content-radio">
+                        <label><input type="radio" name="puncRepairKitExist" id="puncRepairKitExist1" value="1" checked> OK</label>
+                        <label><input type="radio" name="puncRepairKitExist" id="puncRepairKitExist2" value="9"> NG</label>
+                    </div>
                 </div>
                 <div class="content-section">
-                    <h3>清掃キット</h3>
-                    <label><input type="radio" name="cleaningKit" id="cleaningKit1" value="1" checked> OK(未交換)</label>
-                    <label><input type="radio" name="cleaningKit" id="cleaningKit2" value="2"> OK(交換)</label>
+                    <h3 class="contents-title">清掃キット</h3>
+                    <div class="content-radio">
+                        <label><input type="radio" name="cleaningKit" id="cleaningKit1" value="1" checked> OK(未交換)</label>
+                        <label><input type="radio" name="cleaningKit" id="cleaningKit2" value="2"> OK(交換)</label>
+                    </div>
                 </div>
             </div>
 
@@ -338,7 +412,8 @@
     </main>
 
     <script>
-        // タブ切り替えロジック（本番に近い挙動）
+        // タブ切り替えロジック
+        // 本番同様 data-name 属性を読み取って動くように修正
         $(document).on('click', '.tab-button', function() {
             var target = $(this).data('name');
             $('.tab-button').removeClass('active');
