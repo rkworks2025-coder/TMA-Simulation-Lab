@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex"/>
+  
+  <title>予約履歴画面 (Test Mode)</title>
+
+  <link rel="stylesheet" type="text/css" href="https://dailycheck.tc-extsys.jp/css/font-awesome.min.css" />
+  <link rel="stylesheet" type="text/css" href="https://dailycheck.tc-extsys.jp/css/reset.css" />
+  <link rel="stylesheet" type="text/css" href="https://dailycheck.tc-extsys.jp/css/common.css" />
+  <link rel="stylesheet" type="text/css" href="https://dailycheck.tc-extsys.jp/css/mm/common.css" />
+  <link rel="stylesheet" type="text/css" href="https://dailycheck.tc-extsys.jp/css/mm/taw0202003.css" />
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  
+  <script>
+    // 点検ボタンが押された時に呼ばれる関数（本番の関数名を模倣）
+    function routinePopUpMessage(title, carNo, carName, nextUrl) {
+      // ダイアログを表示
+      var modal = document.getElementById('posupMessageConfirm');
+      modal.style.display = 'block';
+      
+      // ダイアログ内の「完了」ボタンを「開始」に書き換え（現場の挙動再現）
+      var okBtn = document.getElementById('posupMessageConfirmOk');
+      okBtn.innerText = "開始";
+      
+      // 開始ボタンを押したら index.html へ遷移
+      okBtn.onclick = function() {
+        console.log("Start Check - Moving to index.html");
+        window.location.href = "index.html";
+        return false;
+      };
+    }
+
+    // キャンセルボタンなどで閉じる用
+    function closePopupMessage(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+  </script>
+</head>
+<body>
+    
+    <header class="new-wb-header">
+      <nav>
+        <p class="userName2"><span>【ＴＳ委託】カーケアジャパン (Test)</span></p>
+        <div class="nav-menu">
+            <div id="nav-drawer">
+                <input id="nav-input" type="checkbox" class="nav-unshown" />
+                <label id="nav-open" for="nav-input"><span></span></label>
+                <label class="nav-unshown" id="nav-close" for="nav-input"></label>
+                <div id="nav-content">
+                    <ul class="modalList">
+                        <li><a class="nav-link" href="menu.html">トップへ戻る</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+      </nav>
+    </header>
+    
+  <main class="detail-main">
+    <form method="POST" action="#" onsubmit="return false;">
+      
+      <div class="info-area">
+        <h1 class="car-another-title">予約履歴</h1>
+      </div>
+
+      <div class="container">
+          <div class="tab-container">
+            <div class="tab">
+              <div class="tab-button active" id="reserveListTab">
+                <a href="#">点検予定</a>
+              </div>
+              <div class="tab-button" id="completeListTab">
+                <a href="#">点検済</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="click-change-contents">
+            <div class="tab-contents" id="reserveList" style="display:block;">
+              <div class="car-list">
+                <div class="info-count">
+                  <span>予約件数：</span><span>1</span><span>件</span><br />
+                </div>
+                
+                <div class="car-list-box">
+                  <div class="car-list-top-area">
+                    <div class="car-list-title-area">
+                      <table>
+                        <tr>
+                          <td>1月3日 6時00分 ～ 1月3日 6時30分</td>
+                          <td class="btn-td">
+                            <span><button class="submit-btn">× 取消</button></span>
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+                  </div>
+                  <div class="car-list-bottom-area">
+                    <div class="car-contents">
+                      <table>
+                        <tr>
+                          <td class="txt-b">ヤリス(ハイブリッド)</td>
+                        </tr>
+                        <tr>
+                            <td>相模 501 ワ 7725</td>
+                        </tr>
+                        <tr>
+                          <td class="station-row">アーバン長窪</td>
+                        </tr>
+                        <tr>
+                            <td class="status-row">
+                                <span class="status-wrapper">
+                                    <span class="status-el"><span>優先度：</span><span class="priority-icon low">低</span></span>
+                                    <span class="status-el"><span>燃料残量：</span><span>◎</span></span>
+                                </span>
+                            </td>
+                        </tr>
+                      </table>
+                    </div>
+                    <div class="other-btn-area">
+                      <span><button class="submit-btn">予約変更</button></span>
+                      
+                      <span class="link-btn">
+                        <a href="" onclick="routinePopUpMessage('点検','相模 501 ワ 7725','ヤリス(ハイブリッド)','');return false;">点検</a>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                </div>
+            </div>
+          </div>
+        </div>
+
+      <footer class="footer single">
+        <div class="footer-button single">
+          <a href="menu.html" class="is-stop">戻る</a>
+        </div>
+      </footer>
+
+    <div class="alert-modal" id="posupMessageConfirm" style="display:none;">
+        <div class="alert-modal-bg"></div>
+        <div class="alert-modal-content preservation-state" id="popupMessageConfirmOuter">
+            <p class="preservation-title">確認</p>
+            <div class="preservation-content" id="confirmPopupMessageContents">
+                <p>点検を開始しますか？</p>
+            </div>
+            <div class="alert-btn-area">
+                <p class="is-modal-close">
+                    <a href="" onclick="closePopupMessage('posupMessageConfirm');return false;" id="posupMessageConfirmCancel">キャンセル</a>
+                </p>
+                <p class="is-modal-complete">
+                    <a href="" id="posupMessageConfirmOk">完了</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    </form>
+  </main>
+</body>
+</html>
