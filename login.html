@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex"/>
+  
+  <title>ログイン (Test Mode)</title>
+
+  <link rel="stylesheet" type="text/css" href="https://dailycheck.tc-extsys.jp/css/font-awesome.min.css" />
+  <link rel="stylesheet" type="text/css" href="https://dailycheck.tc-extsys.jp/css/reset.css" />
+  <link rel="stylesheet" type="text/css" href="https://dailycheck.tc-extsys.jp/css/common.css" />
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+  <script>
+    function attemptLogin() {
+      // 入力値を取得
+      var id1 = document.getElementById("cardNo1").value;
+      var id2 = document.getElementById("cardNo2").value;
+      var pw = document.getElementById("password").value;
+
+      // 本番のID・パスワードと照合
+      // ID: 0030 - 927583
+      // PASS: Ccj-222223
+      if (id1 === "0030" && id2 === "927583" && pw === "Ccj-222223") {
+        // 成功したらメニューへ遷移
+        console.log("Login Success");
+        window.location.href = "menu.html";
+      } else {
+        // 失敗したらアラートを表示
+        alert("認証失敗\n\n正しいIDとパスワードを入力してください。\n(Pythonスクリプトの入力値を確認してください)");
+      }
+    }
+  </script>
+</head>
+<body>
+  
+  <main class="main-login">
+  <div class="main-contents is-login">
+    <form onsubmit="return false;">
+      <input type="hidden" name="_csrf" value="test_token"/>
+      <input type="hidden" id="cardNo" name="cardNo" value="" />
+      
+      <div class="form-group">
+        <p class="login-title">ログインID</p>
+        <div class="flex-layout">
+          <input type="number" maxlength="100" inputmode="numeric" id="cardNo1" name="cardNo1" value="" placeholder="" />
+          &nbsp;<span class="mt10">-</span>&nbsp;
+          <input type="number" maxlength="100" inputmode="numeric" id="cardNo2" name="cardNo2" value="" placeholder="" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <p class="login-title">パスワード</p>
+        <input type="password" maxlength="20" id="password" name="password" value="" />
+      </div>
+
+      <button type="button" class="btn btn-primary" onclick="attemptLogin()">ログイン</button>
+    </form>
+  </div>
+  </main>
+</body>
+</html>
