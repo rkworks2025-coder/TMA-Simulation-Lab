@@ -22,28 +22,52 @@
       // セッションストレージから「開始済みフラグ」を取得
       var hasStarted = sessionStorage.getItem("inspectionStarted");
       
+      // 各ボタンエリアの要素を取得
       var startContainer = document.getElementById("startBtnContainer");
       var dailyContainer = document.getElementById("dailyBtnContainer");
+      var interiorContainer = document.getElementById("interiorBtnContainer");
+      var washContainer = document.getElementById("washBtnContainer");
+      var exteriorContainer = document.getElementById("exteriorBtnContainer");
+      var lendContainer = document.getElementById("lendBtnContainer");
+      var endContainer = document.getElementById("endBtnContainer");
 
       if (hasStarted === "true") {
         // 【状態B】開始ボタン押下後（リロード後）
+        // 全てのボタンを「有効（黄色）」にする
         
-        // 1. 点検開始ボタン: 「開始」のままグレーアウト（disable）
+        // 1. 点検開始: 済み（グレー）
         startContainer.innerHTML = '<p class="info-button disable">開始</p>';
 
-        // 2. 日常点検ボタン: 黄色（有効）になり、daily_check.html へ遷移可能
-        // 本番のクラス構造 <div class="info-button"><a...> を再現
+        // 2. 日常点検: 有効 (daily_check.htmlへ)
         dailyContainer.innerHTML = '<div class="info-button"><a href="daily_check.html"><span>点検</span></a></div>';
+
+        // 3. 車内清掃: 有効 (ダミーリンク)
+        interiorContainer.innerHTML = '<div class="info-button"><a href="#"><span>点検</span></a></div>';
+
+        // 4. 洗車: 有効 (ダミーリンク)
+        washContainer.innerHTML = '<div class="info-button"><a href="#"><span>点検</span></a></div>';
+
+        // 5. 外装確認: 有効 (ダミーリンク)
+        exteriorContainer.innerHTML = '<div class="info-button"><a href="#"><span>点検</span></a></div>';
+
+        // 6. 貸出準備: 有効 (ダミーリンク)
+        lendContainer.innerHTML = '<div class="info-button"><a href="#"><span>点検</span></a></div>';
+
+        // 7. 点検終了: 有効 (ダミーリンク)
+        endContainer.innerHTML = '<div class="info-button"><a href="#"><span>終了</span></a></div>';
 
       } else {
         // 【状態A】初期状態
+        // 点検開始だけ有効、他はグレー
         
-        // 1. 点検開始ボタン: 黄色（有効）
-        // クリックすると doStart() が走り、リロードされる
         startContainer.innerHTML = '<div class="info-button"><a href="javascript:void(0);" onclick="doStart()"><span>開始</span></a></div>';
-
-        // 2. 日常点検ボタン: グレーアウト（disable）
+        
         dailyContainer.innerHTML = '<p class="info-button disable">点検</p>';
+        interiorContainer.innerHTML = '<p class="info-button disable">点検</p>';
+        washContainer.innerHTML = '<p class="info-button disable">点検</p>';
+        exteriorContainer.innerHTML = '<p class="info-button disable">点検</p>';
+        lendContainer.innerHTML = '<p class="info-button disable">点検</p>';
+        endContainer.innerHTML = '<p class="info-button disable">終了</p>';
       }
     });
 
@@ -154,226 +178,40 @@
                 <div class="info-box">
                     <div class="check-state-area">
                         <div class="info-title-area"><p class="info-title">車内清掃</p></div>
-                        <div class="start-button-area">
-                            <p class="info-button disable">点検</p>
-                        </div>
+                        <div class="start-button-area" id="interiorBtnContainer">
+                            </div>
                     </div>
                 </div>
 
                 <div class="info-box">
                     <div class="check-state-area">
                         <div class="info-title-area"><p class="info-title">洗車</p></div>
-                        <div class="start-button-area">
-                            <p class="info-button disable">点検</p>
-                        </div>
+                        <div class="start-button-area" id="washBtnContainer">
+                            </div>
                     </div>
                 </div>
 
                 <div class="info-box">
                     <div class="check-state-area">
                         <div class="info-title-area"><p class="info-title">外装確認</p></div>
-                        <div class="start-button-area">
-                            <p class="info-button disable">点検</p>
-                        </div>
+                        <div class="start-button-area" id="exteriorBtnContainer">
+                            </div>
                     </div>
                 </div>
 
                 <div class="info-box">
                     <div class="check-state-area">
                         <div class="info-title-area"><p class="info-title">貸出準備</p></div>
-                        <div class="start-button-area">
-                            <p class="info-button disable">点検</p>
-                        </div>
+                        <div class="start-button-area" id="lendBtnContainer">
+                            </div>
                     </div>
                 </div>
 
                 <div class="info-box">
                     <div class="check-state-area">
                         <div class="info-title-area"><p class="info-title">点検終了</p></div>
-                        <div class="start-button-area">
-                            <p class="info-button disable">終了</p>
-                        </div>
-                    </div>
-                </div>
-
-              </div>
-            </div>
-          </div>
-  </main>
-  
-  <br><br>
-  <div style="text-align:center; margin-bottom: 20px;">
-      <button onclick="resetState()" style="padding:10px; background:#ddd;">[デバッグ用] 状態リセット</button>
-  </div>
-</body>
-</html><!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="robots" content="noindex"/>
-  
-  <title>点検詳細 (Test Mode)</title>
-
-  <link rel="stylesheet" type="text/css" href="https://dailycheck.tc-extsys.jp/css/font-awesome.min.css" />
-  <link rel="stylesheet" type="text/css" href="https://dailycheck.tc-extsys.jp/css/reset.css" />
-  <link rel="stylesheet" type="text/css" href="https://dailycheck.tc-extsys.jp/css/common.css" />
-  <link rel="stylesheet" type="text/css" href="https://dailycheck.tc-extsys.jp/css/taw0101002.css" />
-
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-  
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      // セッションストレージから「開始済みフラグ」を取得
-      var hasStarted = sessionStorage.getItem("inspectionStarted");
-      
-      var startContainer = document.getElementById("startBtnContainer");
-      var dailyContainer = document.getElementById("dailyBtnContainer");
-
-      if (hasStarted === "true") {
-        // 【状態B】開始ボタン押下後
-        
-        // 1. 開始ボタンエリア: 「予約中」などの表示に変更、または非活性化
-        // 現場の挙動に合わせて「開始」ボタンは消すか、非活性にします。
-        // ここではシンプルに「済み」状態として非活性表示にします。
-        startContainer.innerHTML = '<p class="info-button disable">開始済</p>';
-
-        // 2. 日常点検ボタンエリア: 黄色いボタン（<a>タグ）を表示
-        // クリックすると daily_check.html へ遷移
-        dailyContainer.innerHTML = '<div class="info-button"><a href="daily_check.html"><span>点検</span></a></div>';
-
-      } else {
-        // 【状態A】初期状態（まだ開始していない）
-
-        // 1. 開始ボタンエリア: 黄色いボタン（<a>タグ）を表示
-        // クリックすると doStart() が走り、リロードされる
-        startContainer.innerHTML = '<div class="info-button"><a href="javascript:void(0);" onclick="doStart()"><span>開始</span></a></div>';
-
-        // 2. 日常点検ボタンエリア: グレーのボタン（<p>タグ + disableクラス）を表示
-        dailyContainer.innerHTML = '<p class="info-button disable">点検</p>';
-      }
-    });
-
-    // 開始ボタンが押された時の処理
-    function doStart() {
-      // 1. 開始したことを記憶
-      sessionStorage.setItem("inspectionStarted", "true");
-      
-      // 2. リロード演出 (少し待ってからリロードするとリアルです)
-      setTimeout(function() {
-        window.location.reload();
-      }, 500);
-    }
-    
-    // テスト用に状態をリセットする裏ボタン（画面最下部に配置）
-    function resetState() {
-      sessionStorage.removeItem("inspectionStarted");
-      alert("状態をリセットしました。リロードします。");
-      window.location.reload();
-    }
-  </script>
-</head>
-<body>
-    
-    <header class="new-wb-header">
-      <nav>
-        <p class="userName2"><span>【ＴＳ委託】カーケアジャパン (Test)</span></p>
-        <div class="nav-menu">
-            <div id="nav-drawer">
-                <input id="nav-input" type="checkbox" class="nav-unshown" />
-                <label id="nav-open" for="nav-input"><span></span></label>
-                <div id="nav-content">
-                    <ul class="modalList">
-                        <li><a class="nav-link" href="menu.html">メニューへ</a></li>
-                        <li><a href="#" onclick="resetState(); return false;" style="color:red;">[Test] 状態リセット</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-      </nav>
-    </header>
-    
-  <main class="detail-main">
-      <div class="info-area">
-        <h1 class="car-another-title">点検トップ</h1>
-      </div>
-
-      <div class="tab-contents car-another-contents">
-          
-          <div class="car-list">
-            <h2 class="car-detail-title">車両情報</h2>
-            <div class="car-contents">
-              <table>
-                <tr>
-                  <th colspan="2">車両ナンバー</th>
-                  <td>相模 501 ワ 7725</td>
-                </tr>
-                <tr>
-                  <th colspan="2">車種名</th>
-                  <td>ヤリス(ハイブリッド)</td>
-                </tr>
-              </table>
-            </div>
-          </div>
-
-          <div class="car-list history">
-            <h2 class="car-detail-title">点検詳細</h2>
-            
-            <div class="info-box">
-              <div class="check-state-area">
-                <div class="info-title-area">
-                  <p class="info-title">点検開始</p>
-                </div>
-                <div class="start-button-area" id="startBtnContainer">
-                  </div>
-              </div>
-              <div class="check-history-area">
-                  <div class="history-contents reservation">
-                    <p class="inquiry-text">01月03日 06:15 ～ 06:45</p>
-                    <p class="inquiry-text"><span>予約中</span></p>
-                  </div>
-              </div>
-            </div>
-            
-            <div class="is-rental">
-                <div>
-                  <p class="mt15 txt-red">ブレーキ点灯確認バーを使用する際は、車両が動かないよう点検開始前にタイヤストッパーを必ず設置してください</p>
-                </div>
-                
-                <div class="info-box">
-                  <div class="check-state-area">
-                    <div class="info-title-area">
-                      <p class="info-title">日常点検</p>
-                      </div>
-                    
-                    <div class="start-button-area" id="dailyBtnContainer">
-                       </div>
-                  </div>
-                  
-                  <div class="check-history-area">
-                    <div class="history-state">
-                      <p>前回</p>
-                      <div>
-                        <div class="state-mark">
-                          <img src="https://dailycheck.tc-extsys.jp/images/icon-history-ok.png" />
-                        </div>
-                      </div>
-                    </div>
-                    <div class="history-contents">
-                      <p>2025/12/20 23:02</p>
-                    </div>
-                  </div>
-                </div>
-                
-                <div class="info-box">
-                    <div class="check-state-area">
-                        <div class="info-title-area"><p class="info-title">車内清掃</p></div>
-                        <div class="start-button-area">
-                            <p class="info-button disable">点検</p>
-                        </div>
+                        <div class="start-button-area" id="endBtnContainer">
+                            </div>
                     </div>
                 </div>
 
