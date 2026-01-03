@@ -1,67 +1,123 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="robots" content="noindex"/>
-  
-  <title>ログイン (Test Mode)</title>
-
-  <link rel="stylesheet" type="text/css" href="https://dailycheck.tc-extsys.jp/css/font-awesome.min.css" />
-  <link rel="stylesheet" type="text/css" href="https://dailycheck.tc-extsys.jp/css/reset.css" />
-  <link rel="stylesheet" type="text/css" href="https://dailycheck.tc-extsys.jp/css/common.css" />
-
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
-  <script>
-    function attemptLogin() {
-      // 入力値を取得
-      var id1 = document.getElementById("cardNo1").value;
-      var id2 = document.getElementById("cardNo2").value;
-      var pw = document.getElementById("password").value;
-
-      // 本番のID・パスワードと照合
-      // ID: 0030 - 927583
-      // PASS: Ccj-222223
-      if (id1 === "0030" && id2 === "927583" && pw === "Ccj-222223") {
-        // 成功したらメニューへ遷移
-        console.log("Login Success");
-        window.location.href = "menu.html";
-      } else {
-        // 失敗したらアラートを表示
-        alert("認証失敗\n\n正しいIDとパスワードを入力してください。\n(Pythonスクリプトの入力値を確認してください)");
-      }
-    }
-  </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>車両詳細（メニュー）</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 </head>
 <body>
-  
-  <main class="main-login">
-  <div class="main-contents is-login">
-    <form onsubmit="return false;">
-      <input type="hidden" name="_csrf" value="test_token"/>
-      <input type="hidden" id="cardNo" name="cardNo" value="" />
-      
-      <div class="form-group">
-        <p class="login-title">ログインID</p>
-        <div class="flex-layout">
-          <input type="number" maxlength="100" inputmode="numeric" id="cardNo1" name="cardNo1" value="" placeholder="" />
-          &nbsp;<span class="mt10">-</span>&nbsp;
-          <input type="number" maxlength="100" inputmode="numeric" id="cardNo2" name="cardNo2" value="" placeholder="" />
+    <header class="header">
+        <div class="header-inner">
+            <p>【ＴＳ委託】カーケアジャパン</p>
+            <div class="menu-icon">≡</div>
         </div>
-      </div>
+    </header>
 
-      <div class="form-group">
-        <p class="login-title">パスワード</p>
-        <input type="password" maxlength="20" id="password" name="password" value="" />
-      </div>
+    <main class="main-container">
+        <div class="page-header">
+            <h1>点検トップ</h1>
+            <span class="car-no">相模 7725</span>
+        </div>
 
-      <button type="button" class="btn btn-primary" onclick="attemptLogin()">ログイン</button>
-    </form>
-  </div>
-  </main>
+        <div class="car-info-section">
+            <h2>車両情報</h2>
+            <div class="car-contents">
+                <table>
+                    <tr>
+                        <th>車両ナンバー</th>
+                        <td>相模 501 ワ 7725</td>
+                    </tr>
+                    <tr>
+                        <th>車種名</th>
+                        <td>ヤリス(ハイブリッド)</td>
+                    </tr>
+                    <tr>
+                        <th>車台番号</th>
+                        <td>MXPH102128987</td>
+                    </tr>
+                    <tr>
+                        <th>燃料残量</th>
+                        <td>◎（75～100％）</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h3 style="justify-content: space-between;">
+                日常点検
+                <span id="badge-daily" style="background:#d32f2f; color:#fff; font-size:0.8em; padding:2px 8px; border-radius:10px;">未実施</span>
+            </h3>
+            <p class="desc">エンジンルーム、タイヤ、車載品などの確認</p>
+            <div style="text-align:center; margin-top:10px;">
+                <a href="daily_check.html" id="btn-daily" class="btn-yellow" style="display:block; text-decoration:none; text-align:center;">点検</a>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h3 style="justify-content: space-between;">
+                車内清掃
+                <span id="badge-interior" style="background:#d32f2f; color:#fff; font-size:0.8em; padding:2px 8px; border-radius:10px;">未実施</span>
+            </h3>
+            <p class="desc">ゴミ回収、掃除機、窓拭きなど</p>
+            <div style="text-align:center; margin-top:10px;">
+                <a href="interior.html" id="btn-interior" class="btn-yellow" style="display:block; text-decoration:none; text-align:center;">点検</a>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h3 style="justify-content: space-between;">
+                洗車
+                <span id="badge-wash" style="background:#d32f2f; color:#fff; font-size:0.8em; padding:2px 8px; border-radius:10px;">未実施</span>
+            </h3>
+            <p class="desc">水洗い、拭き上げ、タイヤワックス</p>
+            <div style="text-align:center; margin-top:10px;">
+                <a href="wash.html" id="btn-wash" class="btn-yellow" style="display:block; text-decoration:none; text-align:center;">点検</a>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h3 style="justify-content: space-between;">
+                外装確認
+                <span id="badge-exterior" style="background:#d32f2f; color:#fff; font-size:0.8em; padding:2px 8px; border-radius:10px;">未実施</span>
+            </h3>
+            <p class="desc">傷・ヘコミのチェック</p>
+            <div style="text-align:center; margin-top:10px;">
+                <a href="exterior.html" id="btn-exterior" class="btn-yellow" style="display:block; text-decoration:none; text-align:center;">点検</a>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h3 style="justify-content: space-between;">
+                貸出準備
+                <span id="badge-lend" style="background:#d32f2f; color:#fff; font-size:0.8em; padding:2px 8px; border-radius:10px;">未実施</span>
+            </h3>
+            <p class="desc">三角停止板、ジュニアシート等の最終確認</p>
+            <div style="text-align:center; margin-top:10px;">
+                <a href="lend_prep.html" id="btn-lend" class="btn-yellow" style="display:block; text-decoration:none; text-align:center;">点検</a>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="footer-button single">
+                <a href="#" class="is-complete" onclick="alert('全業務完了としてサーバー送信する処理（ダミー）'); return false;">
+                    <p>業務終了報告</p>
+                </a>
+            </div>
+        </div>
+
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        // ページ読み込み時に完了状態をチェックして表示を更新
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof updateIndexStatus === 'function') {
+                updateIndexStatus();
+            }
+        });
+    </script>
 </body>
 </html>
