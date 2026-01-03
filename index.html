@@ -33,28 +33,28 @@
 
       if (hasStarted === "true") {
         // 【状態B】開始ボタン押下後（リロード後）
-        // 全てのボタンを「有効（黄色）」にする
+        // 全てのボタンを有効にし、それぞれ別のファイルへリンクさせる
         
         // 1. 点検開始: 済み（グレー）
         startContainer.innerHTML = '<p class="info-button disable">開始</p>';
 
-        // 2. 日常点検: 有効 (daily_check.htmlへ)
+        // 2. 日常点検: daily_check.html
         dailyContainer.innerHTML = '<div class="info-button"><a href="daily_check.html"><span>点検</span></a></div>';
 
-        // 3. 車内清掃: 有効 (ダミーリンク)
-        interiorContainer.innerHTML = '<div class="info-button"><a href="#"><span>点検</span></a></div>';
+        // 3. 車内清掃: interior.html (NEW)
+        interiorContainer.innerHTML = '<div class="info-button"><a href="interior.html"><span>点検</span></a></div>';
 
-        // 4. 洗車: 有効 (ダミーリンク)
-        washContainer.innerHTML = '<div class="info-button"><a href="#"><span>点検</span></a></div>';
+        // 4. 洗車: wash.html (NEW)
+        washContainer.innerHTML = '<div class="info-button"><a href="wash.html"><span>点検</span></a></div>';
 
-        // 5. 外装確認: 有効 (ダミーリンク)
-        exteriorContainer.innerHTML = '<div class="info-button"><a href="#"><span>点検</span></a></div>';
+        // 5. 外装確認: exterior.html (NEW)
+        exteriorContainer.innerHTML = '<div class="info-button"><a href="exterior.html"><span>点検</span></a></div>';
 
-        // 6. 貸出準備: 有効 (ダミーリンク)
-        lendContainer.innerHTML = '<div class="info-button"><a href="#"><span>点検</span></a></div>';
+        // 6. 貸出準備: lend.html (NEW)
+        lendContainer.innerHTML = '<div class="info-button"><a href="lend.html"><span>点検</span></a></div>';
 
-        // 7. 点検終了: 有効 (ダミーリンク)
-        endContainer.innerHTML = '<div class="info-button"><a href="#"><span>終了</span></a></div>';
+        // 7. 点検終了: end.html (NEW)
+        endContainer.innerHTML = '<div class="info-button"><a href="end.html"><span>終了</span></a></div>';
 
       } else {
         // 【状態A】初期状態
