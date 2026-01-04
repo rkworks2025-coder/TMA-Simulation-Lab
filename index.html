@@ -18,73 +18,8 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   
   <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      // セッションストレージから「開始済みフラグ」を取得
-      var hasStarted = sessionStorage.getItem("inspectionStarted");
-      
-      // 各ボタンエリアの要素を取得
-      var startContainer = document.getElementById("startBtnContainer");
-      var dailyContainer = document.getElementById("dailyBtnContainer");
-      var interiorContainer = document.getElementById("interiorBtnContainer");
-      var washContainer = document.getElementById("washBtnContainer");
-      var exteriorContainer = document.getElementById("exteriorBtnContainer");
-      var lendContainer = document.getElementById("lendBtnContainer");
-      var endContainer = document.getElementById("endBtnContainer");
-
-      if (hasStarted === "true") {
-        // 【状態B】開始ボタン押下後（リロード後）
-        // 全てのボタンを有効にし、既存のファイルへリンクさせる
-        
-        // 1. 点検開始: 済み（グレー）
-        startContainer.innerHTML = '<p class="info-button disable">開始</p>';
-
-        // 2. 日常点検: daily_check.html
-        dailyContainer.innerHTML = '<div class="info-button"><a href="daily_check.html"><span>点検</span></a></div>';
-
-        // 3. 車内清掃: interior.html (実在ファイル)
-        interiorContainer.innerHTML = '<div class="info-button"><a href="interior.html"><span>点検</span></a></div>';
-
-        // 4. 洗車: wash.html (実在ファイル)
-        washContainer.innerHTML = '<div class="info-button"><a href="wash.html"><span>点検</span></a></div>';
-
-        // 5. 外装確認: exterior.html (実在ファイル)
-        exteriorContainer.innerHTML = '<div class="info-button"><a href="exterior.html"><span>点検</span></a></div>';
-
-        // 6. 貸出準備: lend_prep.html (実在ファイル・名前修正済み)
-        lendContainer.innerHTML = '<div class="info-button"><a href="lend_prep.html"><span>点検</span></a></div>';
-
-        // 7. 点検終了: end.html (※これのみ新規作成が必要)
-        endContainer.innerHTML = '<div class="info-button"><a href="end.html"><span>終了</span></a></div>';
-
-      } else {
-        // 【状態A】初期状態
-        // 点検開始だけ有効、他はグレー
-        
-        startContainer.innerHTML = '<div class="info-button"><a href="javascript:void(0);" onclick="doStart()"><span>開始</span></a></div>';
-        
-        dailyContainer.innerHTML = '<p class="info-button disable">点検</p>';
-        interiorContainer.innerHTML = '<p class="info-button disable">点検</p>';
-        washContainer.innerHTML = '<p class="info-button disable">点検</p>';
-        exteriorContainer.innerHTML = '<p class="info-button disable">点検</p>';
-        lendContainer.innerHTML = '<p class="info-button disable">点検</p>';
-        endContainer.innerHTML = '<p class="info-button disable">終了</p>';
-      }
-    });
-
-    // 開始処理（リロード演出）
-    function doStart() {
-      sessionStorage.setItem("inspectionStarted", "true");
-      setTimeout(function() {
-        window.location.reload();
-      }, 500);
-    }
-    
-    // テストリセット用
-    function resetState() {
-      sessionStorage.removeItem("inspectionStarted");
-      alert("状態をリセットしました。初期状態に戻ります。");
-      window.location.reload();
-    }
+    // 状態制御用JSは削除しました。
+    // 常に「点検開始済み」の状態として表示されます。
   </script>
 </head>
 <body>
@@ -99,7 +34,6 @@
                 <div id="nav-content">
                     <ul class="modalList">
                         <li><a class="nav-link" href="menu.html">メニューへ戻る</a></li>
-                        <li><a href="#" onclick="resetState(); return false;" style="color:red;">[Test] 状態リセット</a></li>
                     </ul>
                 </div>
             </div>
@@ -139,7 +73,8 @@
                   <p class="info-title">点検開始</p>
                 </div>
                 <div class="start-button-area" id="startBtnContainer">
-                  </div>
+                    <p class="info-button disable">開始</p>
+                </div>
               </div>
               <div class="check-history-area">
                   <div class="history-contents reservation">
@@ -160,7 +95,8 @@
                       <p class="info-title">日常点検</p>
                     </div>
                     <div class="start-button-area" id="dailyBtnContainer">
-                       </div>
+                        <div class="info-button"><a href="daily_check.html"><span>点検</span></a></div>
+                    </div>
                   </div>
                   <div class="check-history-area">
                     <div class="history-state">
@@ -179,7 +115,8 @@
                     <div class="check-state-area">
                         <div class="info-title-area"><p class="info-title">車内清掃</p></div>
                         <div class="start-button-area" id="interiorBtnContainer">
-                            </div>
+                            <div class="info-button"><a href="interior.html"><span>点検</span></a></div>
+                        </div>
                     </div>
                 </div>
 
@@ -187,7 +124,8 @@
                     <div class="check-state-area">
                         <div class="info-title-area"><p class="info-title">洗車</p></div>
                         <div class="start-button-area" id="washBtnContainer">
-                            </div>
+                            <div class="info-button"><a href="wash.html"><span>点検</span></a></div>
+                        </div>
                     </div>
                 </div>
 
@@ -195,7 +133,8 @@
                     <div class="check-state-area">
                         <div class="info-title-area"><p class="info-title">外装確認</p></div>
                         <div class="start-button-area" id="exteriorBtnContainer">
-                            </div>
+                            <div class="info-button"><a href="exterior.html"><span>点検</span></a></div>
+                        </div>
                     </div>
                 </div>
 
@@ -203,7 +142,8 @@
                     <div class="check-state-area">
                         <div class="info-title-area"><p class="info-title">貸出準備</p></div>
                         <div class="start-button-area" id="lendBtnContainer">
-                            </div>
+                            <div class="info-button"><a href="lend_prep.html"><span>点検</span></a></div>
+                        </div>
                     </div>
                 </div>
 
@@ -211,7 +151,8 @@
                     <div class="check-state-area">
                         <div class="info-title-area"><p class="info-title">点検終了</p></div>
                         <div class="start-button-area" id="endBtnContainer">
-                            </div>
+                            <div class="info-button"><a href="end.html"><span>終了</span></a></div>
+                        </div>
                     </div>
                 </div>
 
@@ -219,10 +160,5 @@
             </div>
           </div>
   </main>
-  
-  <br><br>
-  <div style="text-align:center; margin-bottom: 20px;">
-      <button onclick="resetState()" style="padding:10px; background:#ddd;">[デバッグ用] 状態リセット</button>
-  </div>
 </body>
 </html>
