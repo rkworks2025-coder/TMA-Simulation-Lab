@@ -1,0 +1,35 @@
+.new-wb-header .userName span {
+  vertical-align: middle;
+}
+
+header.new-wb-header .userName {
+  line-height: 27px;
+}
+
+.alert-danger p {
+  font-size: 15px;
+}
+
+.alert-danger .alert-list:before {
+  width: 15px;
+  height: 15px;
+}
+
+#pagetop {
+  bottom: 80px;
+}
+
+.car-label {
+  background: #f4f4f4;
+  display: inline-block;
+  font-size: 17px;
+  font-weight: bold;
+  height: 23px;
+  line-height: 23px;
+  margin: 0 0 3px 15px;
+  border: 1px solid #333333;
+  border-radius: 2px;
+  text-align: center;
+  vertical-align: middle;
+  padding: 0 6px;
+}

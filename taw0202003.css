@@ -1,0 +1,699 @@
+.maintenance {
+  padding-bottom: 150px;
+}
+
+.maintenance .info-area .car-another-title {
+  font-size: 23px;
+}
+
+.detail-main .car-list .car-detail-title {
+  font-size: 23px;
+  padding: 10px 3%;
+}
+
+.maintenance .tab .tab-button {
+  border-left: 1px solid #999;
+}
+
+.maintenance .tab .tab-button a {
+  font-size: 21px;
+  font-weight: normal;
+}
+
+.maintenance .tab .tab-button.active a {
+  font-weight: bold;
+}
+
+.maintenance .tab-fixed {
+  height: 53px;
+}
+
+.link-btn a {
+  text-align: center;
+  padding: 5px 10px;
+  margin: 0 10px;
+  display: inline-block;
+  box-sizing: border-box;
+  border: 1px solid #fed600;
+  border-radius: 3px;
+  background: #fed600;
+  font-weight: bold;
+  color: #333;
+  text-decoration: none;
+  box-shadow: 0 1px rgba(0, 0, 0, 0.2);
+  text-shadow: 0 1px rgba(255, 255, 255, 0.5);
+}
+
+.submit-btn {
+  text-align: center;
+  padding: 5px 10px;
+  display: inline-block;
+  box-sizing: border-box;
+  border: 1px solid #ffffff;
+  border-radius: 3px;
+  background: #ffffff;
+  font-weight: bold;
+  color: #333;
+  text-decoration: none;
+  box-shadow: 0 1px rgba(0, 0, 0, 0.2);
+  text-shadow: 0 1px rgba(255, 255, 255, 0.5);
+}
+
+.hidden-btn {
+  display: none;
+}
+
+.car-list-box {
+  width: 96.6%;
+  margin: 25px 1.7%;
+  border: 1px solid #afafaf;
+  background: #fff;
+  font-size: 0;
+  box-sizing: border-box;
+}
+
+.info-count + .car-list-box {
+  margin: 20px 1.7% 25px;
+}
+
+.car-list-top-area {
+  padding: 10px 15px 10px 12px;
+  background-color: #dcdcdc;
+}
+
+.car-list-title-area {
+  vertical-align: middle;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.car-list-title-area table {
+  width: 100%;
+  position: relative;
+  font-size: 20px;
+}
+
+.car-list-title-area table .booked-info {
+  padding-top: 6px;
+}
+
+.car-list-title-area table .booked-info span {
+  font-size: 18px;
+  line-height: 30px;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+.car-list-title-area table .booked-info span img {
+  width: 30px;
+  height: 30px;
+  vertical-align: middle;
+}
+
+.car-list-title-area table .booked-info span span:nth-child(4) img {
+  margin-left: 12px;
+}
+
+.car-list-title-area table .btn-td {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.car-list-title-area table .submit-btn {
+  font-size: 20px;
+  line-height: 30px;
+  padding: 1px 15px;
+  box-shadow: none;
+}
+
+.detail-main .car-list .car-contents {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.detail-main .car-list .car-contents table {
+  border: none;
+}
+
+.detail-main .car-list .car-contents table tr {
+  border: none;
+}
+
+.detail-main .car-list .car-contents table td {
+  padding: 0;
+  background: #fff;
+  font-size: 21px;
+  line-height: 1.4;
+}
+
+.detail-main .car-list .car-contents table td.station-row {
+  padding-top: 20px;
+}
+
+.detail-main .car-list .car-contents table .link-row::before {
+  content: '';
+  display: inline-block;
+  border-top: 7px solid transparent;
+  border-left: 9px solid #333;
+  border-bottom: 7px solid transparent;
+}
+
+.detail-main .car-list .car-contents table .route-link {
+  display: inline-block;  
+  margin-top: 5px;
+}
+
+.detail-main .car-list .car-contents table .route-ttl {
+  margin-right: 5px;
+  display: inline-block;
+}
+
+.detail-main .car-list .car-contents table .route-link .link-row {
+  margin-right: 20px;
+  display: inline-block;
+}
+
+.detail-main .car-list .car-contents table td.status-row {
+  padding-top: 10px;
+  text-align: right;
+}
+
+.detail-main .car-list .car-contents table td.status-row .status-wrapper {
+  display:-webkit-box;
+  display:-ms-flexbox;
+  display:flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.detail-main .car-list .car-contents table td.status-row .status-el {
+  margin-left: 20px;
+  vertical-align: middle;
+}
+
+.detail-main .car-list .car-contents table td.status-row .status-el:first-child {
+  margin-left: 0;
+}
+
+.detail-main .car-list .car-contents table td.status-row span {
+  display: inline-block;
+  font-size: 18px;
+}
+
+.detail-main .car-list .car-contents table td.status-row .priority-icon.high,
+.detail-main .car-list .car-contents table td.status-row .priority-icon.middle,
+.detail-main .car-list .car-contents table td.status-row .priority-icon.low,
+.detail-main .car-list .car-contents table td.status-row .priority-icon.none {
+  width: 35px;
+  height: 33px;
+  line-height: 33px;
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+}
+
+.detail-main .car-list .car-contents table td.status-row span.high {
+  background-color: #333333;
+}
+
+.detail-main .car-list .car-contents table td.status-row span.middle {
+  background-color: #D10606;
+}
+
+.detail-main .car-list .car-contents table td.status-row span.low {
+  background-color: #A57515;
+}
+
+.detail-main .car-list .car-contents table td.status-row span.none {
+  color: #333;
+}
+
+.car-list-bottom-area {
+  padding: 20px;
+  position: relative;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.other-btn-area {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.other-btn-area span {
+  display: inline-block;
+  width: 260px;
+  height: 60px;
+  margin-right: 16px;
+}
+
+.other-btn-area span:last-child {
+  margin-right: 0;
+}
+
+.other-btn-area span button {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #afafaf;
+  font-size: 25px;
+  position: relative;
+}
+
+.other-btn-area .link-btn a {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  line-height: 60px;
+  font-size: 25px;
+  position: relative;
+}
+
+.other-btn-area span button::after,
+.other-btn-area .link-btn a::after {
+  content: '';
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-top: 3px solid #333;
+  border-right: 3px solid #333;
+  transform: rotate(45deg);
+  -wekit-transform: rotate(45deg);
+  bottom: 25px;
+  right: 10px;
+}
+
+.alert-danger .alert-list {
+  font-weight: bold;
+  color: #d10606;
+  line-height: 1.35;
+  margin-top: 9px;
+  position: relative;
+}
+
+/*完了一覧completeList向け暫定css*/
+.detail-main .info-area {
+    margin: 0 3% 17px;
+}
+
+.detail-main .car-list .info-count {
+    width: 94%;
+    margin: 20px 3%;
+    padding: 0;
+}
+
+.detail-main .car-list .info-count span {
+    font-size: 23px;
+    font-weight: bold;
+    line-height: 1.4;
+}
+
+.detail-main .car-list .info-main {
+    width: 96.6%;
+    margin: 25px 1.7%;
+    border: 1px solid #afafaf;
+    background: #fff;
+    font-size: 0;
+    box-sizing: border-box;
+    padding: 0px 0 20px 0;
+    position: relative;
+}
+
+.detail-main .car-list .info-main:last-child {
+  margin-bottom: 100px;
+}
+
+.info-count + .detail-main .car-list .info-main {
+    margin: 20px 1.7% 25px;
+}
+
+.detail-main .car-list .info-main .car-list-top-area {
+    padding: 10px 15px 10px 12px;
+    background-color: #dcdcdc;
+    vertical-align: middle;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 1.3;
+}
+
+.detail-main .car-list .info-main .check-state-area {
+    padding: 20px 15px 0 15px;
+}
+
+.detail-main .car-list .info-main .info-title-area .info-contents {
+    font-size: 21px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.detail-main .car-list .info-main .info-title-area .info-contents span {
+    display: inline-block;
+    line-height: 1.4;
+}
+
+.detail-main .car-list .info-main .info-button-area {
+    display: inline-block;
+    vertical-align: middle;
+    position: absolute;
+    bottom: 26px;
+    right: 15px;
+}
+
+.detail-main .car-list .info-main .info-button a {
+    width: 110px;
+    height: 75px;
+    line-height: 75px;
+    font-size: 25px;
+    background: #fed600;
+    color: #333;
+    border-radius: 3px;
+    border: 1px solid #fed600;
+    box-shadow: 0px 1px 0px #0000004D;
+    font-weight: bold;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    position: relative;
+    box-sizing: border-box;
+    text-shadow: 0 1px rgba(255, 255, 255, 0.5);
+}
+
+.detail-main .car-list .info-main .info-button a:after {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-top: 3px solid #333;
+    border-right: 3px solid #333;
+    transform: rotate(45deg);
+    bottom: 31px;
+    right: 8px;
+}
+
+/* 検索条件 アコーディオン */
+.tab-contents .filter {
+  margin: 20px 0;
+  border-top: 1px solid #AFAFAF;
+  border-bottom: 1px solid #AFAFAF;
+  padding: 15px;
+  background-color: #fff;
+}
+
+.filter-item {
+  margin-top: 25px;
+}
+
+.tab-contents .contents-block {
+  padding: 0;
+}
+
+.tab-contents .contents-block h3 {
+  clear: both;
+  font-size: 20px;
+  font-weight: normal;
+  margin-bottom: 0;
+  line-height: 1;
+}
+
+.tab-contents .contents-block input[type="text"] {
+  width: 100%;
+  border: 1px solid #AFAFAF;
+  margin-top: 12px;
+  height: 60px;
+  line-height: 1.0;
+  font-size: 20px;
+  padding: 15px;
+}
+
+.tab-contents .contents-block input[type="text"]::placeholder {
+  color: #DCDCDC;
+}
+
+.tab-contents .contents-block input[type="text"]:focus {
+    outline: none;
+}
+
+#reserveCondition-toggle,
+#completeCondition-toggle {
+  float: right;
+  font-weight: bold;
+}
+
+.tab-contents .content-radio {
+  margin-top: 10px
+}
+
+.tab-contents .content-radio .radio-select+label {
+  font-size: 20px;
+}
+
+.tab-contents .content-radio.tripleChoices .content-radio-block {
+  padding: 15px 15px 15px 0px;
+}
+
+.tab-contents .content-radio.tripleChoices .radio-select+label {
+  padding-left: 42px;
+}
+
+.content-addConditions {
+  margin-top: 12px;
+  background: #F4F4F4;
+  padding: 15px;
+}
+
+.content-addConditions .check-title {
+  font-size: 20px;
+  line-height: 1.0;
+  vertical-align: middle;
+}
+
+.content-addConditions input[type=checkbox] {
+  display: none;
+}
+
+.content-addConditions .check-box {
+  position: relative;
+  display: inline-block;
+  margin-right: 10px;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #AFAFAF;
+  vertical-align: text-top;
+  border-radius: 0;
+  box-sizing: border-box;
+}
+
+.content-addConditions .checked {
+  position: absolute;
+  width: 5px;
+  height: 9px;
+  border-right: 3px solid #DDDDDD;
+  border-bottom: 3px solid #DDDDDD;
+  transform: rotate(45deg);
+  opacity: 1;
+  z-index: 5;
+  top: 1px;
+  left: 4px;
+}
+
+.content-addConditions input[type=checkbox]:checked~.check-box {
+  background-color: #333333;
+  border: 2px solid #333333;
+}
+
+.content-addConditions input[type=checkbox]:checked~.check-box .checked {
+  border-right: 3px solid #fff;
+  border-bottom: 3px solid #fff;
+}
+
+#reserveConditions-button .btn,
+#completeConditions-button .btn {
+  margin: 20px 0 5px;
+  box-sizing: border-box;
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
+  font-size: 25px;
+  box-shadow: 0px 1px 0px #0000004D;
+  color: #333;
+  background: #fed600;
+  border-radius: 3px;
+  border: 1px solid #fed600;
+  text-decoration: none;
+  text-align: center;
+  text-shadow: 0 1px rgba(255, 255, 255, 0.5);
+  font-weight: bold;
+  outline: none;
+}
+
+@media screen and (max-width: 428px) {
+  .maintenance .info-area .car-another-title {
+    font-size: 18px;
+  }
+
+  .maintenance .tab .tab-button a {
+    font-size: 16px;
+  }
+  
+  .info-count + .car-list-box {
+    margin: 16px 3% 20px;
+  }
+  
+  .detail-main .car-list .car-contents table td.status-row .status-el {
+    margin-bottom: 5px;
+  }
+  
+  .car-list-box {
+    width: 94%;
+  }
+
+  .car-list-title-area table {
+    font-size: 16px;
+  }
+
+  .car-list-title-area table tr td:first-child {
+  }
+
+  .car-list-title-area table .btn-td {
+    vertical-align: middle;
+    position: static;
+    right: auto;
+    top: auto;
+    transform: none;
+  }
+
+  .car-list-title-area table .submit-btn {
+    padding: 1px 7px;
+    font-size: 14px;
+    line-height: 26px;
+    width: 60px;
+  }
+
+  .car-list-title-area table .booked-info span {
+    font-size: 14px;
+    line-height: inherit;
+  }
+
+  .car-list-title-area table .booked-info span img {
+    width: 22px;
+    height: 22px;
+  }
+
+  .car-list-top-area {
+    padding: 10px 3%;
+  }
+
+  .car-list-bottom-area {
+    padding: 12px 3% 16px;
+  }
+
+  .detail-main .car-list .car-contents table td {
+    font-size: 14px;
+  }
+
+  .detail-main .car-list .info-count {
+    margin: 16px 3%;
+  }
+
+  .detail-main .car-list .info-count span {
+    font-size: 16px;
+  }
+
+  .detail-main .car-list .car-contents table td.station-row {
+    padding-top: 10px;
+  }
+
+  .detail-main .car-list .car-contents table .station-alert {
+    padding-top: 10px;
+  }
+
+  .detail-main .car-list .car-contents table td.status-row span {
+    font-size: 14px;
+  }
+
+  .detail-main .car-list .car-contents table td.status-row .priority-icon.high,
+  .detail-main .car-list .car-contents table td.status-row .priority-icon.middle,
+  .detail-main .car-list .car-contents table td.status-row .priority-icon.low,
+  .detail-main .car-list .car-contents table td.status-row .priority-icon.none {
+    width: 30px;
+    height: 26px;
+    line-height: 26px;
+  }
+
+  .detail-main .car-list .info-main {
+    width: 94%;
+    margin: 16px 3% 20px;
+    padding-bottom: 16px;
+  }
+
+  .detail-main .car-list .info-main .info-title-area .info-contents {
+    font-size: 14px;
+  }
+
+  .detail-main .car-list .info-main .info-button-area {
+    position: static;
+    bottom: auto;
+    right: auto
+  }
+
+  .detail-main .car-list .info-main .check-state-area {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 3% 0;
+  }
+
+  .detail-main .car-list .info-main .info-button a {
+    height: 44px;
+    line-height: 44px;
+    font-size: 16px;
+  }
+
+  .detail-main .car-list .info-main .info-button a:after {
+    width: 6px;
+    height: 6px;
+    bottom: 16px;
+  }
+
+  .other-btn-area {
+    margin-top: 15px;
+  }
+
+  .other-btn-area span {
+    width: 50%;
+    height: auto;
+  }
+
+  .other-btn-area .link-btn a {
+    height: 44px;
+    line-height: 44px;
+    font-size: 16px;
+  }
+
+  .other-btn-area span button {
+    font-size: 16px;
+  }
+
+  .other-btn-area span button::after,
+  .other-btn-area .link-btn a::after {
+    width: 6px;
+    height: 6px;
+    bottom: 18px;
+  }
+
+  .txt-xs {
+    font-size: 14px;
+  }
+  
+}
