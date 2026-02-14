@@ -20,12 +20,19 @@
 .tab-button.active a { border-bottom: 3px solid #e60012; font-weight: bold; color: #e60012; }
 .tab-contents { display: none; padding-bottom: 20px; }
 .tab-contents.active { display: block; }
-.footer { position: fixed; bottom: 0; width: 100%; z-index: 1000; }
 .main { padding-bottom: 100px; }
+/* フッターボタン横並び用カスタムスタイル */
+.footer-button-triple { display: flex !important; width: 100%; height: 60px; background: #fff; border-top: 1px solid #ccc; }
+.footer-button-triple a { flex: 1; display: flex; align-items: center; justify-content: center; text-decoration: none; color: #333; border-right: 1px solid #ccc; font-weight: bold; font-size: 16px; }
+.footer-button-triple a:last-child { border-right: none; }
+.footer-button-triple a.btn-complete { background-color: #ffd700; color: #000; }
+.footer-button-triple a::before { display: none !important; }
+.footer-button-triple p { margin: 0; padding: 0; }
+.footer { position: fixed; bottom: 0; width: 100%; z-index: 1000; }
 </style>
 </head>
 <body>
-<header class="new-wb-header"><nav><p class="userName2"><span>【ＴＳ委託】カーケアジャパン (練習用ダミー v2.0)</span></p><br><div class="nav-menu"><div id="nav-drawer"><input id="nav-input" type="checkbox" class="nav-unshown" /><label id="nav-open" for="nav-input"><span></span></label><div id="nav-content"><br><div class="modal-header"><p>メニュー</p></div><br><ul class="modalList"><li><a class="nav-link" href="index.html">トップ</a></li><li><input type="button" value="ログアウト" /></li></ul></div></div></div></nav></header>
+<header class="new-wb-header"><nav><p class="userName2"><span>【ＴＳ委託】カーケアジャパン (練習用ダミー v2.1)</span></p><br><div class="nav-menu"><div id="nav-drawer"><input id="nav-input" type="checkbox" class="nav-unshown" /><label id="nav-open" for="nav-input"><span></span></label><div id="nav-content"><br><div class="modal-header"><p>メニュー</p></div><br><ul class="modalList"><li><a class="nav-link" href="index.html">トップ</a></li><li><input type="button" value="ログアウト" /></li></ul></div></div></div></nav></header>
 
 <main class="main">
 <form method="POST" action="" accept-charset="utf-8" onsubmit="return false;">
@@ -127,10 +134,10 @@
 </div></div></div>
 
 <footer class="footer">
-<div class="footer-button">
-<a href="index.html" class="is-stop"><p>中止</p></a>
-<a href="index.html" class="is-stop"><p>一時保存</p></a>
-<a href="javascript:void(0);" onclick="completeDailyCheck();" class="is-complete"><p>完了</p></a>
+<div class="footer-button-triple">
+<a href="index.html" class="btn-cancel"><p>中止</p></a>
+<a href="index.html" class="btn-save"><p>一時保存</p></a>
+<a href="javascript:void(0);" onclick="completeDailyCheck();" class="btn-complete"><p>完了</p></a>
 </div>
 </footer>
 </form>
