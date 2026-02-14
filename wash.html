@@ -3,31 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>洗車</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>洗車（入力）</title>
+    
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="css/common.css" />
+    
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script>
+        $(function() {
+            // 初期化：データ復元
+            loadFormData();
+
+            // 一時保存ボタン
+            $('#btn-temporary').on('click', function(e) {
+                e.preventDefault();
+                saveFormData();
+                localStorage.setItem('dummy_status_wash', 'temporary');
+                alert('入力内容を一時保存しました。');
+                location.href = 'index.html';
+            });
+
+            // 完了ボタン
+            $('#btn-complete').on('click', function(e) {
+                e.preventDefault();
+                saveFormData();
+
+                // 完了時は常にOKとする（NGの概念がこの項目にない場合）
+                // ※もし「洗車不要」などもOK扱いなら、単純にOK保存
+                localStorage.setItem('dummy_status_wash', 'ok');
+                alert('洗車報告を完了しました。\nステータス：点検OK');
+                
+                location.href = 'index.html';
+            });
+        });
+
+        function saveFormData() {
+            var formData = {};
+            $('input[type="radio"]:checked').each(function() {
+                formData[$(this).attr('name')] = $(this).val();
+            });
+            localStorage.setItem('dummy_form_data_wash', JSON.stringify(formData));
+        }
+
+        function loadFormData() {
+            var data = localStorage.getItem('dummy_form_data_wash');
+            if (data) {
+                var formData = JSON.parse(data);
+                $.each(formData, function(key, value) {
+                    if ($('input[name="' + key + '"][type="radio"]').length) {
+                        $('input[name="' + key + '"][value="' + value + '"]').prop('checked', true);
+                    }
+                });
+            }
+        }
+    </script>
+    
+    <style>
+        /* ページ固有の微調整 */
+        .footer {
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            background: #fff; padding: 10px 0; border-top: 1px solid #ddd;
+            z-index: 999; box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+        }
+        .footer-button { display: flex; justify-content: center; gap: 15px; }
+        .footer-btn-link {
+            display: flex; justify-content: center; align-items: center;
+            width: 45%; max-width: 200px; height: 45px;
+            text-decoration: none; font-weight: bold; border-radius: 4px; cursor: pointer;
+        }
+        .is-stop { background: #fff; color: #333; border: 1px solid #ccc; }
+        .is-complete { background: #d00; color: #fff; border: 1px solid #a00; }
+        body { padding-bottom: 100px; }
+    </style>
 </head>
 <body>
-    <header class="header">
-        <div class="header-inner">
-            <p>【ＴＳ委託】カーケアジャパン</p>
-            <div class="menu-icon">≡</div>
-        </div>
+    
+    <header class="new-wb-header">
+      <nav>
+        <p class="userName2"><span>【ＴＳ委託】カーケアジャパン (Test)</span></p>
+      </nav>
     </header>
-
-    <main class="main-container">
-        <div class="page-header">
-            <h1>洗車</h1>
-            <span class="car-no">相模 7725</span>
+    
+    <main class="main">
+        <div class="info-area">
+            <h1 class="car-another-title">洗車（入力）</h1>
+            <p class="car-number-text">相模 501 ワ 7725</p>
         </div>
 
-        <form id="wash-check-form">
-            
-            <div class="content-section">
-                <h3 class="contents-title">外装の汚れ</h3>
-                <div class="contents-block" style="box-shadow:none; padding:0; margin:0;">
+        <form id="washForm">
+            <div class="contents-block">
+                <h2 class="contents-title">外装の汚れ</h2>
+                <div class="contents-inner-block">
                     <p class="contents-inner-text">
-                        車体・ホイール・外窓・サイドミラーの汚れ、油膜を確認
+                        <span class="notice-text">車体・ホイール・外窓・サイドミラーの汚れ、油膜を確認</span>
                     </p>
                     
                     <div class="content-radio twoChoices">
@@ -42,21 +114,14 @@
                     </div>
                 </div>
             </div>
-
         </form>
 
         <div class="footer">
             <div class="footer-button">
-                <a href="index.html" class="is-stop">
-                    <p style="margin:0;">一時保存</p>
-                </a>
-                <a href="#" class="is-complete" onclick="completeTask('wash'); return false;">
-                    <p style="margin:0;">完了</p>
-                </a>
+                <a id="btn-temporary" class="footer-btn-link is-stop">一時保存</a>
+                <a id="btn-complete" class="footer-btn-link is-complete">完了</a>
             </div>
         </div>
     </main>
-
-    <script src="script.js"></script>
 </body>
 </html>
