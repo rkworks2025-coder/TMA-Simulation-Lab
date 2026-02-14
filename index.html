@@ -25,7 +25,7 @@
   <header class="new-wb-header">
     <nav>
       <p class="userName2">
-        <span>【ＴＳ委託】カーケアジャパン (Test)</span>
+        <span>【ＴＳ委託】カーケアジャパン (練習用ダミー)</span>
       </p>
       <br>
       <div class="nav-menu">
@@ -67,16 +67,32 @@
 
     <div class="tab-contents car-another-contents">
       <div>
+        <div id="loading-view" class="loading-view" style="display:none;">
+          <div class="loading-view-bg"></div>
+          <div class="loading-view-content">
+            <div class="loader">Loading...</div>
+            <p>Loading…</p>
+          </div>
+        </div>
+
+        <div id="loading-CarStatusGet-view" class="loading-view" style="display:none;">
+          <div class="loading-view-bg"></div>
+          <div class="loading-view-content">
+            <div class="loader"></div>
+            <p>Loading...<br /><br />車両状態更新信号を送信しました<br />しばらくお待ちください</p>
+          </div>
+        </div>
+
         <div class="car-list">
           <h2 class="car-detail-title">車両情報</h2>
           <div class="device-info-area">
             <div class="start-button-area">
               <div class="info-button">
-                <a href="javascript:void(0);"><span>情報取得</span></a>
+                <a href="javascript:void(0);" onclick="goCarStatusGet();"><span>情報取得</span></a>
               </div>
             </div>
             <div class="info-title-area">
-              <p class="info-title">車載機情報：2026/01/02 01:16 時点</p>
+              <p class="info-title">車載機情報：2026/02/14 15:06 時点</p>
             </div>
           </div>
           <div class="car-contents">
@@ -100,14 +116,14 @@
               <tr>
                 <th colspan="2">燃料残量目安</th>
                 <td>
-                  <span class="car-oil-mark"><span>◎</span>（75～100％）</span>
+                  <span class="car-oil-mark"><span>○</span>（50～75％）</span>
                   <p class="car-oil-caption">燃料残量は目安となります、必ず現車を確認してください</p>
                 </td>
               </tr>
               <tr>
                 <th colspan="2">電圧</th>
                 <td>
-                  <span>12.52V</span>
+                  <span>12.4V</span>
                   <p class="car-oil-caption">電圧は目安となります、必ず現車を確認してください</p>
                 </td>
               </tr>
@@ -128,7 +144,7 @@
               <tr>
                <th rowspan="2" class="schedule">後予定</th>
                 <th>開始日時</th>
-                <td><span class="txt-red txt-b">01月02日 11:00</span></td>
+                <td><span>02月16日 07:30</span></td>
               </tr>
               <tr>
                 <th>出発店舗</th>
@@ -148,13 +164,13 @@
                   <p class="info-title">点検開始</p>
                 </div>
                 <div class="start-button-area" id="startBtnContainer">
-                  <p class="info-button disable">開始</p>
+                  <div class="info-button"><a href="javascript:void(0);" onclick="goStartMaintenance();"><span>開始</span></a></div>
                 </div>
               </div>
               <br>
               <div class="check-history-area">
                 <div class="history-contents reservation">
-                  <p class="inquiry-text">01月02日(金) 23:30 ～ 01月03日(土) 00:00</p>
+                  <p class="inquiry-text">02月14日(土) 23時00分 ～ 02月14日(土) 23時30分</p>
                   <p class="inquiry-text"><span>予約中</span></p>
                 </div>
                 <br>
@@ -174,6 +190,7 @@
                 <div class="check-state-area">
                   <div class="info-title-area">
                     <p class="info-title">日常点検</p>
+                    <p class="info-status-temporarily result-ok">点検OK</p>
                   </div>
                   <br>
                   <div class="start-button-area" id="dailyBtnContainer">
@@ -186,13 +203,13 @@
                     <p>前回</p>
                     <div>
                       <div class="state-mark">
-                        <img src="images/icon-history-ok.png" alt="OK" onerror="this.style.display='none'; this.parentNode.innerHTML='<span style=\'color: green; font-weight: bold;\'>OK</span>';" />
+                        <span style="color: green; font-weight: bold;">OK</span>
                       </div>
                     </div>
                   </div>
                   <br>
                   <div class="history-contents">
-                    <p>2025/12/20 23:02</p>
+                    <p>2026/02/09 19:26</p>
                   </div>
                   <br>
                   <div class="inquiry-block">
@@ -206,10 +223,28 @@
                 <div class="check-state-area">
                   <div class="info-title-area">
                     <p class="info-title">車内清掃</p>
+                    <p class="info-status-temporarily result-ok">点検OK</p>
                   </div>
                   <br>
                   <div class="start-button-area" id="interiorBtnContainer">
                     <div class="info-button"><a href="interior.html"><span>点検</span></a></div>
+                  </div>
+                </div>
+                <br>
+                <div class="check-history-area">
+                  <div class="history-state">
+                    <p>前回</p>
+                    <div>
+                      <div class="state-mark">
+                         <span style="color: green; font-weight: bold;">OK</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="history-contents">
+                    <p>2026/02/09 19:18</p>
+                  </div>
+                  <div class="inquiry-block">
+                    <a href="#"><p class="inquiry-text">照会</p></a>
                   </div>
                 </div>
               </div>
@@ -219,10 +254,28 @@
                 <div class="check-state-area">
                   <div class="info-title-area">
                     <p class="info-title">洗車</p>
+                    <p class="info-status-temporarily result-ok">点検OK</p>
                   </div>
                   <br>
                   <div class="start-button-area" id="washBtnContainer">
                     <div class="info-button"><a href="wash.html"><span>点検</span></a></div>
+                  </div>
+                </div>
+                <br>
+                <div class="check-history-area">
+                  <div class="history-state">
+                    <p>前回</p>
+                    <div>
+                      <div class="state-mark">
+                         <span style="color: green; font-weight: bold;">OK</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="history-contents">
+                    <p>2026/02/09 19:19</p>
+                  </div>
+                  <div class="inquiry-block">
+                    <a href="#"><p class="inquiry-text">照会</p></a>
                   </div>
                 </div>
               </div>
@@ -232,10 +285,28 @@
                 <div class="check-state-area">
                   <div class="info-title-area">
                     <p class="info-title">外装確認</p>
+                    <p class="info-status-temporarily result-ok">点検OK</p>
                   </div>
                   <br>
                   <div class="start-button-area" id="exteriorBtnContainer">
                     <div class="info-button"><a href="exterior.html"><span>点検</span></a></div>
+                  </div>
+                </div>
+                <br>
+                <div class="check-history-area">
+                  <div class="history-state">
+                    <p>前回</p>
+                    <div>
+                      <div class="state-mark">
+                         <span style="color: green; font-weight: bold;">OK</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="history-contents">
+                    <p>2026/02/09 19:19</p>
+                  </div>
+                  <div class="inquiry-block">
+                    <a href="#"><p class="inquiry-text">照会</p></a>
                   </div>
                 </div>
               </div>
@@ -245,10 +316,28 @@
                 <div class="check-state-area">
                   <div class="info-title-area">
                     <p class="info-title">貸出準備</p>
+                    <p class="info-status-temporarily result-ok">点検OK</p>
                   </div>
                   <br>
                   <div class="start-button-area" id="lendBtnContainer">
                     <div class="info-button"><a href="lend_prep.html"><span>点検</span></a></div>
+                  </div>
+                </div>
+                <br>
+                <div class="check-history-area">
+                  <div class="history-state">
+                    <p>前回</p>
+                    <div>
+                      <div class="state-mark">
+                         <span style="color: green; font-weight: bold;">OK</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="history-contents">
+                    <p>2026/02/09 19:27</p>
+                  </div>
+                  <div class="inquiry-block">
+                    <a href="#"><p class="inquiry-text">照会</p></a>
                   </div>
                 </div>
               </div>
@@ -278,5 +367,27 @@
       </div>
     </div>
   </main>
+
+  <script type="text/javascript">
+    /*<![CDATA[*/
+    // 点検開始ボタンのダミー処理
+    function goStartMaintenance() {
+      $('#loading-view').show();
+      setTimeout(function() {
+        $('#loading-view').hide();
+        alert('【ダミー動作】点検開始処理が完了しました。各項目の点検を進めてください。');
+      }, 800);
+    }
+
+    // 車両状態取得ボタンのダミー処理
+    function goCarStatusGet() {
+      $('#loading-CarStatusGet-view').show();
+      setTimeout(function(){
+        $('#loading-CarStatusGet-view').hide();
+        alert('【ダミー動作】車両状態の更新が完了しました。');
+      }, 1500);
+    }
+    /*]]>*/
+  </script>
 </body>
 </html>
