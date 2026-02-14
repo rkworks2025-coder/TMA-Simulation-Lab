@@ -1,674 +1,158 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="robots" content="noindex"/>
-  
-  <title>日常点検（入力練習用）</title>
-  
-  <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
-  <link rel="stylesheet" type="text/css" href="css/reset.css" />
-  <link rel="stylesheet" type="text/css" href="css/common.css" />
-  <link rel="stylesheet" type="text/css" href="css/taw0101002.css" />
-  
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  
-  <style>
-    /* 本物のJSなしでタブを横スクロールさせる補完 */
-    .tab-container { overflow-x: auto !important; -webkit-overflow-scrolling: touch; background-color: #fff; border-bottom: 1px solid #ccc; }
-    .tab { display: flex !important; width: max-content; margin: 0; padding: 0; }
-    .tab-button { flex: 0 0 auto; }
-    .tab-contents { display: none; padding-bottom: 20px; }
-    .tab-contents.active { display: block; }
-    .footer { position: fixed; bottom: 0; width: 100%; z-index: 1000; }
-    .main { padding-bottom: 80px; }
-  </style>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex"/>
+<title>日常点検（入力） - 入力練習用TMA</title>
+<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="css/reset.css" />
+<link rel="stylesheet" type="text/css" href="css/common.css" />
+<link rel="stylesheet" type="text/css" href="css/taw0101002.css" />
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<style>
+.tab-container { overflow-x: auto !important; -webkit-overflow-scrolling: touch; background-color: #fff; border-bottom: 1px solid #ccc; }
+.tab { display: flex !important; width: max-content; margin: 0; padding: 0; }
+.tab-button { flex: 0 0 auto; list-style: none; }
+.tab-button a { display: block; padding: 10px 15px; text-decoration: none; color: #333; font-weight: normal; }
+.tab-button.active a { border-bottom: 3px solid #e60012; font-weight: bold; color: #e60012; }
+.tab-contents { display: none; padding-bottom: 20px; }
+.tab-contents.active { display: block; }
+.footer { position: fixed; bottom: 0; width: 100%; z-index: 1000; }
+.main { padding-bottom: 100px; }
+</style>
 </head>
 <body>
-  <header class="new-wb-header">
-    <nav>
-      <p class="userName2">
-        <span>【ＴＳ委託】カーケアジャパン (練習用ダミー v1.8)</span>
-      </p>
-      <br>
-      <div class="nav-menu">
-        <div id="nav-drawer">
-          <input id="nav-input" type="checkbox" class="nav-unshown" />
-          <label id="nav-open" for="nav-input"><span></span></label>
-          <div id="nav-content">
-            <br>
-            <div class="modal-header"><p>メニュー</p></div>
-            <br>
-            <ul class="modalList">
-              <li><a class="nav-link" href="index.html">トップ</a></li>
-              <li><input type="button" value="ログアウト" /></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </nav>
-  </header>
-  
-  <main class="main">
-    <form id="dailyCheckForm" method="POST" action="" onsubmit="return false;">
-      <div class="maintenance">
-        <div class="info-area">
-          <h1 class="car-another-title">日常点検（入力）</h1>
-          <p class="car-number-text">相模 501 ワ 7725</p>
-        </div>
+<header class="new-wb-header"><nav><p class="userName2"><span>【ＴＳ委託】カーケアジャパン (練習用ダミー v2.0)</span></p><br><div class="nav-menu"><div id="nav-drawer"><input id="nav-input" type="checkbox" class="nav-unshown" /><label id="nav-open" for="nav-input"><span></span></label><div id="nav-content"><br><div class="modal-header"><p>メニュー</p></div><br><ul class="modalList"><li><a class="nav-link" href="index.html">トップ</a></li><li><input type="button" value="ログアウト" /></li></ul></div></div></div></nav></header>
 
-        <div class="container">
-          <div class="tab-container">
-            <div class="tab">
-              <div class="tab-button active" data-name="engine"><a href="javascript:void(0);">エンジンルーム</a></div>
-              <div class="tab-button" data-name="tire"><a href="javascript:void(0);">タイヤ</a></div>
-              <div class="tab-button" data-name="motion"><a href="javascript:void(0);">動作確認</a></div>
-              <div class="tab-button" data-name="in-car"><a href="javascript:void(0);">車載品（運転席周り）</a></div>
-              <div class="tab-button" data-name="equipment"><a href="javascript:void(0);">装備確認</a></div>
-              <div class="tab-button" data-name="light"><a href="javascript:void(0);">灯火装置</a></div>
-              <div class="tab-button" data-name="perimeter"><a href="javascript:void(0);">車両周り他</a></div>
-              <div class="tab-button" data-name="trunk"><a href="javascript:void(0);">車載品（トランク周り）</a></div>
-            </div>
-          </div>
+<main class="main">
+<form method="POST" action="" accept-charset="utf-8" onsubmit="return false;">
+<input type="hidden" id="fromWebFlg" name="fromWebFlg" value="true" />
+<input type="hidden" id="puncRepairKitLimitCheckYM" name="puncRepairKitLimitCheckYM" value="2026-03" />
+<input type="hidden" id="flaresLimitCheckYM" name="flaresLimitCheckYM" value="2026-03" />
+<input type="hidden" id="nowLimitCheckYM" name="nowLimitCheckYM" value="2026-01" />
+<input type="hidden" id="noSafeEqpChkFlg" name="noSafeEqpChkFlg" value="false" />
 
-          <div class="click-change-contents">
-            
-            <div class="tab-contents active" id="engine">
-              <h2 class="contents-title">冷却水量</h2>
-              <div class="contents-block">
-                <p class="contents-inner-text">
-                  <span class="notice-text">タンク内の「FULL」と「LOW」の間が適量</span><br />
-                  <span class="notice-text">液量が「LOW」より下回っている場合は、補充 <span class="txt-red">※水道水の補充は不可</span></span><br />
-                  <span class="notice-text">補充できない、または液漏れの場合は「NG（稼動停止）」</span>
-                </p>
-                <div class="content-radio tripleChoices">
-                  <div class="content-radio-block"><input type="radio" value="2" id="coolantGauge1" name="coolantGauge" /><label for="coolantGauge1">OK（未補充）</label></div>
-                  <div class="content-radio-block"><input type="radio" value="1" id="coolantGauge2" name="coolantGauge" /><label for="coolantGauge2">OK（補充）</label></div>
-                  <div class="content-radio-block"><input type="radio" value="9" id="coolantGauge3" name="coolantGauge" /><label for="coolantGauge3">NG（稼動停止）</label></div>
-                </div>
-              </div>
-              <br>
-              <h2 class="contents-title">エンジンオイル量</h2>
-              <div class="contents-block">
-                <p class="contents-inner-text">
-                  <span class="notice-text txt-red">エンジン稼動前に点検</span><br />
-                  <span class="notice-text">タンクの「MAX」と「MIN」の間が適量</span><br />
-                  <span class="notice-text">液漏れ、または液量が「MIN」より下回っている場合は「NG（稼動停止）」</span>
-                </p>
-                <div class="content-radio twoChoices">
-                  <div class="content-radio-block"><input type="radio" value="1" id="engineOilGauge1" name="engineOilGauge" /><label for="engineOilGauge1">OK</label></div>
-                  <div class="content-radio-block"><input type="radio" value="9" id="engineOilGauge2" name="engineOilGauge" /><label for="engineOilGauge2">NG（稼動停止）</label></div>
-                </div>
-              </div>
-              <br>
-              <h2 class="contents-title">ブレーキ液量</h2>
-              <div class="contents-block">
-                <p class="contents-inner-text">
-                  <span class="notice-text">タンクの「MAX」と「MIN」の間が適量</span><br />
-                  <span class="notice-text">液漏れ、または液量が「MIN」より下回っている場合は「NG（稼動停止）」</span>
-                </p>
-                <div class="content-radio twoChoices">
-                  <div class="content-radio-block"><input type="radio" value="1" id="brakeFluidGauge1" name="brakeFluidGauge" /><label for="brakeFluidGauge1">OK</label></div>
-                  <div class="content-radio-block"><input type="radio" value="9" id="brakeFluidGauge2" name="brakeFluidGauge" /><label for="brakeFluidGauge2">NG（稼動停止）</label></div>
-                </div>
-              </div>
-              <br>
-              <h2 class="contents-title">ウォッシャー液量</h2>
-              <div class="contents-block">
-                <p class="contents-inner-text">
-                  <span class="notice-text">タンク内の水面が見えない場合は、補充</span><br />
-                  <span class="notice-text">液漏れの場合は「NG（稼動停止）」</span>
-                </p>
-                <div class="content-radio tripleChoices">
-                  <div class="content-radio-block"><input type="radio" value="2" id="washerFluidGauge1" name="washerFluidGauge" /><label for="washerFluidGauge1">OK（未補充）</label></div>
-                  <div class="content-radio-block"><input type="radio" value="1" id="washerFluidGauge2" name="washerFluidGauge" /><label for="washerFluidGauge2">OK（補充）</label></div>
-                  <div class="content-radio-block"><input type="radio" value="9" id="washerFluidGauge3" name="washerFluidGauge" /><label for="washerFluidGauge3">NG（稼動停止）</label></div>
-                </div>
-              </div>
-            </div>
+<div class="maintenance">
+<div class="info-area"><h1 class="car-another-title">日常点検（入力）</h1><p class="car-number-text">相模 501 ワ 7725</p></div>
+<div class="container">
 
-            <div class="tab-contents" id="tire">
-              <h2 class="contents-title">タイヤ種別</h2>
-              <div class="contents-block">
-                <p class="contents-inner-text"><span class="notice-text">車両に装着されているタイヤの種別を選択</span></p>
-                <div class="content-radio twoChoices">
-                  <div class="content-radio-block"><input type="radio" value="1" id="tireType1" name="tireType" /><label for="tireType1">ノーマル</label></div>
-                  <div class="content-radio-block"><input type="radio" value="2" id="tireType2" name="tireType" /><label for="tireType2">スタッドレス</label></div>
-                </div>
-                <div class="contents-checkbox-box" style="margin-top:10px;">
-                  <label for="runFlatTireFlg"><input type="checkbox" class="check-select" id="runFlatTireFlg" name="runFlatTireFlg" value="true" /><span class="check-title">ランフラットタイヤ</span></label>
-                </div>
-              </div>
-              <br>
-              <h2 class="contents-title">指定空気圧</h2>
-              <div class="contents-block tire">
-                <p class="contents-inner-text">
-                  <span class="notice-text">運転席ドアを開けたボディ側に貼付されているラベルを確認</span><br />
-                  <span class="notice-text txt-red">※貨物車は「最大積載量」、輸入車は「最大乗車定員数＋最大荷物量」を基準値とする</span><br />
-                  <span class="notice-text txt-red">※複数記載されている場合は高い方を入力</span>
-                </p>
-                <ul class="contents-list">
-                  <li><h3>前輪</h3><input type="number" class="airPressure" id="tireFrontRegularPressure" name="tireFrontRegularPressure" value="250" /> kPa</li>
-                  <li><h3>後輪</h3><input type="number" class="airPressure" id="tireRearRegularPressure" name="tireRearRegularPressure" value="240" /> kPa</li>
-                </ul>
-              </div>
-              <br>
-              <h2 class="contents-title">亀裂、損傷、変形、干渉</h2>
-              <div class="contents-block">
-                <p class="contents-inner-text">
-                  <span>タイヤに亀裂、損傷、変形、ホイールナット、ホイール周りの変形、いずれかに異常がある場合は「NG（稼動停止）」</span><br />
-                  <span>エアバルブとホイールキャップが干渉していた場合は付け直し</span>
-                </p>
-                <div class="content-radio twoChoices">
-                  <div class="content-radio-block"><input type="radio" value="1" id="tireDamage1" name="tireDamage" /><label for="tireDamage1">OK</label></div>
-                  <div class="content-radio-block"><input type="radio" value="9" id="tireDamage2" name="tireDamage" /><label for="tireDamage2">NG（稼動停止）</label></div>
-                </div>
-              </div>
-              <br>
-              
-              <section>
-                <h2 class="contents-stickyTitle">右前タイヤ</h2>
-                <h2 class="contents-title">（右前）製造年週</h2>
-                <div class="contents-block tire">
-                  <p class="contents-inner-text">
-                    <span class="notice-text">4桁数値（週2桁＋年2桁）を入力</span><br />
-                    <span class="notice-text">製造年週が外側に記載されていない場合、内側に記載のため確認不可にチェック</span><br />
-                    <span class="notice-text txt-red">※製造年週が5年以上経過している場合は、稼動停止</span>
-                  </p>
-                  <ul class="contents-list full-line-innerItem">
-                    <li><input type="number" class="single-input required-red" name="tireMfrFrontRightCm" placeholder="1224" /></li>
-                    <li><div class="contents-checkbox-box"><label><input type="checkbox" class="check-select" name="tireMfrCheckRowFlgFrontRightCm" /> <span class="check-title">確認不可</span></label></div></li>
-                  </ul>
-                </div>
-                <h2 class="contents-title">（右前）溝</h2>
-                <div class="contents-block tire">
-                  <p class="contents-inner-text">
-                    <span class="notice-text">主溝（スリップサインがある溝）を全て測定し、残溝が一番少ない数値を入力</span><br />
-                    <span class="notice-text txt-red">※残溝の差が1㎜以上ある場合は偏摩耗の恐れあり</span>
-                  </p>
-                  <ul class="contents-list full-line">
-                    <li style="width: 65%"><input type="number" class="single-input required-red" style="width: 80px;text-align: center;" /> . <input type="number" class="single-input required-red" style="width: 80px;text-align: center;" /> mm</li>
-                  </ul>
-                </div>
-                <h2 class="contents-title">（右前）空気圧</h2>
-                <div class="contents-block tire">
-                  <p class="contents-inner-text">
-                    <span class="notice-text">指定空気圧+0 ～ +20kPaの間で調整</span><br />
-                    <span class="notice-text txt-red">調整前の空気圧が指定空気圧より40kPa以上低い場合は「NG（稼動停止）」</span>
-                  </p>
-                  <ul class="contents-list">
-                    <li><p class="contents-item-title">調整前</p><input type="number" class="airPressureInput single-input required-red" placeholder="250" /> kPa</li>
-                    <li><p class="contents-item-title">調整後</p><input type="number" class="airPressureInput single-input" /> kPa</li>
-                  </ul>
-                </div>
-              </section>
-              <br>
+<div class="tab-container"><div class="tab">
+<div class="tab-button active" data-name="engine"><a href="javascript:void(0);">エンジンルーム</a></div>
+<div class="tab-button" data-name="tire"><a href="javascript:void(0);">タイヤ</a></div>
+<div class="tab-button" data-name="motion"><a href="javascript:void(0);">動作確認</a></div>
+<div class="tab-button" data-name="in-car"><a href="javascript:void(0);">車載品（運転席周り）</a></div>
+<div class="tab-button" data-name="equipment"><a href="javascript:void(0);">装備確認</a></div>
+<div class="tab-button" data-name="light"><a href="javascript:void(0);">灯火装置</a></div>
+<div class="tab-button" data-name="perimeter"><a href="javascript:void(0);">車両周り他</a></div>
+<div class="tab-button" data-name="trunk"><a href="javascript:void(0);">車載品（トランク周り）</a></div>
+</div></div>
 
-              <section>
-                <h2 class="contents-stickyTitle">左前タイヤ</h2>
-                <h2 class="contents-title">（左前）製造年週</h2>
-                <div class="contents-block tire">
-                  <p class="contents-inner-text">
-                    <span class="notice-text">4桁数値（週2桁＋年2桁）を入力</span><br />
-                    <span class="notice-text">製造年週が外側に記載されていない場合、内側に記載のため確認不可にチェック</span><br />
-                    <span class="notice-text txt-red">※製造年週が5年以上経過している場合は、稼動停止</span>
-                  </p>
-                  <ul class="contents-list full-line-innerItem">
-                    <li><input type="number" class="single-input required-red" name="tireMfrFrontLeftCm" placeholder="1224" /></li>
-                    <li><div class="contents-checkbox-box"><label><input type="checkbox" class="check-select" name="tireMfrCheckRowFlgFrontLeftCm" /> <span class="check-title">確認不可</span></label></div></li>
-                  </ul>
-                </div>
-                <h2 class="contents-title">（左前）溝</h2>
-                <div class="contents-block tire">
-                  <p class="contents-inner-text">
-                    <span class="notice-text">主溝（スリップサインがある溝）を全て測定し、残溝が一番少ない数値を入力</span><br />
-                    <span class="notice-text txt-red">※残溝の差が1㎜以上ある場合は偏摩耗の恐れあり</span>
-                  </p>
-                  <ul class="contents-list full-line">
-                    <li style="width: 65%"><input type="number" class="single-input required-red" style="width: 80px;text-align: center;" /> . <input type="number" class="single-input required-red" style="width: 80px;text-align: center;" /> mm</li>
-                  </ul>
-                </div>
-                <h2 class="contents-title">（左前）空気圧</h2>
-                <div class="contents-block tire">
-                  <p class="contents-inner-text">
-                    <span class="notice-text">指定空気圧+0 ～ +20kPaの間で調整</span><br />
-                    <span class="notice-text txt-red">調整前の空気圧が指定空気圧より40kPa以上低い場合は「NG（稼動停止）」</span>
-                  </p>
-                  <ul class="contents-list">
-                    <li><p class="contents-item-title">調整前</p><input type="number" class="airPressureInput single-input required-red" placeholder="250" /> kPa</li>
-                    <li><p class="contents-item-title">調整後</p><input type="number" class="airPressureInput single-input" /> kPa</li>
-                  </ul>
-                </div>
-              </section>
-              <br>
+<div class="click-change-contents">
 
-              <section>
-                <h2 class="contents-stickyTitle">左後タイヤ</h2>
-                <h2 class="contents-title">（左後）製造年週</h2>
-                <div class="contents-block tire">
-                  <p class="contents-inner-text">
-                    <span class="notice-text">4桁数値（週2桁＋年2桁）を入力</span><br />
-                    <span class="notice-text">製造年週が外側に記載されていない場合、内側に記載のため確認不可にチェック</span><br />
-                    <span class="notice-text txt-red">※製造年週が5年以上経過している場合は、稼動停止</span>
-                  </p>
-                  <ul class="contents-list full-line-innerItem">
-                    <li><input type="number" class="single-input required-red" name="tireMfrRearLeftBi4" placeholder="1224" /></li>
-                    <li><div class="contents-checkbox-box"><label><input type="checkbox" class="check-select" name="tireMfrCheckRowFlgRearLeftBi4" /> <span class="check-title">確認不可</span></label></div></li>
-                  </ul>
-                </div>
-                <h2 class="contents-title">（左後）溝</h2>
-                <div class="contents-block tire">
-                  <p class="contents-inner-text">
-                    <span class="notice-text">主溝（スリップサインがある溝）を全て測定し、残溝が一番少ない数値を入力</span><br />
-                    <span class="notice-text txt-red">※残溝の差が1㎜以上ある場合は偏摩耗の恐れあり</span>
-                  </p>
-                  <ul class="contents-list full-line">
-                    <li style="width: 65%"><input type="number" class="single-input required-red" style="width: 80px;text-align: center;" /> . <input type="number" class="single-input required-red" style="width: 80px;text-align: center;" /> mm</li>
-                  </ul>
-                </div>
-                <h2 class="contents-title">（左後）空気圧</h2>
-                <div class="contents-block tire">
-                  <p class="contents-inner-text">
-                    <span class="notice-text">指定空気圧+0 ～ +20kPaの間で調整</span><br />
-                    <span class="notice-text txt-red">調整前の空気圧が指定空気圧より40kPa以上低い場合は「NG（稼動停止）」</span>
-                  </p>
-                  <ul class="contents-list">
-                    <li><p class="contents-item-title">調整前</p><input type="number" class="airPressureInput single-input required-red" placeholder="240" /> kPa</li>
-                    <li><p class="contents-item-title">調整後</p><input type="number" class="airPressureInput single-input" /> kPa</li>
-                  </ul>
-                </div>
-              </section>
-              <br>
+<div class="tab-contents active" id="engine">
+<h2 class="contents-title">冷却水量</h2><div class="contents-block"><p class="contents-inner-text"><span class="notice-text">タンク内の「FULL」と「LOW」の間が適量 </span><br /><span class="notice-text">液量が「LOW」より下回っている場合は、補充 </span><span class="notice-text txt-red">※水道水の補充は不可</span><br /><span class="notice-text">補充できない、または液漏れの場合は「NG（稼動停止）」</span></p><div class="content-radio tripleChoices"><div class="content-radio-block"><input type="radio" class="radio-select" value="2" id="coolantGauge1" name="coolantGauge" /><label for="coolantGauge1">OK（未補充）</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="1" id="coolantGauge2" name="coolantGauge" /><label for="coolantGauge2">OK（補充）</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="9" id="coolantGauge3" name="coolantGauge" /><label for="coolantGauge3">NG（稼動停止）</label></div><input type="hidden" name="_coolantGauge" value="on" /></div></div><br>
+<h2 class="contents-title">エンジンオイル量</h2><div class="contents-block"><p class="contents-inner-text"><span class="notice-text txt-red">エンジン稼動前に点検</span><br /><span class="notice-text">タンクの「MAX」と「MIN」の間が適量</span><br /><span class="notice-text">液漏れ、または液量が「MIN」より下回っている場合は「NG（稼動停止）」</span></p><div class="content-radio twoChoices"><div class="content-radio-block"><input type="radio" class="radio-select" value="1" id="engineOilGauge1" name="engineOilGauge" /><label for="engineOilGauge1">OK</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="9" id="engineOilGauge2" name="engineOilGauge" /><label for="engineOilGauge2">NG（稼動停止）</label></div></div></div><br>
+<h2 class="contents-title">ブレーキ液量</h2><div class="contents-block"><p class="contents-inner-text"><span class="notice-text">タンクの「MAX」と「MIN」の間が適量</span><br /><span class="notice-text">液漏れ、または液量が「MIN」より下回っている場合は「NG（稼動停止）」</span></p><div class="content-radio twoChoices"><div class="content-radio-block"><input type="radio" class="radio-select" value="1" id="brakeFluidGauge1" name="brakeFluidGauge" /><label for="brakeFluidGauge1">OK</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="9" id="brakeFluidGauge2" name="brakeFluidGauge" /><label for="brakeFluidGauge2">NG（稼動停止）</label></div></div></div><br>
+<h2 class="contents-title">ウォッシャー液量</h2><div class="contents-block"><p class="contents-inner-text"><span class="notice-text">タンク内の水面が見えない場合は、補充</span><br /><span class="notice-text">液漏れの場合は「NG（稼動停止）」</span></p><div class="content-radio tripleChoices"><div class="content-radio-block"><input type="radio" class="radio-select" value="2" id="washerFluidGauge1" name="washerFluidGauge" /><label for="washerFluidGauge1">OK（未補充）</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="1" id="washerFluidGauge2" name="washerFluidGauge" /><label for="washerFluidGauge2">OK（補充）</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="9" id="washerFluidGauge3" name="washerFluidGauge" /><label for="washerFluidGauge3">NG（稼動停止）</label></div></div></div>
+</div>
 
-              <section>
-                <h2 class="contents-stickyTitle">右後タイヤ</h2>
-                <h2 class="contents-title">（右後）製造年週</h2>
-                <div class="contents-block tire">
-                  <p class="contents-inner-text">
-                    <span class="notice-text">4桁数値（週2桁＋年2桁）を入力</span><br />
-                    <span class="notice-text">製造年週が外側に記載されていない場合、内側に記載のため確認不可にチェック</span><br />
-                    <span class="notice-text txt-red">※製造年週が5年以上経過している場合は、稼動停止</span>
-                  </p>
-                  <ul class="contents-list full-line-innerItem">
-                    <li><input type="number" class="single-input required-red" name="tireMfrRearRightBi4" placeholder="1224" /></li>
-                    <li><div class="contents-checkbox-box"><label><input type="checkbox" class="check-select" name="tireMfrCheckRowFlgRearRightBi4" /> <span class="check-title">確認不可</span></label></div></li>
-                  </ul>
-                </div>
-                <h2 class="contents-title">（右後）溝</h2>
-                <div class="contents-block tire">
-                  <p class="contents-inner-text">
-                    <span class="notice-text">主溝（スリップサインがある溝）を全て測定し、残溝が一番少ない数値を入力</span><br />
-                    <span class="notice-text txt-red">※残溝の差が1㎜以上ある場合は偏摩耗の恐れあり</span>
-                  </p>
-                  <ul class="contents-list full-line">
-                    <li style="width: 65%"><input type="number" class="single-input required-red" style="width: 80px;text-align: center;" /> . <input type="number" class="single-input required-red" style="width: 80px;text-align: center;" /> mm</li>
-                  </ul>
-                </div>
-                <h2 class="contents-title">（右後）空気圧</h2>
-                <div class="contents-block tire">
-                  <p class="contents-inner-text">
-                    <span class="notice-text">指定空気圧+0 ～ +20kPaの間で調整</span><br />
-                    <span class="notice-text txt-red">調整前の空気圧が指定空気圧より40kPa以上低い場合は「NG（稼動停止）」</span>
-                  </p>
-                  <ul class="contents-list">
-                    <li><p class="contents-item-title">調整前</p><input type="number" class="airPressureInput single-input required-red" placeholder="240" /> kPa</li>
-                    <li><p class="contents-item-title">調整後</p><input type="number" class="airPressureInput single-input" /> kPa</li>
-                  </ul>
-                </div>
-              </section>
-              <br>
+<div class="tab-contents" id="tire">
+<h2 class="contents-title">タイヤ種別</h2><div class="contents-block"><p class="contents-inner-text"><span class="notice-text">車両に装着されているタイヤの種別を選択</span></p><div class="content-radio twoChoices"><div class="content-radio-block"><input type="radio" class="radio-select" value="1" id="tireType1" name="tireType" /><label for="tireType1">ノーマル</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="2" id="tireType2" name="tireType" /><label for="tireType2">スタッドレス</label></div></div><p class="contents-inner-text"><br /><span class="notice-text">ランフラットタイヤの場合は下記を選択</span></p><div class="contents-checkbox-box"><label for="runFlatTireFlg"><input type="checkbox" class="check-select" id="runFlatTireFlg" name="runFlatTireFlg" value="true" /><span class="check-title">ランフラットタイヤ</span></label></div></div><br>
+<h2 class="contents-title">指定空気圧</h2><div class="contents-block tire"><p class="contents-inner-text"><span class="notice-text">運転席ドアを開けたボディ側に貼付されているラベルを確認</span><br /><span class="notice-text txt-red">※貨物車は「最大積載量」、輸入車は「最大乗車定員数＋最大荷物量」を基準値とする</span><br /><span class="notice-text txt-red">※複数記載されている場合は高い方を入力</span></p><ul class="contents-list"><li><h3>前輪</h3><input type="number" class="airPressure" min="0" max="999" step="1" id="tireFrontRegularPressure" name="tireFrontRegularPressure" value="250" />kPa</li><li><h3>後輪</h3><input type="number" class="airPressure" min="0" max="999" step="1" id="tireRearRegularPressure" name="tireRearRegularPressure" value="240" />kPa</li></ul></div><br>
+<h2 class="contents-title">亀裂、損傷、変形、干渉</h2><div class="contents-block"><p class="contents-inner-text"><span>タイヤに亀裂、損傷、変形、ホイールナット、ホイール周りの変形、いずれかに異常がある場合は「NG（稼動停止）」</span> <br /><span>エアバルブとホイールキャップが干渉していた場合は付け直し</span></p><div class="content-radio twoChoices"><div class="content-radio-block"><input type="radio" class="radio-select" value="1" id="tireDamage1" name="tireDamage" /><label for="tireDamage1">OK</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="9" id="tireDamage2" name="tireDamage" /><label for="tireDamage2">NG（稼動停止）</label></div></div></div><br>
 
-              <h2 class="contents-title">スペアタイヤの指定空気圧</h2>
-              <div class="contents-block tire">
-                <p class="contents-inner-text">
-                  <span class="notice-text">テンパータイヤの場合は420kPa</span><br />
-                  <span class="notice-text">装着タイヤと同じ場合は車種により異なる</span><br />
-                  <span class="notice-text txt-red">※複数記載されている場合は高い方を入力</span>
-                </p>
-                <input type="number" class="airPressure" name="frontSpearRegularPressure" /> kPa
-              </div>
-              <br>
-              <h2 class="contents-title">スペアタイヤの空気圧</h2>
-              <div class="contents-block tire">
-                <p class="contents-inner-text">
-                  <span class="notice-text">指定空気圧+0 ～ +20kPaの間で調整</span><br />
-                  <span class="notice-text txt-red">調整前の空気圧が指定空気圧より40kPa以上低い場合は「NG（稼動停止）」</span>
-                </p>
-                <ul class="contents-list">
-                  <li><p class="contents-item-title">調整前</p><input type="number" class="airPressure spearTireGroup" name="frontSpearPressure" /> kPa</li>
-                  <li><p class="contents-item-title">調整後</p><input type="number" class="airPressure spearTireGroup" name="frontSpearPressureAdjusted" /> kPa</li>
-                </ul>
-              </div>
-            </div>
+<section><h2 class="contents-stickyTitle">右前タイヤ</h2><h2 class="contents-title">（右前）製造年週</h2><div class="contents-block tire"><p class="contents-inner-text"><span class="notice-text">4桁数値（週2桁＋年2桁）を入力</span><br /><span class="notice-text">製造年週が外側に記載されていない場合、内側に記載のため確認不可にチェック</span><br /><span class="notice-text txt-red">※製造年週が5年以上経過している場合は、稼動停止</span></p><ul class="contents-list full-line-innerItem"><li><h3>右前</h3><input type="number" class="single-input required-red" min="0" max="9999" step="1" oninput="javascript: this.value = this.value.slice(0, 4);" autocomplete="off" id="tireMfrFrontRightCm" name="tireMfrFrontRightCm" value="" /></li><li><div class="contents-checkbox-box"><label for="tireMfrCheckRowFlgFrontRightCm"><input type="checkbox" class="check-select" id="tireMfrCheckRowFlgFrontRightCm" name="tireMfrCheckRowFlgFrontRightCm" value="true" /><span class="check-title">確認不可</span></label></div></li></ul></div><h2 class="contents-title">（右前）溝</h2><div class="contents-block tire"><p class="contents-inner-text"><span class="notice-text">主溝（スリップサインがある溝）を全て測定し、残溝が一番少ない数値を入力</span><br /><span class="notice-text txt-red">※残溝の差が1㎜以上ある場合は偏摩耗の恐れあり</span></p><ul class="contents-list full-line"><li style="width: 65%"><h3>右前</h3><input type="number" class="single-input required-red" min="0" max="99" step="1" style="width: 80px;text-align: center;" id="tireGrooveFrontRightCmIp" name="tireGrooveFrontRightCmIp" value="" />.<input type="number" class="single-input required-red" min="0" max="9" step="1" style="width: 80px;text-align: center;" id="tireGrooveFrontRightCmFp" name="tireGrooveFrontRightCmFp" value="" />mm</li></ul></div><h2 class="contents-title">（右前）空気圧</h2><div class="contents-block tire"><p class="contents-inner-text"><span class="notice-text">指定空気圧+0 ～ +20kPaの間で調整</span><br /><span class="notice-text txt-red">調整前の空気圧が指定空気圧より40kPa以上低い場合は「NG（稼動停止）」</span><br /><span class="notice-text txt-red">「NG（稼動停止）」の際は不備詳細へタイヤサイズ、自走可否を記載</span></p><ul class="contents-list"><li><h3>右前</h3><p class="contents-item-title">調整前</p><input type="number" class="airPressureInput single-input required-red frontTire" min="0" max="999" step="1" id="tirePressureFrontRightCm" name="tirePressureFrontRightCm" value="" />kPa</li><li><p class="contents-item-title">調整後<span class="setAsterisk"></span></p><input type="number" class="airPressureInput single-input frontTireAdj" min="0" max="999" step="1" id="tirePressureAdjustedFrontRightCm" name="tirePressureAdjustedFrontRightCm" value="" />kPa</li></ul></div></section><br>
 
-            <div class="tab-contents" id="motion">
-              <h2 class="contents-title">エンジンのかかり具合、異音</h2>
-              <div class="contents-block">
-                <p class="contents-inner-text"><span class="notice-text">判断の迷うものは上長に相談、必要に応じて「NG（稼動停止）」</span></p>
-                <p class="contents-inner-text"><span class="notice-text">電圧：<span>12.4V</span></span></p>
-                <div class="content-radio twoChoices">
-                  <div class="content-radio-block"><input type="radio" value="1" id="engineCondition1" name="engineCondition" /><label for="engineCondition1">OK</label></div>
-                  <div class="content-radio-block"><input type="radio" value="9" id="engineCondition2" name="engineCondition" /><label for="engineCondition2">NG（稼動停止）</label></div>
-                </div>
-              </div>
-              <br>
-              <h2 class="contents-title">ブレーキの踏みしろ、効き</h2>
-              <div class="contents-block">
-                <p class="contents-inner-text">
-                  <span class="notice-text txt-red">エンジン稼動後に点検</span><br />
-                  <span class="notice-text">踏み応えが柔らかいもの、フロア（床）近くまで踏めてしまうものは「NG（稼動停止）」</span>
-                </p>
-                <div class="content-radio twoChoices">
-                  <div class="content-radio-block"><input type="radio" value="1" id="brakeCondition1" name="brakeCondition" /><label for="brakeCondition1">OK</label></div>
-                  <div class="content-radio-block"><input type="radio" value="9" id="brakeCondition2" name="brakeCondition" /><label for="brakeCondition2">NG（稼動停止）</label></div>
-                </div>
-              </div>
-              <br>
-              <h2 class="contents-title">駐車ブレーキ・レバーの引きしろ</h2>
-              <div class="contents-block">
-                <p class="contents-inner-text">
-                  <span class="notice-text">駐車ブレーキ・レバーの引きしろが適当であることを確認<br />引いた時のカチカチ音が極端に多いまたは少ないもの、レバーが引きすぎるまたは引けないものは「NG（稼動停止）」<br />電子制御パーキングブレーキの場合は、スイッチON/OFFでパーキングブレーキランプが適切に点灯するか確認</span>
-                </p>
-                <div class="content-radio twoChoices">
-                  <div class="content-radio-block"><input type="radio" value="1" id="parkingBrakeCondition1" name="parkingBrakeCondition" /><label for="parkingBrakeCondition1">OK</label></div>
-                  <div class="content-radio-block"><input type="radio" value="9" id="parkingBrakeCondition2" name="parkingBrakeCondition" /><label for="parkingBrakeCondition2">NG（稼動停止）</label></div>
-                </div>
-              </div>
-              <br>
-              <h2 class="contents-title">ウォッシャーの噴霧状態</h2>
-              <div class="contents-block">
-                <p class="contents-inner-text"><span class="notice-text">故障の場合は「NG（稼動停止）」</span></p>
-                <div class="content-radio twoChoices">
-                  <div class="content-radio-block"><input type="radio" value="1" id="washerSprayCondition1" name="washerSprayCondition" /><label for="washerSprayCondition1">OK</label></div>
-                  <div class="content-radio-block"><input type="radio" value="9" id="washerSprayCondition2" name="washerSprayCondition" /><label for="washerSprayCondition2">NG</label></div>
-                </div>
-              </div>
-              <br>
-              <h2 class="contents-title">ワイパーの払拭状態</h2>
-              <div class="contents-block">
-                <p class="contents-inner-text"><span class="notice-text">ワイパーゴムの劣化を確認</span><br /><span class="notice-text">故障の場合は「NG（稼動停止）」</span></p>
-                <div class="content-radio twoChoices">
-                  <div class="content-radio-block"><input type="radio" value="1" id="wiperWipeCondition1" name="wiperWipeCondition" /><label for="wiperWipeCondition1">OK</label></div>
-                  <div class="content-radio-block"><input type="radio" value="9" id="wiperWipeCondition2" name="wiperWipeCondition" /><label for="wiperWipeCondition2">NG</label></div>
-                </div>
-              </div>
-            </div>
+<section><h2 class="contents-stickyTitle">左前タイヤ</h2><h2 class="contents-title">（左前）製造年週</h2><div class="contents-block tire"><p class="contents-inner-text"><span class="notice-text">4桁数値（週2桁＋年2桁）を入力</span><br /><span class="notice-text">製造年週が外側に記載されていない場合、内側に記載のため確認不可にチェック</span><br /><span class="notice-text txt-red">※製造年週が5年以上経過している場合は、稼動停止</span></p><ul class="contents-list full-line-innerItem"><li><h3>左前</h3><input type="number" class="single-input required-red" min="0" max="9999" step="1" oninput="javascript: this.value = this.value.slice(0, 4);" autocomplete="off" id="tireMfrFrontLeftCm" name="tireMfrFrontLeftCm" value="" /></li><li><div class="contents-checkbox-box"><label for="tireMfrCheckRowFlgFrontLeftCm"><input type="checkbox" class="check-select" id="tireMfrCheckRowFlgFrontLeftCm" name="tireMfrCheckRowFlgFrontLeftCm" value="true" /><span class="check-title">確認不可</span></label></div></li></ul></div><h2 class="contents-title">（左前）溝</h2><div class="contents-block tire"><p class="contents-inner-text"><span class="notice-text">主溝（スリップサインがある溝）を全て測定し、残溝が一番少ない数値を入力</span><br /><span class="notice-text txt-red">※残溝の差が1㎜以上ある場合は偏摩耗の恐れあり</span></p><ul class="contents-list full-line"><li style="width: 65%"><h3>左前</h3><input type="number" class="single-input required-red" min="0" max="99" step="1" style="width: 80px;text-align: center;" id="tireGrooveFrontLeftCmIp" name="tireGrooveFrontLeftCmIp" value="" />.<input type="number" class="single-input required-red" min="0" max="9" step="1" style="width: 80px;text-align: center;" id="tireGrooveFrontLeftCmFp" name="tireGrooveFrontLeftCmFp" value="" />mm</li></ul></div><h2 class="contents-title">（左前）空気圧</h2><div class="contents-block tire"><p class="contents-inner-text"><span class="notice-text">指定空気圧+0 ～ +20kPaの間で調整</span><br /><span class="notice-text txt-red">調整前の空気圧が指定空気圧より40kPa以上低い場合は「NG（稼動停止）」</span><br /><span class="notice-text txt-red">「NG（稼動停止）」の際は不備詳細へタイヤサイズ、自走可否を記載</span></p><ul class="contents-list"><li><h3>左前</h3><p class="contents-item-title">調整前</p><input type="number" class="airPressureInput single-input required-red frontTire" min="0" max="999" step="1" id="tirePressureFrontLeftCm" name="tirePressureFrontLeftCm" value="" />kPa</li><li><p class="contents-item-title">調整後<span class="setAsterisk"></span></p><input type="number" class="airPressureInput single-input frontTireAdj" min="0" max="999" step="1" id="tirePressureAdjustedFrontLeftCm" name="tirePressureAdjustedFrontLeftCm" value="" />kPa</li></ul></div></section><br>
 
-            <div class="tab-contents" id="in-car">
-              <h2 class="contents-title">車検証（適合証）</h2>
-              <div class="contents-block">
-                <p class="contents-inner-text"><span class="notice-text">ナンバープレートと車検証の車両番号が合っているか確認<br />ナンバープレートは前後が一致しているか確認<br />後部ナンバーに取付されている「封印」を確認<br />（※軽自動車は除く）<br />車両番号の不一致、ナンバープレートなし、封印なしの場合は「NG（稼動停止）」</span></p>
-                <div class="content-radio twoChoices">
-                  <div class="content-radio-block"><input type="radio" value="1" id="inspectionCertificateExist1" name="inspectionCertificateExist" /><label for="inspectionCertificateExist1">OK</label></div>
-                  <div class="content-radio-block"><input type="radio" value="9" id="inspectionCertificateExist2" name="inspectionCertificateExist" /><label for="inspectionCertificateExist2">NG（稼動停止）</label></div>
-                </div>
-              </div>
-              <br>
-              <h2 class="contents-title">車検証シール</h2>
-              <div class="contents-block">
-                <p class="contents-inner-text"><span class="notice-text">検査標章（車検証シール）がはがれている、または有効期限切れの場合は「NG（稼動停止）」</span></p>
-                <div class="content-radio twoChoices">
-                  <div class="content-radio-block"><input type="radio" value="1" id="inspectionStickerExist1" name="inspectionStickerExist" /><label for="inspectionStickerExist1">OK</label></div>
-                  <div class="content-radio-block"><input type="radio" value="9" id="inspectionStickerExist2" name="inspectionStickerExist" /><label for="inspectionStickerExist2">NG（稼動停止）</label></div>
-                </div>
-              </div>
-              <br>
-              <h2 class="contents-title">自賠責保険証</h2>
-              <div class="contents-block">
-                <p class="contents-inner-text"><span class="notice-text">車検証と自賠責保険証の車台番号が合っているか確認<br />（※旧ナンバーが記載されていた場合は二重線で削除）<br />自賠責保険証の有効期限を確認<br />車台番号の不一致、有効期限切れの場合は「NG（稼動停止）」</span></p>
-                <div class="content-radio twoChoices">
-                  <div class="content-radio-block"><input type="radio" value="1" id="autoLiabilityExist1" name="autoLiabilityExist" /><label for="autoLiabilityExist1">OK</label></div>
-                  <div class="content-radio-block"><input type="radio" value="9" id="autoLiabilityExist2" name="autoLiabilityExist" /><label for="autoLiabilityExist2">NG（稼動停止）</label></div>
-                </div>
-              </div>
-              <br>
-              <h2 class="contents-title">点検シール</h2>
-              <div class="contents-block">
-                <p class="contents-inner-text"><span class="notice-text">期限が切れていないかを確認<br />※期限切れの場合はシールを剥がす（再発行不要）</span></p>
-                <div class="content-radio twoChoices">
-                  <div class="content-radio-block"><input type="radio" value="1" id="maintenanceStickerExist1" name="maintenanceStickerExist" /><label for="maintenanceStickerExist1">OK</label></div>
-                  <div class="content-radio-block"><input type="radio" value="8" id="maintenanceStickerExist2" name="maintenanceStickerExist" /><label for="maintenanceStickerExist2">NG</label></div>
-                </div>
-              </div>
-              <br>
-              <h2 class="contents-title">発炎筒の種別</h2>
-              <div class="contents-block">
-                <p class="contents-inner-text"><span class="notice-text">紛失の場合は、稼動停止</span></p>
-                <div class="content-radio tripleChoices">
-                  <div class="content-radio-block"><input type="radio" value="1" id="flaresExist1" name="flaresExist" /><label for="flaresExist1">発炎式</label></div>
-                  <div class="content-radio-block"><input type="radio" value="2" id="flaresExist2" name="flaresExist" /><label for="flaresExist2">LED式</label></div>
-                  <div class="content-radio-block"><input type="radio" value="9" id="flaresExist3" name="flaresExist" /><label for="flaresExist3">紛失</label></div>
-                </div>
-              </div>
-              <br>
-              <h2 class="contents-title">発炎筒（発炎式）の有効期限</h2>
-              <div class="contents-block">
-                <p class="contents-inner-text"><span class="notice-text">期限切れの場合は、稼動停止</span></p>
-                <div class="expiration-date"><input type="month" id="flaresLimit" name="flaresLimit" value="2029-01" class="single-input" style="width:150px;" /></div>
-              </div>
-              <br>
-              <h2 class="contents-title">駐車パスカード</h2>
-              <div class="contents-block">
-                <p class="contents-inner-text">
-                  <span class="notice-text">カード番号の表示が薄い場合は書き直し</span><br />
-                  <span class="notice-text">紛失の場合は「NG（稼動停止）」</span><br />
-                  <span class="notice-text">番号が異なる場合は拠点に連絡</span><br />
-                  <span class="notice-text">カード番号：「登録なし」</span>
-                </p>
-                <div class="content-radio tripleChoices">
-                  <div class="content-radio-block"><input type="radio" value="1" id="passCardExist1" name="passCardExist" /><label for="passCardExist1">OK</label></div>
-                  <div class="content-radio-block"><input type="radio" value="9" id="passCardExist2" name="passCardExist" /><label for="passCardExist2">NG（稼動停止）</label></div>
-                  <div class="content-radio-block"><input type="radio" value="0" id="passCardExist3" name="passCardExist" /><label for="passCardExist3">対象外</label></div>
-                </div>
-              </div>
-              <br>
-              <h2 class="contents-title">室内シール</h2>
-              <div class="contents-block">
-                <p class="contents-inner-text"><span class="notice-text">カーシェア禁煙シール、ゲート物件は「パスカードにてご入場ください」シールなどの確認</span></p>
-                <div class="content-radio tripleChoices">
-                  <div class="content-radio-block"><input type="radio" value="1" id="roomStickerExist1" name="roomStickerExist" /><label for="roomStickerExist1">OK（未交換）</label></div>
-                  <div class="content-radio-block"><input type="radio" value="2" id="roomStickerExist2" name="roomStickerExist" /><label for="roomStickerExist2">OK（交換）</label></div>
-                  <div class="content-radio-block"><input type="radio" value="8" id="roomStickerExist3" name="roomStickerExist" /><label for="roomStickerExist3">NG</label></div>
-                </div>
-              </div>
-              <br>
-              <h2 class="contents-title">消臭剤/除菌シート/ゴミ袋</h2>
-              <div class="contents-block">
-                <div class="content-radio tripleChoices">
-                  <div class="content-radio-block"><input type="radio" value="1" id="deodorantsExist1" name="deodorantsExist" /><label for="deodorantsExist1">OK(未交換)</label></div>
-                  <div class="content-radio-block"><input type="radio" value="2" id="deodorantsExist2" name="deodorantsExist" /><label for="deodorantsExist2">OK(交換)</label></div>
-                  <div class="content-radio-block"><input type="radio" value="8" id="deodorantsExist3" name="deodorantsExist" /><label for="deodorantsExist3">NG</label></div>
-                </div>
-              </div>
-            </div>
+<section><h2 class="contents-stickyTitle">左後タイヤ</h2><h2 class="contents-title">（左後）製造年週</h2><div class="contents-block tire"><p class="contents-inner-text"><span class="notice-text">4桁数値（週2桁＋年2桁）を入力</span><br /><span class="notice-text">製造年週が外側に記載されていない場合、内側に記載のため確認不可にチェック</span><br /><span class="notice-text txt-red">※製造年週が5年以上経過している場合は、稼動停止</span></p><ul class="contents-list full-line-innerItem"><li><h3>左後</h3><input type="number" class="single-input required-red" min="0" max="9999" step="1" oninput="javascript: this.value = this.value.slice(0, 4);" autocomplete="off" id="tireMfrRearLeftBi4" name="tireMfrRearLeftBi4" value="" /></li><li><div class="contents-checkbox-box"><label for="tireMfrCheckRowFlgRearLeftBi4"><input type="checkbox" class="check-select" id="tireMfrCheckRowFlgRearLeftBi4" name="tireMfrCheckRowFlgRearLeftBi4" value="true" /><span class="check-title">確認不可</span></label></div></li></ul></div><h2 class="contents-title">（左後）溝</h2><div class="contents-block tire"><p class="contents-inner-text"><span class="notice-text">主溝（スリップサインがある溝）を全て測定し、残溝が一番少ない数値を入力</span><br /><span class="notice-text txt-red">※残溝の差が1㎜以上ある場合は偏摩耗の恐れあり</span></p><ul class="contents-list full-line"><li style="width: 65%"><h3>左後</h3><input type="number" class="single-input required-red" min="0" max="99" step="1" style="width: 80px;text-align: center;" id="tireGrooveRearLeftBi4Ip" name="tireGrooveRearLeftBi4Ip" value="" />.<input type="number" class="single-input required-red" min="0" max="9" step="1" style="width: 80px;text-align: center;" id="tireGrooveRearLeftBi4Fp" name="tireGrooveRearLeftBi4Fp" value="" />mm</li></ul></div><h2 class="contents-title">（左後）空気圧</h2><div class="contents-block tire"><p class="contents-inner-text"><span class="notice-text">指定空気圧+0 ～ +20kPaの間で調整</span><br /><span class="notice-text txt-red">調整前の空気圧が指定空気圧より40kPa以上低い場合は「NG（稼動停止）」</span><br /><span class="notice-text txt-red">「NG（稼動停止）」の際は不備詳細へタイヤサイズ、自走可否を記載</span></p><ul class="contents-list"><li><h3>左後</h3><p class="contents-item-title">調整前</p><input type="number" class="airPressureInput single-input required-red rearTire" min="0" max="999" step="1" id="tirePressureRearLeftBi4" name="tirePressureRearLeftBi4" value="" />kPa</li><li><p class="contents-item-title">調整後<span class="setAsterisk"></span></p><input type="number" class="airPressureInput single-input rearTireAdj" min="0" max="999" step="1" id="tirePressureAdjustedRearLeftBi4" name="tirePressureAdjustedRearLeftBi4" value="" />kPa</li></ul></div></section><br>
 
-            <div class="tab-contents" id="equipment">
-              <h2 class="contents-title">安全装備</h2>
-              <div class="contents-block stock-garage">
-                <div>
-                  <h3>バックモニター</h3>
-                  <p class="contents-inner-text"><span class="notice-text">ギアをバックに入れてモニターを確認<br />映らない場合は、ナビ設定をON</span><br /><span class="notice-text">故障の場合は「NG（稼動停止）」</span></p>
-                  <div class="content-radio twoChoices">
-                    <div class="content-radio-block"><input type="radio" value="1" id="backMonitor1" name="backMonitor" /><label for="backMonitor1">OK</label></div>
-                    <div class="content-radio-block"><input type="radio" value="9" id="backMonitor2" name="backMonitor" /><label for="backMonitor2">NG（稼動停止）</label></div>
-                  </div>
-                </div>
-                <br>
-                <div>
-                  <h3>コーナーセンサー</h3>
-                  <p class="contents-inner-text"><span class="notice-text">設定がONであることを確認<br />※OFFの場合は、警告灯が点灯している、または、スイッチ照明が消えている</span><br /><span class="notice-text">故障の場合は「NG（稼動停止）」</span></p>
-                  <div class="content-radio twoChoices">
-                    <div class="content-radio-block"><input type="radio" value="1" id="cornerSensor1" name="cornerSensor" /><label for="cornerSensor1">OK</label></div>
-                    <div class="content-radio-block"><input type="radio" value="9" id="cornerSensor2" name="cornerSensor" /><label for="cornerSensor2">NG（稼動停止）</label></div>
-                  </div>
-                </div>
-                <br>
-                <div>
-                  <h3>ブレーキサポート</h3>
-                  <p class="contents-inner-text"><span class="notice-text">設定がONであることを確認<br />※OFFの場合は、警告灯が点灯している、または、スイッチ照明が消えている</span><br /><span class="notice-text">故障の場合は「NG（稼動停止）」</span></p>
-                  <div class="content-radio twoChoices">
-                    <div class="content-radio-block"><input type="radio" value="1" id="brakeSupport1" name="brakeSupport" /><label for="brakeSupport1">OK</label></div>
-                    <div class="content-radio-block"><input type="radio" value="9" id="brakeSupport2" name="brakeSupport" /><label for="brakeSupport2">NG（稼動停止）</label></div>
-                  </div>
-                </div>
-                <br>
-                <div>
-                  <h3>車線逸脱警報</h3>
-                  <p class="contents-inner-text"><span class="notice-text">設定がONであることを確認<br />※OFFの場合は、警告灯が点灯している、または、スイッチ照明が消えている</span><br /><span class="notice-text">故障の場合は「NG（稼動停止）」</span></p>
-                  <div class="content-radio twoChoices">
-                    <div class="content-radio-block"><input type="radio" value="1" id="laneDevianceAlert1" name="laneDevianceAlert" /><label for="laneDevianceAlert1">OK</label></div>
-                    <div class="content-radio-block"><input type="radio" value="9" id="laneDevianceAlert2" name="laneDevianceAlert" /><label for="laneDevianceAlert2">NG（稼動停止）</label></div>
-                  </div>
-                </div>
-                <br>
-                <div>
-                  <h3>ドライブレコーダー</h3>
-                  <p class="contents-inner-text"><span class="notice-text">エンジン始動から30秒後、LEDがグリーンまたはオレンジの点灯であることを確認</span><br /><span class="notice-text">上記以外の動作の場合は「NG（稼動停止）」</span></p>
-                  <div class="content-radio twoChoices">
-                    <div class="content-radio-block"><input type="radio" value="1" id="driveRecorder1" name="driveRecorder" /><label for="driveRecorder1">OK</label></div>
-                    <div class="content-radio-block"><input type="radio" value="9" id="driveRecorder2" name="driveRecorder" /><label for="driveRecorder2">NG（稼動停止）</label></div>
-                  </div>
-                </div>
-              </div>
-            </div>
+<section><h2 class="contents-stickyTitle">右後タイヤ</h2><h2 class="contents-title">（右後）製造年週</h2><div class="contents-block tire"><p class="contents-inner-text"><span class="notice-text">4桁数値（週2桁＋年2桁）を入力</span><br /><span class="notice-text">製造年週が外側に記載されていない場合、内側に記載のため確認不可にチェック</span><br /><span class="notice-text txt-red">※製造年週が5年以上経過している場合は、稼動停止</span></p><ul class="contents-list full-line-innerItem"><li><h3>右後</h3><input type="number" class="single-input required-red" min="0" max="9999" step="1" oninput="javascript: this.value = this.value.slice(0, 4);" autocomplete="off" id="tireMfrRearRightBi4" name="tireMfrRearRightBi4" value="" /></li><li><div class="contents-checkbox-box"><label for="tireMfrCheckRowFlgRearRightBi4"><input type="checkbox" class="check-select" id="tireMfrCheckRowFlgRearRightBi4" name="tireMfrCheckRowFlgRearRightBi4" value="true" /><span class="check-title">確認不可</span></label></div></li></ul></div><h2 class="contents-title">（右後）溝</h2><div class="contents-block tire"><p class="contents-inner-text"><span class="notice-text">主溝（スリップサインがある溝）を全て測定し、残溝が一番少ない数値を入力</span><br /><span class="notice-text txt-red">※残溝の差が1㎜以上ある場合は偏摩耗の恐れあり</span></p><ul class="contents-list full-line"><li style="width: 65%"><h3>右後</h3><input type="number" class="single-input required-red" min="0" max="99" step="1" style="width: 80px;text-align: center;" id="tireGrooveRearRightBi4Ip" name="tireGrooveRearRightBi4Ip" value="" />.<input type="number" class="single-input required-red" min="0" max="9" step="1" style="width: 80px;text-align: center;" id="tireGrooveRearRightBi4Fp" name="tireGrooveRearRightBi4Fp" value="" />mm</li></ul></div><h2 class="contents-title">（右後）空気圧</h2><div class="contents-block tire"><p class="contents-inner-text"><span class="notice-text">指定空気圧+0 ～ +20kPaの間で調整</span><br /><span class="notice-text txt-red">調整前の空気圧が指定空気圧より40kPa以上低い場合は「NG（稼動停止）」</span><br /><span class="notice-text txt-red">「NG（稼動停止）」の際は不備詳細へタイヤサイズ、自走可否を記載</span></p><ul class="contents-list"><li><h3>右後</h3><p class="contents-item-title">調整前</p><input type="number" class="airPressureInput single-input required-red rearTire" min="0" max="999" step="1" id="tirePressureRearRightBi4" name="tirePressureRearRightBi4" value="" />kPa</li><li><p class="contents-item-title">調整後<span class="setAsterisk"></span></p><input type="number" class="airPressureInput single-input rearTireAdj" min="0" max="999" step="1" id="tirePressureAdjustedRearRightBi4" name="tirePressureAdjustedRearRightBi4" value="" />kPa</li></ul></div></section><br>
 
-            <div class="tab-contents" id="light">
-              <h2 class="contents-title">点灯状態</h2>
-              <div class="contents-block">
-                <p class="contents-inner-text"><span class="notice-text">１箇所でも点灯しない、またはレンズなどに損傷がある場合は「NG（稼動停止）」</span></p>
-                <div class="content-radio twoChoices">
-                  <div class="content-radio-block"><input type="radio" value="1" id="turnSignal1" name="turnSignal" /><label for="turnSignal1">OK</label></div>
-                  <div class="content-radio-block"><input type="radio" value="9" id="turnSignal2" name="turnSignal" /><label for="turnSignal2">NG（稼動停止）</label></div>
-                </div>
-              </div>
-            </div>
+<h2 class="contents-title">スペアタイヤの指定空気圧</h2><div class="contents-block tire"><p class="contents-inner-text"><span class="notice-text">テンパータイヤの場合は420kPa</span><br /><span class="notice-text">装着タイヤと同じ場合は車種により異なる</span><br /><span class="notice-text txt-red">※複数記載されている場合は高い方を入力</span></p><input type="number" class="airPressure" min="0" max="999" step="1" id="frontSpearRegularPressure" name="frontSpearRegularPressure" value="" />kPa</div><br>
+<h2 class="contents-title">スペアタイヤの空気圧</h2><div class="contents-block tire"><p class="contents-inner-text"><span class="notice-text">指定空気圧+0 ～ +20kPaの間で調整</span><br /><span class="notice-text txt-red">調整前の空気圧が指定空気圧より40kPa以上低い場合は「NG（稼動停止）」</span></p><ul class="contents-list"><li><p class="contents-item-title">調整前</p><input type="number" class="airPressure spearTireGroup spearFrontTire" min="0" max="999" step="1" id="frontSpearPressure" name="frontSpearPressure" value="" />kPa</li><li><p class="contents-item-title">調整後<span class="setAsterisk"></span></p><input type="number" class="airPressure spearTireGroup spearFrontTireAdj" min="0" max="999" step="1" id="frontSpearPressureAdjusted" name="frontSpearPressureAdjusted" value="" />kPa</li></ul></div>
+</div>
 
-            <div class="tab-contents" id="perimeter">
-              <h2 class="contents-title">給油口</h2>
-              <div class="contents-block">
-                <p class="contents-inner-text"><span class="notice-text">キャップが紛失している場合は「NG（稼動停止）」</span></p>
-                <div class="content-radio twoChoices">
-                  <div class="content-radio-block"><input type="radio" value="1" id="fuelCap1" name="fuelCap" /><label for="fuelCap1">OK</label></div>
-                  <div class="content-radio-block"><input type="radio" value="9" id="fuelCap2" name="fuelCap" /><label for="fuelCap2">NG（稼動停止）</label></div>
-                </div>
-              </div>
-              <br>
-              <h2 class="contents-title">車両シール</h2>
-              <div class="contents-block">
-                <p class="contents-inner-text"><span class="notice-text">お問い合わせ（駐車違反）シール、ロゴ・TOUCHシールを確認</span></p>
-                <div class="content-radio twoChoices">
-                  <div class="content-radio-block"><input type="radio" value="1" id="carStickerExist1" name="carStickerExist" /><label for="carStickerExist1">OK</label></div>
-                  <div class="content-radio-block"><input type="radio" value="8" id="carStickerExist2" name="carStickerExist" /><label for="carStickerExist2">NG</label></div>
-                </div>
-              </div>
-            </div>
+<div class="tab-contents" id="motion">
+<h2 class="contents-title">エンジンのかかり具合、異音</h2><div class="contents-block"><p class="contents-inner-text"><span class="notice-text">判断の迷うものは上長に相談、必要に応じて「NG（稼動停止）」</span></p><p class="contents-inner-text"><span class="notice-text">電圧：<span>12.52</span></span></p><div class="content-radio twoChoices"><div class="content-radio-block"><input type="radio" class="radio-select" value="1" id="engineCondition1" name="engineCondition" /><label for="engineCondition1">OK</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="9" id="engineCondition2" name="engineCondition" /><label for="engineCondition2">NG（稼動停止）</label></div></div></div><br>
+<h2 class="contents-title">ブレーキの踏みしろ、効き</h2><div class="contents-block"><p class="contents-inner-text"><span class="notice-text txt-red">エンジン稼動後に点検</span><br /><span class="notice-text">踏み応えが柔らかいもの、フロア（床）近くまで踏めてしまうものは「NG（稼動停止）」</span></p><div class="content-radio twoChoices"><div class="content-radio-block"><input type="radio" class="radio-select" value="1" id="brakeCondition1" name="brakeCondition" /><label for="brakeCondition1">OK</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="9" id="brakeCondition2" name="brakeCondition" /><label for="brakeCondition2">NG（稼動停止）</label></div></div></div><br>
+<h2 class="contents-title">駐車ブレーキ・レバーの引きしろ</h2><div class="contents-block"><p class="contents-inner-text"><span class="notice-text">駐車ブレーキ・レバーの引きしろが適当であることを確認<br /></span><span class="notice-text">引いた時のカチカチ音が極端に多いまたは少ないもの、レバーが引きすぎるまたは引けないものは「NG（稼動停止）」<br /></span><span class="notice-text">電子制御パーキングブレーキの場合は、スイッチON/OFFでパーキングブレーキランプが適切に点灯するか確認</span></p><div class="content-radio twoChoices"><div class="content-radio-block"><input type="radio" class="radio-select" value="1" id="parkingBrakeCondition1" name="parkingBrakeCondition" /><label for="parkingBrakeCondition1">OK</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="9" id="parkingBrakeCondition2" name="parkingBrakeCondition" /><label for="parkingBrakeCondition2">NG（稼動停止）</label></div></div></div><br>
+<h2 class="contents-title">ウォッシャーの噴霧状態</h2><div class="contents-block"><p class="contents-inner-text"><span class="notice-text">故障の場合は「NG（稼動停止）」</span></p><div class="content-radio twoChoices"><div class="content-radio-block"><input type="radio" class="radio-select" value="1" id="washerSprayCondition1" name="washerSprayCondition" /><label for="washerSprayCondition1">OK</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="9" id="washerSprayCondition2" name="washerSprayCondition" /><label for="washerSprayCondition2">NG</label></div></div></div><br>
+<h2 class="contents-title">ワイパーの払拭状態</h2><div class="contents-block"><p class="contents-inner-text"><span class="notice-text">ワイパーゴムの劣化を確認</span><br /><span class="notice-text">故障の場合は「NG（稼動停止）」</span></p><div class="content-radio twoChoices"><div class="content-radio-block"><input type="radio" class="radio-select" value="1" id="wiperWipeCondition1" name="wiperWipeCondition" /><label for="wiperWipeCondition1">OK</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="9" id="wiperWipeCondition2" name="wiperWipeCondition" /><label for="wiperWipeCondition2">NG</label></div></div></div>
+</div>
 
-            <div class="tab-contents" id="trunk">
-              <h2 class="contents-title">三角停止板</h2>
-              <div class="contents-block">
-                <p class="contents-inner-text"><span class="notice-text">破損または紛失の場合は「NG（稼動停止）」</span></p>
-                <div class="content-radio twoChoices">
-                  <div class="content-radio-block"><input type="radio" value="1" id="warningTrianglePlateDamage1" name="warningTrianglePlateDamage" /><label for="warningTrianglePlateDamage1">OK</label></div>
-                  <div class="content-radio-block"><input type="radio" value="9" id="warningTrianglePlateDamage2" name="warningTrianglePlateDamage" /><label for="warningTrianglePlateDamage2">NG（稼動停止）</label></div>
-                </div>
-              </div>
-              <br>
-              <h2 class="contents-title">パンク修理キット</h2>
-              <div class="contents-block">
-                <p class="contents-inner-text"><span class="notice-text">使用済み、搭載されていない場合は「NG（稼動停止）」</span></p>
-                <div class="content-radio tripleChoices">
-                  <div class="content-radio-block"><input type="radio" value="1" id="puncRepairKitExist1" name="puncRepairKitExist" /><label for="puncRepairKitExist1">OK</label></div>
-                  <div class="content-radio-block"><input type="radio" value="9" id="puncRepairKitExist2" name="puncRepairKitExist" /><label for="puncRepairKitExist2">NG（稼動停止）</label></div>
-                  <div class="content-radio-block"><input type="radio" value="0" id="puncRepairKitExist3" name="puncRepairKitExist" /><label for="puncRepairKitExist3">対象外</label></div>
-                </div>
-              </div>
-              <br>
-              <h2 class="contents-title">パンク修理キット有効期限</h2>
-              <div class="contents-block">
-                <p class="contents-inner-text"><span class="notice-text">期限切れは、担当部署にて交換対応します（稼動停止は不要）</span></p>
-                <div class="expiration-date"><input type="month" id="puncRepairKitLimit" name="puncRepairKitLimit" class="single-input" style="width:150px;" /></div>
-              </div>
-              <br>
-              <h2 class="contents-title">スペアタイヤの亀裂、損傷</h2>
-              <div class="contents-block">
-                <p class="contents-inner-text"><span class="notice-text">亀裂、損傷がある場合は「NG（稼動停止）」</span></p>
-                <div class="content-radio tripleChoices">
-                  <div class="content-radio-block"><input type="radio" value="1" id="spearTireDamage1" name="spearTireDamage" /><label for="spearTireDamage1">OK</label></div>
-                  <div class="content-radio-block"><input type="radio" value="9" id="spearTireDamage2" name="spearTireDamage" /><label for="spearTireDamage2">NG（稼動停止）</label></div>
-                  <div class="content-radio-block"><input type="radio" value="0" id="spearTireDamage3" name="spearTireDamage" /><label for="spearTireDamage3">対象外</label></div>
-                </div>
-              </div>
-              <br>
-              <h2 class="contents-title">車載工具類・ジャッキ</h2>
-              <div class="contents-block">
-                <p class="contents-inner-text">
-                  <span class="notice-text">ジャッキ・ジャッキハンドル・スパナがすべて揃っているか確認</span><br />
-                  <span class="notice-text txt-red">※揃っていない場合、スペアタイヤを搭載している車両は「NG（稼動停止）」</span>
-                </p>
-                <div class="content-radio tripleChoices">
-                  <div class="content-radio-block"><input type="radio" value="1" id="tireJackupSetExist1" name="tireJackupSetExist" /><label for="tireJackupSetExist1">OK</label></div>
-                  <div class="content-radio-block"><input type="radio" value="9" id="tireJackupSetExist2" name="tireJackupSetExist" /><label for="tireJackupSetExist2">NG（稼動停止）</label></div>
-                  <div class="content-radio-block"><input type="radio" value="0" id="tireJackupSetExist3" name="tireJackupSetExist" /><label for="tireJackupSetExist3">対象外</label></div>
-                </div>
-              </div>
-              <br>
-              <h2 class="contents-title">清掃キット</h2>
-              <div class="contents-block">
-                <p class="contents-inner-text"><span class="notice-text">「除菌シート、粘着コロコロテープ」が揃っているか確認</span></p>
-                <div class="content-radio tripleChoices">
-                  <div class="content-radio-block"><input type="radio" value="1" id="cleaningKit1" name="cleaningKit" /><label for="cleaningKit1">OK（未交換）</label></div>
-                  <div class="content-radio-block"><input type="radio" value="2" id="cleaningKit2" name="cleaningKit" /><label for="cleaningKit2">OK（交換）</label></div>
-                  <div class="content-radio-block"><input type="radio" value="8" id="cleaningKit3" name="cleaningKit" /><label for="cleaningKit3">NG</label></div>
-                </div>
-              </div>
-              <br>
-              <h2 class="contents-title">ジュニアシート</h2>
-              <div class="contents-block">
-                <p class="contents-inner-text"><span class="notice-text">車載有無を確認。汚損、破損などで撤去した場合は「車載なし」を選択<br />次の予約がレンタカーの場合は、予約状況に応じて選択</span></p>
-                <div class="content-radio twoChoices">
-                  <div class="content-radio-block"><input type="radio" value="3" id="juniorSeat1" name="juniorSeat" /><label for="juniorSeat1">車載あり</label></div>
-                  <div class="content-radio-block"><input type="radio" value="4" id="juniorSeat2" name="juniorSeat" /><label for="juniorSeat2">車載なし</label></div>
-                </div>
-              </div>
-            </div>
+<div class="tab-contents" id="in-car">
+<h2 class="contents-title">車検証（適合証）</h2><div class="contents-block"><p class="contents-inner-text"><span class="notice-text">ナンバープレートと車検証の車両番号が合っているか確認<br />ナンバープレートは前後が一致しているか確認<br />後部ナンバーに取付されている「封印」を確認<br />（※軽自動車は除く）<br />車両番号の不一致、ナンバープレートなし、封印なしの場合は「NG（稼動停止）」</span></p><div class="content-radio twoChoices"><div class="content-radio-block"><input type="radio" class="radio-select" value="1" id="inspectionCertificateExist1" name="inspectionCertificateExist" /><label for="inspectionCertificateExist1">OK</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="9" id="inspectionCertificateExist2" name="inspectionCertificateExist" /><label for="inspectionCertificateExist2">NG（稼動停止）</label></div></div></div><br>
+<h2 class="contents-title">車検証シール</h2><div class="contents-block"><p class="contents-inner-text"><span class="notice-text">検査標章（車検証シール）がはがれている、または有効期限切れの場合は「NG（稼動停止）」</span></p><div class="content-radio twoChoices"><div class="content-radio-block"><input type="radio" class="radio-select" value="1" id="inspectionStickerExist1" name="inspectionStickerExist" /><label for="inspectionStickerExist1">OK</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="9" id="inspectionStickerExist2" name="inspectionStickerExist" /><label for="inspectionStickerExist2">NG（稼動停止）</label></div></div></div><br>
+<h2 class="contents-title">自賠責保険証</h2><div class="contents-block"><p class="contents-inner-text"><span class="notice-text">車検証と自賠責保険証の車台番号が合っているか確認<br />（※旧ナンバーが記載されていた場合は二重線で削除）<br />自賠責保険証の有効期限を確認<br />車台番号の不一致、有効期限切れの場合は「NG（稼動停止）」</span></p><div class="content-radio twoChoices"><div class="content-radio-block"><input type="radio" class="radio-select" value="1" id="autoLiabilityExist1" name="autoLiabilityExist" /><label for="autoLiabilityExist1">OK</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="9" id="autoLiabilityExist2" name="autoLiabilityExist" /><label for="autoLiabilityExist2">NG（稼動停止）</label></div></div></div><br>
+<h2 class="contents-title">点検シール</h2><div class="contents-block"><p class="contents-inner-text"><span class="notice-text">期限が切れていないかを確認<br />※期限切れの場合はシールを剥がす（再発行不要）</span></p><div class="content-radio twoChoices"><div class="content-radio-block"><input type="radio" class="radio-select" value="1" id="maintenanceStickerExist1" name="maintenanceStickerExist" /><label for="maintenanceStickerExist1">OK</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="8" id="maintenanceStickerExist2" name="maintenanceStickerExist" /><label for="maintenanceStickerExist2">NG</label></div></div></div><br>
+<h2 class="contents-title">発炎筒の種別</h2><div class="contents-block"><p class="contents-inner-text"><span class="notice-text">紛失の場合は、稼動停止</span></p><div class="content-radio tripleChoices"><div class="content-radio-block"><input type="radio" class="radio-select" value="1" id="flaresExist1" name="flaresExist" /><label for="flaresExist1">発炎式</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="2" id="flaresExist2" name="flaresExist" /><label for="flaresExist2">LED式</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="9" id="flaresExist3" name="flaresExist" /><label for="flaresExist3">紛失</label></div></div></div><br>
+<h2 class="contents-title">発炎筒（発炎式）の有効期限</h2><div class="contents-block"><p class="contents-inner-text"><span class="notice-text">期限切れの場合は、稼動停止</span></p><span id="flaresAlert" class="txt-red" style="display:none;">※入力値は有効期限まで2か月を切っています</span><span id="flaresAlertExpiredAlert" class="txt-red" style="display:none;">※入力値は有効期限が切れています</span><div class="expiration-date"><input type="month" step="1" id="flaresLimit" name="flaresLimit" value="" /></div></div><br>
+<h2 class="contents-title">駐車パスカード</h2><div class="contents-block"><p class="contents-inner-text"><span class="notice-text">カード番号の表示が薄い場合は書き直し</span><br /><span class="notice-text">紛失の場合は「NG（稼動停止）」</span><br /><span class="notice-text">番号が異なる場合は拠点に連絡</span><br /><span class="notice-text">カード番号：「登録なし」</span></p><div class="content-radio tripleChoices"><div class="content-radio-block"><input type="radio" class="radio-select" value="1" id="passCardExist1" name="passCardExist" /><label for="passCardExist1">OK</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="9" id="passCardExist2" name="passCardExist" /><label for="passCardExist2">NG（稼動停止）</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="0" id="passCardExist3" name="passCardExist" /><label for="passCardExist3">対象外</label></div><input type="hidden" name="_passCardExist" value="on" /></div></div><br>
+<h2 class="contents-title">室内シール</h2><div class="contents-block"><p class="contents-inner-text"><span class="notice-text">カーシェア禁煙シール、ゲート物件は「パスカードにてご入場ください」シールなどの確認</span></p><div class="content-radio tripleChoices"><div class="content-radio-block"><input type="radio" class="radio-select" value="1" id="roomStickerExist1" name="roomStickerExist" /><label for="roomStickerExist1">OK（未交換）</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="2" id="roomStickerExist2" name="roomStickerExist" /><label for="roomStickerExist2">OK（交換）</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="8" id="roomStickerExist3" name="roomStickerExist" /><label for="roomStickerExist3">NG</label></div><input type="hidden" name="_roomStickerExist" value="on" /></div></div><br>
+<h2 class="contents-title">消臭剤/除菌シート/ゴミ袋</h2><div class="contents-block"><div class="content-radio tripleChoices"><div class="content-radio-block"><input type="radio" class="radio-select" value="1" id="deodorantsExist1" name="deodorantsExist" /><label for="deodorantsExist1">OK（未交換）</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="2" id="deodorantsExist2" name="deodorantsExist" /><label for="deodorantsExist2">OK（交換）</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="8" id="deodorantsExist3" name="deodorantsExist" /><label for="deodorantsExist3">NG</label></div><input type="hidden" name="_deodorantsExist" value="on" /></div></div>
+</div>
 
-          </div>
-        </div>
-      </div>
-      
-      <footer class="footer">
-        <div class="footer-button">
-          <a href="index.html" class="is-stop"><p>一時保存</p></a>
-          <a href="javascript:void(0);" onclick="completeDailyCheck();" class="is-complete"><p>完了</p></a>
-        </div>
-      </footer>
-    </form>
-  </main>
+<div class="tab-contents" id="equipment">
+<h2 class="contents-title">安全装備</h2><div class="contents-block stock-garage">
+<div><h3>バックモニター</h3><p class="contents-inner-text"><span class="notice-text">ギアをバックに入れてモニターを確認<br />映らない場合は、ナビ設定をON</span><br /><span class="notice-text">故障の場合は「NG（稼動停止）」</span></p><div class="content-radio twoChoices"><div class="content-radio-block"><input type="radio" class="radio-select" value="1" id="backMonitor1" name="backMonitor" /><label for="backMonitor1">OK</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="9" id="backMonitor2" name="backMonitor" /><label for="backMonitor2">NG（稼動停止）</label></div><input type="hidden" name="_backMonitor" value="on" /></div></div><br>
+<div><h3>コーナーセンサー</h3><p class="contents-inner-text"><span class="notice-text">設定がONであることを確認<br />※OFFの場合は、警告灯が点灯している、または、スイッチ照明が消えている</span><br /><span class="notice-text">故障の場合は「NG（稼動停止）」</span></p><div class="content-radio twoChoices"><div class="content-radio-block"><input type="radio" class="radio-select" value="1" id="cornerSensor1" name="cornerSensor" /><label for="cornerSensor1">OK</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="9" id="cornerSensor2" name="cornerSensor" /><label for="cornerSensor2">NG（稼動停止）</label></div><input type="hidden" name="_cornerSensor" value="on" /></div></div><br>
+<div><h3>ブレーキサポート</h3><p class="contents-inner-text"><span class="notice-text">設定がONであることを確認<br />※OFFの場合は、警告灯が点灯している、または、スイッチ照明が消えている</span><br /><span class="notice-text">故障の場合は「NG（稼動停止）」</span></p><div class="content-radio twoChoices"><div class="content-radio-block"><input type="radio" class="radio-select" value="1" id="brakeSupport1" name="brakeSupport" /><label for="brakeSupport1">OK</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="9" id="brakeSupport2" name="brakeSupport" /><label for="brakeSupport2">NG（稼動停止）</label></div><input type="hidden" name="_brakeSupport" value="on" /></div></div><br>
+<div><h3>車線逸脱警報</h3><p class="contents-inner-text"><span class="notice-text">設定がONであることを確認<br />※OFFの場合は、警告灯が点灯している、または、スイッチ照明が消えている</span><br /><span class="notice-text">故障の場合は「NG（稼動停止）」</span></p><div class="content-radio twoChoices"><div class="content-radio-block"><input type="radio" class="radio-select" value="1" id="laneDevianceAlert1" name="laneDevianceAlert" /><label for="laneDevianceAlert1">OK</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="9" id="laneDevianceAlert2" name="laneDevianceAlert" /><label for="laneDevianceAlert2">NG（稼動停止）</label></div><input type="hidden" name="_laneDevianceAlert" value="on" /></div></div><br>
+<div><h3>ドライブレコーダー</h3><p class="contents-inner-text"><span class="notice-text">エンジン始動から30秒後、LEDがグリーンまたはオレンジの点灯であることを確認<br /></span><span class="notice-text">上記以外の動作の場合は「NG（稼動停止）」</span></p><div class="content-radio twoChoices"><div class="content-radio-block"><input type="radio" class="radio-select" value="1" id="driveRecorder1" name="driveRecorder" /><label for="driveRecorder1">OK</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="9" id="driveRecorder2" name="driveRecorder" /><label for="driveRecorder2">NG（稼動停止）</label></div></div></div>
+</div></div>
 
-  <script type="text/javascript">
-    $(function () {
-      // タブ切り替え処理
-      $('.tab-button').on('click', function(e) {
-        e.preventDefault();
-        var targetId = $(this).attr('data-name');
-        
-        $('.tab-button').removeClass('active');
-        $(this).addClass('active');
-        
-        $('.tab-contents').removeClass('active').hide();
-        $('#' + targetId).addClass('active').show();
-      });
-    });
+<div class="tab-contents" id="light">
+<h2 class="contents-title">点灯状態</h2><div class="contents-block"><p class="contents-inner-text"><span class="notice-text">１箇所でも点灯しない、またはレンズなどに損傷がある場合は「NG（稼動停止）」</span></p><div class="content-radio twoChoices"><div class="content-radio-block"><input type="radio" class="radio-select" value="1" id="turnSignal1" name="turnSignal" /><label for="turnSignal1">OK</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="9" id="turnSignal2" name="turnSignal" /><label for="turnSignal2">NG（稼動停止）</label></div></div></div>
+</div>
 
-    function completeDailyCheck() {
-      // セッションストレージに完了フラグを保存（トップページで点検OKマークを出すため）
-      sessionStorage.setItem('dailyCheckCompleted', 'true');
-      alert('【ダミー動作】日常点検の入力を完了しました。トップ画面に戻ります。');
-      window.location.href = 'index.html';
-    }
-  </script>
+<div class="tab-contents" id="perimeter">
+<h2 class="contents-title">給油口</h2><div class="contents-block"><p class="contents-inner-text"><span class="notice-text">キャップが紛失している場合は「NG（稼動停止）」</span></p><div class="content-radio twoChoices"><div class="content-radio-block"><input type="radio" class="radio-select" value="1" id="fuelCap1" name="fuelCap" /><label for="fuelCap1">OK</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="9" id="fuelCap2" name="fuelCap" /><label for="fuelCap2">NG（稼動停止）</label></div></div></div><br>
+<h2 class="contents-title">車両シール</h2><div class="contents-block"><p class="contents-inner-text"><span class="notice-text">お問い合わせ（駐車違反）シール、ロゴ・TOUCHシールを確認</span><br></p><div class="content-radio twoChoices"><div class="content-radio-block"><input type="radio" class="radio-select" value="1" id="carStickerExist1" name="carStickerExist" /><label for="carStickerExist1">OK</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="8" id="carStickerExist2" name="carStickerExist" /><label for="carStickerExist2">NG</label></div></div></div>
+</div>
+
+<div class="tab-contents" id="trunk">
+<h2 class="contents-title">三角停止板</h2><div class="contents-block"><p class="contents-inner-text"><span class="notice-text">破損または紛失の場合は「NG（稼動停止）」</span></p><div class="content-radio twoChoices"><div class="content-radio-block"><input type="radio" class="radio-select" value="1" id="warningTrianglePlateDamage1" name="warningTrianglePlateDamage" /><label for="warningTrianglePlateDamage1">OK</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="9" id="warningTrianglePlateDamage2" name="warningTrianglePlateDamage" /><label for="warningTrianglePlateDamage2">NG（稼動停止）</label></div></div></div><br>
+<h2 class="contents-title">パンク修理キット</h2><div class="contents-block"><p class="contents-inner-text"><span class="notice-text">使用済み、搭載されていない場合は「NG（稼動停止）」</span></p><div class="content-radio tripleChoices"><div class="content-radio-block"><input type="radio" class="radio-select" value="1" id="puncRepairKitExist1" name="puncRepairKitExist" /><label for="puncRepairKitExist1">OK</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="9" id="puncRepairKitExist2" name="puncRepairKitExist" /><label for="puncRepairKitExist2">NG（稼動停止）</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="0" id="puncRepairKitExist3" name="puncRepairKitExist" /><label for="puncRepairKitExist3">対象外</label></div></div></div><br>
+<h2 class="contents-title">パンク修理キット有効期限</h2><div class="contents-block"><p class="contents-inner-text"><span class="notice-text">期限切れは、担当部署にて交換対応します（稼動停止は不要）</span></p><span id="puncRepairKitAlert" class="txt-red" style="display:none;">※入力値は有効期限まで2か月を切っています</span><span id="puncRepairKitExpiredAlert" class="txt-red" style="display:none;">※入力値は有効期限が切れています</span><div class="expiration-date"><input type="month" step="1" id="puncRepairKitLimit" name="puncRepairKitLimit" value="" /></div></div><br>
+<h2 class="contents-title">スペアタイヤの亀裂、損傷</h2><div class="contents-block"><p class="contents-inner-text"><span class="notice-text">亀裂、損傷がある場合は「NG（稼動停止）」</span></p><div class="content-radio tripleChoices"><div class="content-radio-block"><input type="radio" class="radio-select" value="1" id="spearTireDamage1" name="spearTireDamage" /><label for="spearTireDamage1">OK</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="9" id="spearTireDamage2" name="spearTireDamage" /><label for="spearTireDamage2">NG（稼動停止）</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="0" id="spearTireDamage3" name="spearTireDamage" /><label for="spearTireDamage3">対象外</label></div></div></div><br>
+<h2 class="contents-title">車載工具類・ジャッキ</h2><div class="contents-block"><p class="contents-inner-text"><span class="notice-text">ジャッキ・ジャッキハンドル・スパナがすべて揃っているか確認</span><br /><span class="notice-text txt-red">※揃っていない場合、スペアタイヤを搭載している車両は「NG（稼動停止）」</span></p><div class="content-radio tripleChoices"><div class="content-radio-block"><input type="radio" class="radio-select" value="1" id="tireJackupSetExist1" name="tireJackupSetExist" /><label for="tireJackupSetExist1">OK</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="9" id="tireJackupSetExist2" name="tireJackupSetExist" /><label for="tireJackupSetExist2">NG（稼動停止）</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="0" id="tireJackupSetExist3" name="tireJackupSetExist" /><label for="tireJackupSetExist3">対象外</label></div></div></div><br>
+<h2 class="contents-title">清掃キット</h2><div class="contents-block"><p class="contents-inner-text"><span class="notice-text">「除菌シート、粘着コロコロテープ」が揃っているか確認</span></p><div class="content-radio tripleChoices"><div class="content-radio-block"><input type="radio" class="radio-select" value="1" id="cleaningKit1" name="cleaningKit" /><label for="cleaningKit1">OK（未交換）</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="2" id="cleaningKit2" name="cleaningKit" /><label for="cleaningKit2">OK（交換）</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="8" id="cleaningKit3" name="cleaningKit" /><label for="cleaningKit3">NG</label></div></div></div><br>
+<h2 class="contents-title">ジュニアシート</h2><div class="contents-block"><p class="contents-inner-text"><span class="notice-text">車載有無を確認。汚損、破損などで撤去した場合は「車載なし」を選択<br />次の予約がレンタカーの場合は、予約状況に応じて選択</span></p><div class="content-radio twoChoices"><div class="content-radio-block"><input type="radio" class="radio-select" value="3" id="juniorSeat1" name="juniorSeat" /><label for="juniorSeat1">車載あり</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="4" id="juniorSeat2" name="juniorSeat" /><label for="juniorSeat2">車載なし</label></div></div></div>
+</div>
+
+</div></div></div>
+
+<footer class="footer">
+<div class="footer-button">
+<a href="index.html" class="is-stop"><p>中止</p></a>
+<a href="index.html" class="is-stop"><p>一時保存</p></a>
+<a href="javascript:void(0);" onclick="completeDailyCheck();" class="is-complete"><p>完了</p></a>
+</div>
+</footer>
+</form>
+</main>
+
+<script type="text/javascript">
+$(function () {
+  $('.tab-button').on('click', function(e) {
+    e.preventDefault();
+    var targetId = $(this).attr('data-name');
+    $('.tab-button').removeClass('active');
+    $(this).addClass('active');
+    $('.tab-contents').removeClass('active').hide();
+    $('#' + targetId).addClass('active').show();
+  });
+});
+
+function completeDailyCheck() {
+  sessionStorage.setItem('dailyCheckCompleted', 'true');
+  alert('【ダミー動作】日常点検の入力を完了しました。トップ画面に戻ります。');
+  window.location.href = 'index.html';
+}
+</script>
 </body>
 </html>
