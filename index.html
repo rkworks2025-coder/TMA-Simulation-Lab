@@ -25,7 +25,7 @@
   <header class="new-wb-header">
     <nav>
       <p class="userName2">
-        <span>【ＴＳ委託】カーケアジャパン (練習用ダミー)</span>
+        <span>【ＴＳ委託】カーケアジャパン (練習用ダミー <a href="javascript:void(0);" onclick="resetPractice();" style="color:inherit; text-decoration:underline;" title="クリックで初期状態にリセット">v1.1</a>)</span>
       </p>
       <br>
       <div class="nav-menu">
@@ -194,7 +194,7 @@
                   </div>
                   <br>
                   <div class="start-button-area" id="dailyBtnContainer">
-                    <div class="info-button"><a href="daily_check.html"><span>点検</span></a></div>
+                    <p class="info-button disable">点検</p>
                   </div>
                 </div>
                 <br>
@@ -227,7 +227,7 @@
                   </div>
                   <br>
                   <div class="start-button-area" id="interiorBtnContainer">
-                    <div class="info-button"><a href="interior.html"><span>点検</span></a></div>
+                    <p class="info-button disable">点検</p>
                   </div>
                 </div>
                 <br>
@@ -258,7 +258,7 @@
                   </div>
                   <br>
                   <div class="start-button-area" id="washBtnContainer">
-                    <div class="info-button"><a href="wash.html"><span>点検</span></a></div>
+                    <p class="info-button disable">点検</p>
                   </div>
                 </div>
                 <br>
@@ -289,7 +289,7 @@
                   </div>
                   <br>
                   <div class="start-button-area" id="exteriorBtnContainer">
-                    <div class="info-button"><a href="exterior.html"><span>点検</span></a></div>
+                    <p class="info-button disable">点検</p>
                   </div>
                 </div>
                 <br>
@@ -320,7 +320,7 @@
                   </div>
                   <br>
                   <div class="start-button-area" id="lendBtnContainer">
-                    <div class="info-button"><a href="lend_prep.html"><span>点検</span></a></div>
+                    <p class="info-button disable">点検</p>
                   </div>
                 </div>
                 <br>
@@ -355,7 +355,7 @@
                       <p class="info-title"><span>点検終了</span></p>
                     </div>
                     <div class="start-button-area" id="endBtnContainer">
-                      <div class="info-button"><a href="end.html"><span>終了</span></a></div>
+                      <p class="info-button disable">終了</p>
                     </div>
                   </div>
                 </div>
@@ -370,12 +370,30 @@
 
   <script type="text/javascript">
     /*<![CDATA[*/
-    // 点検開始ボタンのダミー処理
+    $(function() {
+      // ページ読み込み時に状態を判定してボタンを切り替え
+      var isStarted = sessionStorage.getItem('maintenanceStarted') === 'true';
+
+      if (isStarted) {
+        // 開始済み：開始ボタンを無効化、各点検・終了ボタンを有効化
+        $('#startBtnContainer').html('<p class="info-button disable">開始</p>');
+        $('#dailyBtnContainer').html('<div class="info-button"><a href="daily_check.html"><span>点検</span></a></div>');
+        $('#interiorBtnContainer').html('<div class="info-button"><a href="interior.html"><span>点検</span></a></div>');
+        $('#washBtnContainer').html('<div class="info-button"><a href="wash.html"><span>点検</span></a></div>');
+        $('#exteriorBtnContainer').html('<div class="info-button"><a href="exterior.html"><span>点検</span></a></div>');
+        $('#lendBtnContainer').html('<div class="info-button"><a href="lend_prep.html"><span>点検</span></a></div>');
+        $('#endBtnContainer').html('<div class="info-button"><a href="end.html"><span>終了</span></a></div>');
+      }
+    });
+
+    // 点検開始ボタンの処理
     function goStartMaintenance() {
       $('#loading-view').show();
       setTimeout(function() {
-        $('#loading-view').hide();
-        alert('【ダミー動作】点検開始処理が完了しました。各項目の点検を進めてください。');
+        // セッションストレージに「開始済み」フラグを保存
+        sessionStorage.setItem('maintenanceStarted', 'true');
+        // ページをリロードして状態を反映
+        window.location.reload();
       }, 800);
     }
 
@@ -386,6 +404,14 @@
         $('#loading-CarStatusGet-view').hide();
         alert('【ダミー動作】車両状態の更新が完了しました。');
       }, 1500);
+    }
+
+    // 練習用に初期状態へリセットする機能（ヘッダーのバージョンクリック用）
+    function resetPractice() {
+      if(confirm('【ダミー動作】点検状態を初期化して最初からやり直しますか？')) {
+        sessionStorage.clear();
+        window.location.reload();
+      }
     }
     /*]]>*/
   </script>
