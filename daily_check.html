@@ -4,104 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>日常点検（入力）</title>
+    
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="css/common.css" />
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <style>
-        /* --------------------------------------------------
-           基本スタイル & 参照ファイルのクラス再現用CSS
-           -------------------------------------------------- */
-        body { font-family: "Hiragino Kaku Gothic ProN", Meiryo, sans-serif; margin: 0; background: #f2f2f2; color: #333; padding-bottom: 100px; -webkit-text-size-adjust: 100%; }
-        
-        /* ヘッダー */
-        .new-wb-header { background: #333; color: #fff; padding: 10px; text-align: center; position: relative; }
-        .userName2 { font-size: 0.9rem; margin: 0; }
-        
-        /* メインエリア */
-        .main { padding: 10px; }
-        .info-area { background: #fff; padding: 10px; margin-bottom: 15px; border-radius: 4px; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
-        .car-another-title { font-size: 1.1rem; margin: 0; font-weight: bold; color: #333; border-left: 5px solid #d00; padding-left: 10px; }
-        .car-number-text { font-size: 0.9rem; margin-top: 5px; color: #666; padding-left: 15px; }
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-        /* タブナビゲーション */
-        .tab-container { overflow-x: auto; -webkit-overflow-scrolling: touch; background: #fff; border-bottom: 1px solid #ccc; margin-bottom: 15px; white-space: nowrap; }
-        .tab { display: flex; }
-        .tab-button { padding: 10px 15px; font-size: 0.85rem; color: #666; cursor: pointer; border-bottom: 3px solid transparent; }
-        .tab-button.active { color: #d00; border-bottom: 3px solid #d00; font-weight: bold; }
-        .tab-button a { text-decoration: none; color: inherit; pointer-events: none; } /* リンク無効化してJS制御 */
-
-        /* コンテンツ表示エリア */
-        .tab-contents { display: none; }
-        .tab-contents.active { display: block; }
-
-        /* 各点検項目ブロック */
-        .contents-title { font-size: 1rem; font-weight: bold; margin: 20px 0 10px 0; color: #333; padding-left: 5px; }
-        .contents-stickyTitle { background: #666; color: #fff; padding: 5px 10px; font-size: 0.9rem; margin-top: 20px; }
-        
-        .contents-block { background: #fff; padding: 15px; margin-bottom: 15px; border-radius: 4px; box-shadow: 0 1px 1px rgba(0,0,0,0.05); }
-        .contents-inner-text { font-size: 0.85rem; color: #555; line-height: 1.5; margin-bottom: 10px; }
-        .notice-text { display: block; }
-        .txt-red { color: #d00; }
-
-        /* ラジオボタンエリア */
-        .content-radio { display: flex; justify-content: space-between; gap: 5px; margin-top: 10px; }
-        .content-radio-block { flex: 1; position: relative; }
-        
-        /* ラジオボタンの見た目をボタン風に */
-        .content-radio input[type="radio"] { opacity: 0; position: absolute; width: 100%; height: 100%; cursor: pointer; z-index: 1; }
-        .content-radio label {
-            display: flex; justify-content: center; align-items: center;
-            width: 100%; height: 45px;
-            background: #fff; border: 1px solid #ccc; border-radius: 4px;
-            font-size: 0.9rem; color: #333;
-            box-sizing: border-box; text-align: center;
-        }
-        /* 選択時のスタイル */
-        .content-radio input[type="radio"]:checked + label {
-            background: #ebf7ff; border-color: #007bff; color: #007bff; font-weight: bold;
-        }
-        /* NG選択時のスタイル (valueが8か9の場合) */
-        .content-radio input[type="radio"][value="9"]:checked + label,
-        .content-radio input[type="radio"][value="8"]:checked + label {
-            background: #ffeeee; border-color: #d00; color: #d00;
-        }
-
-        /* 3択・2択の幅調整 */
-        .twoChoices .content-radio-block { width: 48%; }
-        .tripleChoices .content-radio-block { width: 32%; }
-
-        /* 入力フィールド */
-        .single-input { 
-            padding: 8px; border: 1px solid #ccc; border-radius: 4px; 
-            font-size: 1.1rem; width: 80px; text-align: center; 
-            margin: 0 5px; -webkit-appearance: none;
-        }
-        input[type="month"] { width: 100%; padding: 10px; font-size: 1rem; box-sizing: border-box; }
-
-        /* リスト形式（タイヤなど） */
-        .contents-list { list-style: none; padding: 0; margin: 0; }
-        .contents-list li { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #eee; padding: 10px 0; }
-        .contents-list h3 { font-size: 0.9rem; margin: 0; width: 30%; }
-        
-        /* チェックボックス */
-        .contents-checkbox-box label { display: flex; align-items: center; cursor: pointer; padding: 10px 0; }
-        .check-select { transform: scale(1.5); margin-right: 10px; }
-
-        /* フッターボタン */
-        .footer {
-            position: fixed; bottom: 0; left: 0; width: 100%;
-            background: #fff; padding: 10px 0; border-top: 1px solid #ddd;
-            display: flex; justify-content: space-around; z-index: 100;
-            box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
-        }
-        .footer-button { width: 100%; display: flex; justify-content: center; gap: 15px; }
-        .footer-btn-link {
-            display: block; width: 45%; max-width: 200px; padding: 12px 0;
-            text-align: center; text-decoration: none; font-weight: bold; border-radius: 4px;
-            font-size: 1rem; cursor: pointer;
-        }
-        .is-stop { background: #666; color: #fff; } /* 一時保存 */
-        .is-complete { background: #d00; color: #fff; } /* 完了 */
-
-    </style>
     <script>
         $(function() {
             // ------------------------------
@@ -113,12 +23,17 @@
                 var target = $(this).attr('data-name');
                 $('.tab-button').removeClass('active');
                 $(this).addClass('active');
-                $('.tab-contents').removeClass('active');
-                $('#' + target).addClass('active');
+                $('.tab-contents').removeClass('active'); // activeクラスを外す
+                $('.tab-contents').hide(); // 念のためhide
+                $('#' + target).show();    // 対象を表示
                 
                 // タブ位置までスクロール（UX向上）
-                $('html, body').animate({scrollTop: 0}, 0);
+                $('html, body').animate({scrollTop: 0}, 200);
             });
+
+            // 初期表示：最初のタブを表示
+            $('.tab-contents').hide();
+            $('#engine').show();
 
             // localStorageからデータを復元
             loadFormData();
@@ -206,13 +121,52 @@
                     // その他の入力復元
                     else {
                         $('[name="' + key + '"]').val(value);
-                        // ID指定での復元も試みる（nameがない場合など）
                         $('#' + key).val(value);
                     }
                 });
             }
         }
     </script>
+    <style>
+        /* 外部CSSで補完しきれない、このページ特有の微調整（フッター固定など）のみ記述 */
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #fff;
+            padding: 10px 0;
+            border-top: 1px solid #ddd;
+            z-index: 999;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+        }
+        .footer-button {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        .footer-btn-link {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 45%;
+            max-width: 200px;
+            height: 45px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        /* ボタンの色定義（common.cssに含まれていなければここで補完） */
+        .is-stop { background: #fff; color: #333; border: 1px solid #ccc; }
+        .is-complete { background: #d00; color: #fff; border: 1px solid #a00; }
+        
+        /* 入力項目の微調整 */
+        .single-input { width: 80px; text-align: center; }
+        
+        /* ページ下部の余白確保 */
+        body { padding-bottom: 100px; }
+    </style>
 </head>
 <body>
     
@@ -244,7 +198,7 @@
 
             <form id="dailyForm">
                 
-                <div id="engine" class="tab-contents active">
+                <div id="engine" class="tab-contents">
                     <h2 class="contents-title">冷却水量</h2>
                     <div class="contents-block">
                         <p class="contents-inner-text">
@@ -344,7 +298,7 @@
                         <ul class="contents-list">
                             <li>
                                 <h3>週/年</h3>
-                                <input type="number" class="single-input" name="tireMfrFrontRightCm" placeholder="1224">
+                                <input type="number" class="single-input" name="tireMfrFrontRightCm" id="tireMfrFrontRightCm" placeholder="1224">
                             </li>
                             <li>
                                 <div class="contents-checkbox-box">
@@ -360,7 +314,7 @@
                         </div>
 
                         <h2 class="contents-title">溝 (mm)</h2>
-                        <div class="contents-block" style="text-align:center;">
+                        <div class="contents-block" style="text-align:center; padding-top:20px; padding-bottom:20px;">
                             <input type="number" class="single-input" name="tireGrooveFrontRightCmIp"> . <input type="number" class="single-input" name="tireGrooveFrontRightCmFp"> mm
                         </div>
 
@@ -383,11 +337,16 @@
                         <ul class="contents-list">
                             <li>
                                 <h3>週/年</h3>
-                                <input type="number" class="single-input" name="tireMfrFrontLeftCm">
+                                <input type="number" class="single-input" name="tireMfrFrontLeftCm" id="tireMfrFrontLeftCm">
                             </li>
                         </ul>
+                        <h2 class="contents-title">損傷・亀裂</h2>
+                        <div class="content-radio twoChoices">
+                            <div class="content-radio-block"><input type="radio" name="tireDamageFrontLeft" value="1" id="tdFL1"><label for="tdFL1">OK</label></div>
+                            <div class="content-radio-block"><input type="radio" name="tireDamageFrontLeft" value="9" id="tdFL2"><label for="tdFL2">NG</label></div>
+                        </div>
                         <h2 class="contents-title">溝 (mm)</h2>
-                        <div style="text-align:center;">
+                        <div style="text-align:center; padding-top:20px; padding-bottom:20px;">
                             <input type="number" class="single-input" name="tireGrooveFrontLeftCmIp"> . <input type="number" class="single-input" name="tireGrooveFrontLeftCmFp"> mm
                         </div>
                         <h2 class="contents-title">空気圧 (kPa)</h2>
@@ -397,8 +356,54 @@
                         </ul>
                     </div>
                     
+                    <h2 class="contents-stickyTitle">左後タイヤ</h2>
                     <div class="contents-block">
-                        <p class="notice-text">※左後・右後も同様に入力欄が存在します（省略）</p>
+                        <h2 class="contents-title">製造年週</h2>
+                        <ul class="contents-list">
+                            <li>
+                                <h3>週/年</h3>
+                                <input type="number" class="single-input" name="tireMfrRearLeftCm" id="tireMfrRearLeftCm">
+                            </li>
+                        </ul>
+                        <h2 class="contents-title">損傷・亀裂</h2>
+                        <div class="content-radio twoChoices">
+                            <div class="content-radio-block"><input type="radio" name="tireDamageRearLeft" value="1" id="tdRL1"><label for="tdRL1">OK</label></div>
+                            <div class="content-radio-block"><input type="radio" name="tireDamageRearLeft" value="9" id="tdRL2"><label for="tdRL2">NG</label></div>
+                        </div>
+                        <h2 class="contents-title">溝 (mm)</h2>
+                        <div style="text-align:center; padding-top:20px; padding-bottom:20px;">
+                            <input type="number" class="single-input" name="tireGrooveRearLeftCmIp"> . <input type="number" class="single-input" name="tireGrooveRearLeftCmFp"> mm
+                        </div>
+                        <h2 class="contents-title">空気圧 (kPa)</h2>
+                        <ul class="contents-list">
+                            <li><h3>調整前</h3><input type="number" class="single-input" name="tirePressureRearLeftCm"></li>
+                            <li><h3>調整後</h3><input type="number" class="single-input" name="tirePressureAdjustedRearLeftCm"></li>
+                        </ul>
+                    </div>
+
+                    <h2 class="contents-stickyTitle">右後タイヤ</h2>
+                    <div class="contents-block">
+                        <h2 class="contents-title">製造年週</h2>
+                        <ul class="contents-list">
+                            <li>
+                                <h3>週/年</h3>
+                                <input type="number" class="single-input" name="tireMfrRearRightCm" id="tireMfrRearRightCm">
+                            </li>
+                        </ul>
+                        <h2 class="contents-title">損傷・亀裂</h2>
+                        <div class="content-radio twoChoices">
+                            <div class="content-radio-block"><input type="radio" name="tireDamageRearRight" value="1" id="tdRR1"><label for="tdRR1">OK</label></div>
+                            <div class="content-radio-block"><input type="radio" name="tireDamageRearRight" value="9" id="tdRR2"><label for="tdRR2">NG</label></div>
+                        </div>
+                        <h2 class="contents-title">溝 (mm)</h2>
+                        <div style="text-align:center; padding-top:20px; padding-bottom:20px;">
+                            <input type="number" class="single-input" name="tireGrooveRearRightCmIp"> . <input type="number" class="single-input" name="tireGrooveRearRightCmFp"> mm
+                        </div>
+                        <h2 class="contents-title">空気圧 (kPa)</h2>
+                        <ul class="contents-list">
+                            <li><h3>調整前</h3><input type="number" class="single-input" name="tirePressureRearRightCm"></li>
+                            <li><h3>調整後</h3><input type="number" class="single-input" name="tirePressureAdjustedRearRightCm"></li>
+                        </ul>
                     </div>
                 </div>
 
