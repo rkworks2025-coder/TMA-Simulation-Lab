@@ -27,8 +27,11 @@ input[type="checkbox"].check-select { -webkit-appearance: checkbox !important; a
 .footer-button-triple a::before { display: none !important; }
 .footer-button-triple p { margin: 0; padding: 0; }
 .footer { position: fixed; bottom: 0; width: 100%; z-index: 1000; }
+/* 未入力時の強調スタイル */
 .error-highlight .content-radio-block { border: 1px solid #e60012 !important; background-color: #fce8e8 !important; }
 .error-highlight-input { border: 1px solid #e60012 !important; background-color: #fce8e8 !important; }
+/* チェックボックス（ルームスイッチ）の強調 */
+.contents-checkbox-box.error-highlight { border: 1px solid #e60012 !important; background-color: #fce8e8 !important; padding: 5px; display: inline-block; }
 .badge-required { display: inline-block; background-color: #e60012; color: #fff; font-size: 11px; font-weight: bold; padding: 2px 5px; border-radius: 2px; margin-right: 6px; vertical-align: 1px; }
 </style>
 </head>
@@ -67,7 +70,7 @@ input[type="checkbox"].check-select { -webkit-appearance: checkbox !important; a
                 <label for="fuelLevelCheck1">実施</label>
             </div>
             <div class="content-radio-block">
-                <input type="radio" class="radio-select" value="0" id="fuelLevelCheck2" name="fuelLevelCheck" checked="checked" />
+                <input type="radio" class="radio-select" value="0" id="fuelLevelCheck2" name="fuelLevelCheck" />
                 <label for="fuelLevelCheck2">未実施</label>
             </div>
         </div>
@@ -83,7 +86,7 @@ input[type="checkbox"].check-select { -webkit-appearance: checkbox !important; a
         </p>
         <div class="content-radio tripleChoices">
             <div class="content-radio-block">
-                <input type="radio" class="radio-select fuelCardCondition" value="1" id="fuelCardCondition1" name="fuelCardCondition" checked="checked"/>
+                <input type="radio" class="radio-select fuelCardCondition" value="1" id="fuelCardCondition1" name="fuelCardCondition" />
                 <label for="fuelCardCondition1">OK</label>
             </div>
             <div class="content-radio-block">
@@ -136,7 +139,7 @@ input[type="checkbox"].check-select { -webkit-appearance: checkbox !important; a
     <div class="contents-block">
         <div class="content-radio tripleChoices">
             <div class="content-radio-block">
-                <input type="radio" class="radio-select" value="1" id="interiorSeal1" name="interiorSeal" checked="checked" />
+                <input type="radio" class="radio-select" value="1" id="interiorSeal1" name="interiorSeal" />
                 <label for="interiorSeal1">OK</label>
             </div>
             <div class="content-radio-block">
@@ -156,7 +159,7 @@ input[type="checkbox"].check-select { -webkit-appearance: checkbox !important; a
         <p class="contents-inner-text">スリットボックスに鍵をセット・バリアポップの設置を確認</p>
         <div class="content-radio twoChoices">
             <div class="content-radio-block">
-                <input type="radio" class="radio-select" value="1" id="parkingCheck1" name="parkingCheck" checked="checked" />
+                <input type="radio" class="radio-select" value="1" id="parkingCheck1" name="parkingCheck" />
                 <label for="parkingCheck1">OK</label>
             </div>
             <div class="content-radio-block">
