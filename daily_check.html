@@ -132,7 +132,7 @@ input[type="checkbox"].check-select { -webkit-appearance: checkbox !important; a
 <footer class="footer">
 <div class="footer-button-triple">
 <a href="index.html" class="btn-cancel"><p>中止</p></a>
-<a href="index.html" class="btn-save"><p>一時保存</p></a>
+<a href="javascript:void(0);" onclick="saveDraft();" class="btn-save"><p>一時保存</p></a>
 <a href="javascript:void(0);" onclick="completeDailyCheck();" class="btn-complete"><p>完了</p></a>
 </div>
 </footer>
@@ -189,7 +189,6 @@ $(function () {
   function updateHighlights() {
     // 空気圧チェックを先に実行
     checkAirPressure();
-    
     // ラジオボタン判定
     $('.content-radio').each(function() {
       var $radios = $(this).find('input[type="radio"]');
@@ -218,9 +217,21 @@ $(function () {
   $(document).on('input change', 'input', function() { updateHighlights(); });
 });
 
+// 一時保存ボタンの処理
+function saveDraft() {
+  // 一時保存フラグを立てる（トップページで一時保存ボタンを表示するため）
+  sessionStorage.setItem('dailyCheckDraft', 'true');
+  // 完了フラグは消しておく（誤動作防止）
+  sessionStorage.removeItem('dailyCheckCompleted');
+  // アラート表示を全削除し、トップ画面へ遷移
+  window.location.href = 'index.html';
+}
+
 function completeDailyCheck() {
   // セッションストレージに完了フラグを保存（トップページで点検OKマークを出すため）
   sessionStorage.setItem('dailyCheckCompleted', 'true');
+  // 一時保存フラグを消す（トップページのif文で完了表示を優先させるため）
+  sessionStorage.removeItem('dailyCheckDraft');
   // アラート表示を全削除し、無言でトップ画面へ遷移
   window.location.href = 'index.html';
 }
