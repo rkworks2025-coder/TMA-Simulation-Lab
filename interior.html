@@ -1,132 +1,259 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>車内清掃</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex"/>
+  
+  <title>点検詳細 (Test Mode)</title>
+
+  <link rel="stylesheet" type="text/css" href="https://dailycheck.tc-extsys.jp/css/font-awesome.min.css" />
+  <link rel="stylesheet" type="text/css" href="https://dailycheck.tc-extsys.jp/css/reset.css" />
+  <link rel="stylesheet" type="text/css" href="https://dailycheck.tc-extsys.jp/css/common.css" />
+  <link rel="stylesheet" type="text/css" href="https://dailycheck.tc-extsys.jp/css/taw0101002.css" />
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  
+  <script>
+    // --------------------------------------------------
+    // 状態管理用ロジック（ダミー用）
+    // localStorageを使用して、各項目の作業状態を再現する
+    // --------------------------------------------------
+    $(function() {
+      // 画面読み込み時に各ボタンの状態をレンダリング
+      renderButtonState('daily', 'dailyBtnContainer', 'dailyTitleArea');      // 日常点検
+      renderButtonState('interior', 'interiorBtnContainer', 'interiorTitleArea'); // 車内清掃
+      renderButtonState('wash', 'washBtnContainer', 'washTitleArea');         // 洗車
+      renderButtonState('exterior', 'exteriorBtnContainer', 'exteriorTitleArea'); // 外装確認
+      renderButtonState('lend', 'lendBtnContainer', 'lendTitleArea');         // 貸出準備
+      renderButtonState('end', 'endBtnContainer', 'endTitleArea');            // 点検終了
+    });
+
+    /**
+     * ステータスに応じてボタンと表示エリアを更新する関数
+     * @param {string} keyName - localStorageのキー識別子 (例: 'daily')
+     * @param {string} btnContainerId - ボタン配置エリアのID
+     * @param {string} titleAreaId - タイトル・ステータス表示エリアのID
+     */
+    function renderButtonState(keyName, btnContainerId, titleAreaId) {
+      // localStorageから状態を取得（未定義の場合は空文字）
+      // 想定値: ''(未実施), 'temporary'(一時保存), 'ok'(完了), 'ng'(NG)
+      var status = localStorage.getItem('dummy_status_' + keyName) || '';
+
+      var $btnContainer = $('#' + btnContainerId);
+      var $titleArea = $('#' + titleAreaId);
+
+      // ボタンのHTMLテンプレート
+      var btnHtml = '';
+      // ステータス表示のHTMLテンプレート
+      var statusHtml = '';
+
+      switch (status) {
+        case 'temporary':
+          // ■一時保存の状態
+          // ボタン: 「一時保存」
+          // ステータス表示: なし（または仕様に合わせて追加）
+          btnHtml = '<div class="info-button"><a href="' + getTargetUrl(keyName) + '"><span>一時保存</span></a></div>';
+          break;
+
+        case 'ok':
+          // ■完了(OK)の状態
+          // ボタン: 「点検」（disable）
+          // ステータス表示: 「点検OK」（緑字）
+          btnHtml = '<p class="info-button disable">点検</p>';
+          statusHtml = '<br><p class="info-status-temporarily result-ok">点検OK</p>';
+          
+          // 点検終了ボタンのみ文言が「終了」になる特例対応
+          if(keyName === 'end') {
+             btnHtml = '<p class="info-button disable">終了</p>';
+          }
+          break;
+
+        case 'ng':
+          // ■NGの状態
+          // ボタン: 「点検」（disable ※仕様によるが今回はdisableとする）
+          // ステータス表示: 「点検NG」（赤字）
+          btnHtml = '<p class="info-button disable">点検</p>';
+          statusHtml = '<br><p class="info-status-temporarily result-ng">点検NG</p>';
+          break;
+
+        default:
+          // ■未実施（初期状態）
+          // ボタン: 「点検」（通常リンク）
+          // ステータス表示: なし
+          var btnText = (keyName === 'end') ? '終了' : '点検';
+          btnHtml = '<div class="info-button"><a href="' + getTargetUrl(keyName) + '"><span>' + btnText + '</span></a></div>';
+          break;
+      }
+
+      // DOMの更新
+      $btnContainer.html(btnHtml);
+      
+      // 既存のステータス表示を削除してから追加（二重表示防止）
+      $titleArea.find('.info-status-temporarily').remove();
+      $titleArea.find('br').remove(); // 改行タグも整理
+      if (statusHtml) {
+        $titleArea.append(statusHtml);
+      }
+    }
+
+    /**
+     * 各ボタンの飛び先URLを返す
+     */
+    function getTargetUrl(keyName) {
+      switch(keyName) {
+        case 'daily': return 'daily_check.html';
+        case 'interior': return 'interior.html';
+        case 'wash': return 'wash.html';
+        case 'exterior': return 'exterior.html';
+        case 'lend': return 'lend_prep.html';
+        case 'end': return 'end.html';
+        default: return '#';
+      }
+    }
+  </script>
 </head>
 <body>
-    <header class="header">
-        <div class="header-inner">
-            <p>【ＴＳ委託】カーケアジャパン</p>
-            <div class="menu-icon">≡</div>
+    
+    <header class="new-wb-header">
+      <nav>
+        <p class="userName2"><span>【ＴＳ委託】カーケアジャパン (Test)</span></p>
+        <div class="nav-menu">
+            <div id="nav-drawer">
+                <input id="nav-input" type="checkbox" class="nav-unshown" />
+                <label id="nav-open" for="nav-input"><span></span></label>
+                <div id="nav-content">
+                    <ul class="modalList">
+                        <li><a class="nav-link" href="menu.html">メニューへ戻る</a></li>
+                        <li><a class="nav-link" href="#" onclick="localStorage.clear(); location.reload();">状態リセット(Debug)</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
+      </nav>
     </header>
+    
+  <main class="detail-main">
+      <div class="info-area">
+        <h1 class="car-another-title">点検トップ</h1>
+      </div>
 
-    <main class="main-container">
-        <div class="page-header">
-            <h1>車内清掃</h1>
-            <span class="car-no">相模 7725</span>
-        </div>
+      <div class="tab-contents car-another-contents">
+          
+          <div class="car-list">
+            <h2 class="car-detail-title">車両情報</h2>
+            <div class="car-contents">
+              <table>
+                <tr>
+                  <th colspan="2">車両ナンバー</th>
+                  <td>相模 501 ワ 7725</td>
+                </tr>
+                <tr>
+                  <th colspan="2">車種名</th>
+                  <td>ヤリス(ハイブリッド)</td>
+                </tr>
+              </table>
+            </div>
+          </div>
 
-        <form id="interior-check-form">
+          <div class="car-list history">
+            <h2 class="car-detail-title">点検詳細</h2>
             
-            <div class="content-section">
-                <h3 class="contents-title needs">内装・窓ガラス清掃・異臭</h3>
-                <div class="contents-block" style="box-shadow:none; padding:0; margin:0;">
-                    <p class="contents-inner-text">
-                        内装の清掃（重要箇所：ドアポケット・センターコンソール・ダッシュボード・シート下・ヘッドレスト）<br>
-                        内窓・外窓（油膜）・サイドミラー・バックミラーの清掃<br>
-                        各種伝票の回収、破棄
-                    </p>
-                    <p class="contents-inner-text">
-                        <span class="txt-red">ヘッドレストがない、極端な異臭や汚れが残る場合は「NG（稼動停止）」</span>
-                    </p>
-                    
-                    <div class="content-radio twoChoices">
-                        <div class="content-radio-block">
-                            <input type="radio" class="radio-select" name="interiorDirt" id="interiorDirt01" value="1">
-                            <label for="interiorDirt01">OK</label>
-                        </div>
-                        <div class="content-radio-block">
-                            <input type="radio" class="radio-select error" name="interiorDirt" id="interiorDirt03" value="9">
-                            <label for="interiorDirt03">NG（稼動停止）</label>
+            <div class="info-box">
+              <div class="check-state-area">
+                <div class="info-title-area">
+                  <p class="info-title">点検開始</p>
+                </div>
+                <div class="start-button-area" id="startBtnContainer">
+                    <p class="info-button disable">開始</p>
+                </div>
+              </div>
+              <div class="check-history-area">
+                  <div class="history-contents reservation">
+                    <p class="inquiry-text">01月03日 06:15 ～ 06:45</p>
+                    <p class="inquiry-text"><span>予約中</span></p>
+                  </div>
+              </div>
+            </div>
+            
+            <div class="is-rental">
+                <div>
+                  <p class="mt15 txt-red">ブレーキ点灯確認バーを使用する際は、車両が動かないよう点検開始前にタイヤストッパーを必ず設置してください</p>
+                </div>
+                
+                <div class="info-box">
+                  <div class="check-state-area">
+                    <div class="info-title-area" id="dailyTitleArea">
+                      <p class="info-title">日常点検</p>
+                    </div>
+                    <div class="start-button-area" id="dailyBtnContainer">
+                        <div class="info-button"><a href="daily_check.html"><span>点検</span></a></div>
+                    </div>
+                  </div>
+                  <div class="check-history-area">
+                    <div class="history-state">
+                      <p>前回</p>
+                      <div>
+                        <div class="state-mark"><img src="https://dailycheck.tc-extsys.jp/images/icon-history-ok.png" /></div>
+                      </div>
+                    </div>
+                    <div class="history-contents">
+                      <p>2025/12/20 23:02</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="info-box">
+                    <div class="check-state-area">
+                        <div class="info-title-area" id="interiorTitleArea"><p class="info-title">車内清掃</p></div>
+                        <div class="start-button-area" id="interiorBtnContainer">
+                            <div class="info-button"><a href="interior.html"><span>点検</span></a></div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="content-section">
-                <h3 class="contents-title needs">車内不具合確認</h3>
-                <div class="contents-block" style="box-shadow:none; padding:0; margin:0;">
-                    <p class="contents-inner-text">
-                        運転席マットストッパー設置状況：破損、未設置がないか<br>
-                        エアコンの不具合確認：夏場は冷風が出るか、極端な異臭がないか
-                    </p>
-                    <p class="contents-inner-text">
-                        <span class="txt-red">上記の不具合が確認された場合は「NG（稼動停止）」</span>
-                    </p>
-                    
-                    <div class="content-radio twoChoices">
-                        <div class="content-radio-block">
-                            <input type="radio" class="radio-select" name="interiorCheckTrouble" id="interiorCheckTrouble01" value="1">
-                            <label for="interiorCheckTrouble01">OK</label>
-                        </div>
-                        <div class="content-radio-block">
-                            <input type="radio" class="radio-select error" name="interiorCheckTrouble" id="interiorCheckTrouble03" value="9">
-                            <label for="interiorCheckTrouble03">NG（稼動停止）</label>
+                <div class="info-box">
+                    <div class="check-state-area">
+                        <div class="info-title-area" id="washTitleArea"><p class="info-title">洗車</p></div>
+                        <div class="start-button-area" id="washBtnContainer">
+                            <div class="info-button"><a href="wash.html"><span>点検</span></a></div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="content-section">
-                <h3 class="contents-title needs">カーナビ（ラジオ）・ETC・車内時計</h3>
-                <div class="contents-block" style="box-shadow:none; padding:0; margin:0;">
-                    <p class="content-header">設定</p>
-                    <p class="contents-inner-text">
-                        <span>カーナビ（ラジオ）・ETCの音量が0（ゼロ）でないことを確認</span><br>
-                        <span>車両時刻とカーナビ時刻を確認（相違の場合、カーナビの時刻に合わせる）</span>
-                    </p>
-                    <p class="contents-inner-text">
-                        <span class="txt-red">故障の場合は「NG（稼動停止）」</span>
-                    </p>
-                    
-                    <div class="content-radio twoChoices">
-                        <div class="content-radio-block">
-                            <input type="radio" class="radio-select" name="soundVolume" id="soundVolume01" value="1">
-                            <label for="soundVolume01">OK</label>
-                        </div>
-                        <div class="content-radio-block">
-                            <input type="radio" class="radio-select error" name="soundVolume" id="soundVolume03" value="9">
-                            <label for="soundVolume03">NG（稼動停止）</label>
+                <div class="info-box">
+                    <div class="check-state-area">
+                        <div class="info-title-area" id="exteriorTitleArea"><p class="info-title">外装確認</p></div>
+                        <div class="start-button-area" id="exteriorBtnContainer">
+                            <div class="info-button"><a href="exterior.html"><span>点検</span></a></div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="content-section">
-                <h3 class="contents-title needs">忘れ物</h3>
-                <div class="contents-block" style="box-shadow:none; padding:0; margin:0;">
-                    <div class="content-radio twoChoices">
-                        <div class="content-radio-block">
-                            <input type="radio" class="radio-select" name="lostArticle" id="lostArticle01" value="1">
-                            <label for="lostArticle01">なし</label>
-                        </div>
-                        <div class="content-radio-block">
-                            <input type="radio" class="radio-select" name="lostArticle" id="lostArticle03" value="2">
-                            <label for="lostArticle03">あり</label>
+                <div class="info-box">
+                    <div class="check-state-area">
+                        <div class="info-title-area" id="lendTitleArea"><p class="info-title">貸出準備</p></div>
+                        <div class="start-button-area" id="lendBtnContainer">
+                            <div class="info-button"><a href="lend_prep.html"><span>点検</span></a></div>
                         </div>
                     </div>
                 </div>
+
+                <div class="info-box">
+                    <div class="check-state-area">
+                        <div class="info-title-area" id="endTitleArea"><p class="info-title">点検終了</p></div>
+                        <div class="start-button-area" id="endBtnContainer">
+                            <div class="info-button"><a href="end.html"><span>終了</span></a></div>
+                        </div>
+                    </div>
+                </div>
+
+              </div>
             </div>
-
-        </form>
-
-        <div class="footer">
-            <div class="footer-button">
-                <a href="index.html" class="is-stop">
-                    <p style="margin:0;">一時保存</p>
-                </a>
-                <a href="#" class="is-complete" onclick="completeTask('interior'); return false;">
-                    <p style="margin:0;">完了</p>
-                </a>
-            </div>
-        </div>
-    </main>
-
-    <script src="script.js"></script>
+          </div>
+  </main>
 </body>
 </html>
