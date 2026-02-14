@@ -1,480 +1,118 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="robots" content="noindex"/>
-  
-  <title>点検トップ - 入力練習用TMA</title>
-  
-  <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
-  <link rel="stylesheet" type="text/css" href="css/reset.css" />
-  <link rel="stylesheet" type="text/css" href="css/common.css" />
-  <link rel="stylesheet" type="text/css" href="css/taw0101002.css" />
-  
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  
-  <script src="js/common.js"></script>
-  <script src="js/maintenance.js"></script>
-  <script src="js/carDetail.js"></script>
-  <meta name="format-detection" content="telephone=no" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="robots" content="noindex"/>
+<title>トップ - 入力練習用TMA</title>
+<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="css/reset.css" />
+<link rel="stylesheet" type="text/css" href="css/common.css" />
+<link rel="stylesheet" type="text/css" href="css/taw0101002.css" />
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<style>
+/* トップ画面専用のボタンスタイル */
+.top-main { padding: 20px; background-color: #f5f5f5; min-height: 100vh; }
+.car-info-box { background: #fff; padding: 15px; border: 1px solid #ccc; border-radius: 5px; margin-bottom: 20px; font-weight: bold; text-align: center; }
+.status-msg-box { text-align: center; margin-bottom: 20px; font-size: 16px; font-weight: bold; color: #e60012; }
+.btn-start { display: block; width: 100%; padding: 15px; background-color: #e60012; color: #fff; text-align: center; text-decoration: none; font-size: 18px; font-weight: bold; border-radius: 5px; margin-bottom: 30px; }
+.menu-list { display: flex; flex-direction: column; gap: 15px; }
+.menu-item { display: flex; justify-content: space-between; align-items: center; background: #fff; border: 1px solid #ccc; padding: 15px 20px; text-decoration: none; color: #333; font-size: 16px; font-weight: bold; border-radius: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+.disabled-btn { background: #e0e0e0; color: #999; pointer-events: none; border-color: #bbb; box-shadow: none; }
+
+/* ステータスバッジのスタイル */
+.status-badge { font-size: 12px; padding: 4px 12px; border-radius: 3px; font-weight: normal; }
+.badge-none { background: #ccc; color: #fff; }
+.badge-yet { background: #999; color: #fff; }
+.badge-temp { background: #ff9800; color: #fff; } /* 一時保存（オレンジ） */
+.badge-done { background: #e60012; color: #fff; } /* 完了（赤） */
+</style>
 </head>
 <body>
-  <header class="new-wb-header">
+<header class="new-wb-header">
     <nav>
-      <p class="userName2">
-        <span>【ＴＳ委託】カーケアジャパン (練習用ダミー <a href="javascript:void(0);" onclick="resetPractice();" style="color:inherit; text-decoration:underline;" title="クリックで初期状態にリセット">v2.9</a>)</span>
-      </p>
-      <br>
-      <div class="nav-menu">
-        <div id="nav-drawer">
-          <input id="nav-input" type="checkbox" class="nav-unshown" />
-          <label id="nav-open" for="nav-input" onclick="if(typeof TcrfaApps !== 'undefined') TcrfaApps.tapMenu()"><span></span></label>
-          <label class="nav-unshown" id="nav-close" for="nav-input"></label>
-          <div id="nav-content">
-           
-            <br>
-            <div class="modal-header">
-              <p>メニュー</p>
-            </div>
-            <br>
-            <ul class="modalList">
-              <li><a class="nav-link" href="#">トップ</a></li>
-              <li class="nav-title">日常点検</li>
-    
-              <li><a class="nav-link" href="#">車両検索</a></li>
-              <li><a class="nav-link" href="#">点検一覧</a></li>
-              <li><a class="nav-link" href="#">予約履歴</a></li>
-              <li><a class="nav-link" href="#">巡回ST管理</a></li>
-              <li class="nav-title">その他</li>
-              <li>
-           
-                <input type="button" value="ログアウト" />
-              </li>
-            </ul>
-            <br>
-          </div>
-        </div>
-      </div>
-    </nav>
-  </header>
-  
-  <main class="detail-main">
-    <br>
-    <div class="info-area">
-      <h1 class="car-another-title">点検トップ</h1>
-   
-    </div>
-    <br>
-
-    <div class="tab-contents car-another-contents">
-      <div>
-        <div id="loading-view" class="loading-view" style="display:none;">
-          <div class="loading-view-bg"></div>
-          <div class="loading-view-content">
-            <div class="loader">Loading...</div>
-            <p>Loading…</p>
-          </div>
-        </div>
-
-       
-        <div id="loading-CarStatusGet-view" class="loading-view" style="display:none;">
-          <div class="loading-view-bg"></div>
-          <div class="loading-view-content">
-            <div class="loader"></div>
-            <p>Loading...<br /><br />車両状態更新信号を送信しました<br />しばらくお待ちください</p>
-          </div>
-        </div>
-
-        <div class="car-list">
-          <h2 class="car-detail-title">車両情報</h2>
-        
-          <div class="device-info-area">
-            <div class="start-button-area">
-              <div class="info-button">
-                <a href="javascript:void(0);" onclick="goCarStatusGet();"><span>情報取得</span></a>
-              </div>
-            </div>
-            <div class="info-title-area">
-            
-              <p class="info-title">車載機情報：2026/02/14 15:06 時点</p>
-            </div>
-          </div>
-          <div class="car-contents">
-            <table>
-              <tr>
-                <th colspan="2">車両ナンバー</th>
-                <td>相模 501 ワ 7725</td>
-              </tr>
-              <tr>
-                <th colspan="2">車種名</th>
-                <td>ヤリス(ハイブリッド)</td>
-              </tr>
-              <tr>
-           
-                <th colspan="2">色</th>
-                <td>アバンギャルドブロンズメタリック</td>
-              </tr>
-              <tr>
-                <th colspan="2">車台番号</th>
-                <td>MXPH102128987</td>
-              </tr>
-   
-              <tr>
-                <th colspan="2">燃料残量目安</th>
-                <td>
-                  <span class="car-oil-mark"><span>○</span>（50～75％）</span>
-                  <p class="car-oil-caption">燃料残量は目安となります、必ず現車を確認してください</p>
-                </td>
-  
-              </tr>
-              <tr>
-                <th colspan="2">電圧</th>
-                <td>
-                  <span>12.4V</span>
-                  <p class="car-oil-caption">電圧は目安となります、必ず現車を確認してください</p>
-    
-                </td>
-              </tr>
-              <tr>
-                <th colspan="2">運行状態</th>
-                <td>待機</td>
-              </tr>
-             
-              <tr>
-                <th colspan="2">車両状態</th>
-                <td>
-                  <span>キーボックス状態：</span><span>返却中</span><br />
-                  <span>ドア状態：</span><span>クローズ</span><br />
-                  <span>ドアロック状態：</span><span>ロック</span><br />
-         
-                  <span>IG状態：</span><span>OFF</span><br />
-                  <span>ACC：</span><span>OFF</span><br />
-                </td>
-              </tr>
-              <tr>
-               <th rowspan="2" class="schedule">後予定</th>
-          
-                <th>開始日時</th>
-                <td><span>02月16日 07:30</span></td>
-              </tr>
-              <tr>
-                <th>出発店舗</th>
-                <td>アーバン長窪</td>
-              </tr>
-   
-            </table>
-          </div>
-        </div>
+        <p class="userName2"><span>【ＴＳ委託】カーケアジャパン (練習用ダミー v3.1)</span></p>
         <br>
-
-        <div>
-          <div class="car-list history">
-            <h2 class="car-detail-title">点検詳細</h2>
-            <div class="info-box">
-              <div class="check-state-area">
-    
-                <div class="info-title-area">
-                  <p class="info-title">点検開始</p>
+        <div class="nav-menu">
+            <div id="nav-drawer">
+                <input id="nav-input" type="checkbox" class="nav-unshown" />
+                <label id="nav-open" for="nav-input"><span></span></label>
+                <div id="nav-content">
+                    <br><div class="modal-header"><p>メニュー</p></div><br>
+                    <ul class="modalList">
+                        <li><input type="button" value="ログアウト" /></li>
+                    </ul>
                 </div>
-                <div class="start-button-area" id="startBtnContainer">
-                  <div class="info-button"><a href="javascript:void(0);" onclick="goStartMaintenance();"><span>開始</span></a></div>
-             
-                </div>
-              </div>
-              <br>
-              <div class="check-history-area">
-                <div class="history-contents reservation">
-                  <p class="inquiry-text">02月14日(土) 23時00分 ～ 02月14日(土) 23時30分</p>
-             
-                  <p class="inquiry-text"><span>予約中</span></p>
-                </div>
-                <br>
-                <div class="inquiry-block">
-                  <a href="#"><p class="inquiry-text">予約変更</p></a>
-                </div>
-         
-              </div>
             </div>
-            <br>
-
-            <div class="is-rental">
-              <div>
-                <p class="mt15 txt-red">ブレーキ点灯確認バーを使用する際は、車両が動かないよう点検開始前にタイヤストッパーを必ず設置してください</p>
-              </div>
-            
-   
-              <div class="info-box">
-                <div class="check-state-area">
-                  <div class="info-title-area">
-                    <p class="info-title">日常点検</p>
-                    <p class="info-status-temporarily result-ok" style="display:none;">点検OK</p>
-   
-                  </div>
-                  <br>
-                  <div class="start-button-area" id="dailyBtnContainer">
-                    <p class="info-button disable">点検</p>
-                  </div>
-       
-                </div>
-                <br>
-                <div class="check-history-area">
-                  <div class="history-state">
-                    <p>前回</p>
-                   
-                    <div>
-                      <div class="state-mark">
-                        <span style="color: green; font-weight: bold;">OK</span>
-                      </div>
-                    </div>
-                  </div>
-                  <br>
-                  <div class="history-contents">
-  
-                    <p>2026/02/09 19:26</p>
-                  </div>
-                  <br>
-                  <div class="inquiry-block">
-                    <a href="#"><p class="inquiry-text">照会</p></a>
-    
-                  </div>
-                </div>
-              </div>
-              <br>
-
-              <div class="info-box">
-                <div class="check-state-area">
-          
-                  <div class="info-title-area">
-                    <p class="info-title">車内清掃</p>
-                    <p class="info-status-temporarily result-ok" style="display:none;">点検OK</p>
-                  </div>
-                  <br>
-           
-                  <div class="start-button-area" id="interiorBtnContainer">
-                    <p class="info-button disable">点検</p>
-                  </div>
-                </div>
-                <br>
-                <div class="check-history-area">
-  
-                  <div class="history-state">
-                    <p>前回</p>
-                    <div>
-                      <div class="state-mark">
-                    
-                        <span style="color: green; font-weight: bold;">OK</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="history-contents">
-            
-                    <p>2026/02/09 19:18</p>
-                  </div>
-                  <div class="inquiry-block">
-                    <a href="#"><p class="inquiry-text">照会</p></a>
-                  </div>
-              
-                </div>
-              </div>
-              <br>
-
-              <div class="info-box">
-                <div class="check-state-area">
-                  <div class="info-title-area">
-                   
-                    <p class="info-title">洗車</p>
-                    <p class="info-status-temporarily result-ok" style="display:none;">点検OK</p>
-                  </div>
-                  <br>
-                  <div class="start-button-area" id="washBtnContainer">
-                   
-                    <p class="info-button disable">点検</p>
-                  </div>
-                </div>
-                <br>
-                <div class="check-history-area">
-                  <div class="history-state">
-           
-                    <p>前回</p>
-                    <div>
-                      <div class="state-mark">
-                         <span style="color: green; font-weight: bold;">OK</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="history-contents">
-                    
-                    <p>2026/02/09 19:19</p>
-                  </div>
-                  <div class="inquiry-block">
-                    <a href="#"><p class="inquiry-text">照会</p></a>
-                  </div>
-                </div>
-      
-              </div>
-              <br>
-
-              <div class="info-box">
-                <div class="check-state-area">
-                  <div class="info-title-area">
-                    <p class="info-title">外装確認</p>
-      
-                    <p class="info-status-temporarily result-ok" style="display:none;">点検OK</p>
-                  </div>
-                  <br>
-                  <div class="start-button-area" id="exteriorBtnContainer">
-                    <p class="info-button disable">点検</p>
-     
-                  </div>
-                </div>
-                <br>
-                <div class="check-history-area">
-                  <div class="history-state">
-                   
-                    <p>前回</p>
-                    <div>
-                      <div class="state-mark">
-                         <span style="color: green; font-weight: bold;">OK</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="history-contents">
-                    
-                    <p>2026/02/09 19:19</p>
-                  </div>
-                  <div class="inquiry-block">
-                    <a href="#"><p class="inquiry-text">照会</p></a>
-                  </div>
-                </div>
-      
-              </div>
-              <br>
-
-              <div class="info-box">
-                <div class="check-state-area">
-                  <div class="info-title-area">
-                    <p class="info-title">貸出準備</p>
-      
-                    <p class="info-status-temporarily result-ok" style="display:none;">点検OK</p>
-                  </div>
-                  <br>
-                  <div class="start-button-area" id="lendBtnContainer">
-                    <p class="info-button disable">点検</p>
-     
-                  </div>
-                </div>
-                <br>
-                <div class="check-history-area">
-                  <div class="history-state">
-                   
-                    <p>前回</p>
-                    <div>
-                      <div class="state-mark">
-                         <span style="color: green; font-weight: bold;">OK</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="history-contents">
-                    
-                    <p>2026/02/09 19:27</p>
-                  </div>
-                  <div class="inquiry-block">
-                    <a href="#"><p class="inquiry-text">照会</p></a>
-                  </div>
-                </div>
-      
-              </div>
-              <br>
-
-              <div class="main-contents mt10-imp">
-                <p class="mt15 txt-red">タイヤストッパーを設置した場合は、忘れずに回収してください</p>
-              </div>
-              
-              <div class="is-rental">
- 
-                <br>
-                <div class="info-box">
-                  <div class="check-state-area">
-                    <div class="info-title-area">
-                      <p class="info-title"><span>点検終了</span></p>
-     
-                    </div>
-                    <div class="start-button-area" id="endBtnContainer">
-                      <p class="info-button disable">終了</p>
-                    </div>
-                  </div>
- 
-                </div>
-              </div>
-
-            </div>
-          </div>
         </div>
-      </div>
+    </nav>
+</header>
+
+<main class="top-main">
+    <div class="car-info-box">
+        車両番号：相模 501 ワ 7725
     </div>
-  </main>
 
-  <script type="text/javascript">
-    /*<![CDATA[*/
-    $(function() {
-      // ページ読み込み時に状態を判定してボタンを切り替え
-      var isStarted = sessionStorage.getItem('maintenanceStarted') === 'true';
+    <div id="status-msg" class="status-msg-box">点検を開始してください</div>
 
-      if (isStarted) {
-        // 開始済み：開始ボタンを無効化、各点検・終了ボタンを有効化
-        $('#startBtnContainer').html('<p class="info-button disable">開始</p>');
+    <a href="#" id="btn-start-inspection" class="btn-start">点検開始</a>
 
-        // --- 日常点検ボタンの動的生成（一時保存・完了フラグのチェック） ---
-        var dailyBtnHtml = '<div class="info-button"><a href="daily_check.html"><span>点検</span></a></div>';
-        if (sessionStorage.getItem('dailyCheckDraft') === 'true') {
-           // 一時保存状態の場合（黄色系で注意を引くスタイルに変更）
-           dailyBtnHtml = '<div class="info-button"><a href="daily_check.html" style="background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba;"><span>一時保存</span></a></div>';
-        } else if (sessionStorage.getItem('dailyCheckCompleted') === 'true') {
-           // 完了状態の場合（緑色系で完了を示すスタイルに変更）
-           dailyBtnHtml = '<div class="info-button"><a href="daily_check.html" style="background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb;"><span>点検済</span></a></div>';
-        }
-        $('#dailyBtnContainer').html(dailyBtnHtml);
+    <div class="menu-list">
+        <a href="daily_check.html" id="btn-daily-check" class="menu-item disabled-btn">
+            <span>日常点検</span>
+            <span id="badge-daily-check" class="status-badge badge-none">-</span>
+        </a>
+        <a href="#" class="menu-item disabled-btn">
+            <span>車内清掃</span>
+            <span class="status-badge badge-none">-</span>
+        </a>
+    </div>
+</main>
 
-        // その他の点検ボタン
-        $('#interiorBtnContainer').html('<div class="info-button"><a href="interior.html"><span>点検</span></a></div>');
-        $('#washBtnContainer').html('<div class="info-button"><a href="wash.html"><span>点検</span></a></div>');
-        $('#exteriorBtnContainer').html('<div class="info-button"><a href="exterior.html"><span>点検</span></a></div>');
-        $('#lendBtnContainer').html('<div class="info-button"><a href="lend_prep.html"><span>点検</span></a></div>');
-        $('#endBtnContainer').html('<div class="info-button"><a href="end.html"><span>終了</span></a></div>');
-      }
+<script type="text/javascript">
+$(function () {
+    // 1. セッションストレージから状態を読み取り
+    var isStarted = sessionStorage.getItem('inspectionStarted');
+    var dailyStatus = sessionStorage.getItem('dailyCheckStatus'); // 'temp' or 'done'
+    var dailyCompleted = sessionStorage.getItem('dailyCheckCompleted'); // v3.0までの完了互換用
+
+    var $startBtn = $('#btn-start-inspection');
+    var $dailyBadge = $('#badge-daily-check');
+    var $statusMsg = $('#status-msg');
+
+    // 2. 点検開始ボタンの処理（クリックでフラグを立ててリロード）
+    $startBtn.on('click', function(e) {
+        e.preventDefault();
+        sessionStorage.setItem('inspectionStarted', 'true');
+        location.reload(); 
     });
 
-    // 点検開始ボタンの処理
-    function goStartMaintenance() {
-      $('#loading-view').show();
-      setTimeout(function() {
-        // セッションストレージに「開始済み」フラグを保存
-        sessionStorage.setItem('maintenanceStarted', 'true');
-        // ページをリロードして状態を反映
-        window.location.reload();
-      }, 800);
-    }
+    // 3. 画面描画時のステータス反映ロジック
+    if (isStarted === 'true') {
+        // --- 点検開始後 ---
+        $startBtn.hide(); 
+        $statusMsg.text('作業中').css('color', '#333');
+        
+        // 下の点検ボタンを有効化
+        $('.menu-item').removeClass('disabled-btn');
+        $('#btn-daily-check').attr('href', 'daily_check.html'); // 日常点検へのリンク有効化
 
-    // 車両状態取得ボタンのダミー処理
-    function goCarStatusGet() {
-      $('#loading-CarStatusGet-view').show();
-      setTimeout(function(){
-        $('#loading-CarStatusGet-view').hide();
-        alert('【ダミー動作】車両状態の更新が完了しました。');
-      }, 1500);
+        // 日常点検の一時保存・完了ステータスの判定とバッジ切り替え
+        if (dailyCompleted === 'true' || dailyStatus === 'done') {
+            $dailyBadge.text('完了').removeClass().addClass('status-badge badge-done');
+        } else if (dailyStatus === 'temp') {
+            $dailyBadge.text('一時保存').removeClass().addClass('status-badge badge-temp');
+        } else {
+            $dailyBadge.text('未実施').removeClass().addClass('status-badge badge-yet');
+        }
+    } else {
+        // --- 点検開始前（初期状態） ---
+        $startBtn.show();
+        $statusMsg.text('点検を開始してください');
+        $('.menu-item').addClass('disabled-btn').removeAttr('href');
+        $('.status-badge').text('-').removeClass().addClass('status-badge badge-none');
     }
-
-    // 練習用に初期状態へリセットする機能（ヘッダーのバージョンクリック用）
-    function resetPractice() {
-      if(confirm('【ダミー動作】点検状態を初期化して最初からやり直しますか？')) {
-        sessionStorage.clear();
-        window.location.reload();
-      }
-    }
-    /*]]>*/
-  </script>
+});
+</script>
 </body>
 </html>
