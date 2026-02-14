@@ -44,7 +44,7 @@ input[type="checkbox"].check-select { -webkit-appearance: checkbox !important; a
 <header class="new-wb-header"><nav><p class="userName2"><span>【ＴＳ委託】カーケアジャパン (練習用ダミー v3.0)</span></p><br><div class="nav-menu"><div id="nav-drawer"><input id="nav-input" type="checkbox" class="nav-unshown" /><label id="nav-open" for="nav-input"><span></span></label><div id="nav-content"><br><div class="modal-header"><p>メニュー</p></div><br><ul class="modalList"><li><a class="nav-link" href="index.html">トップ</a></li><li><input type="button" value="ログアウト" /></li></ul></div></div></div></nav></header>
 
 <main class="main">
-<form method="POST" action="" accept-charset="utf-8" onsubmit="return false;">
+<form method="POST" action="" accept-charset="utf-8" onsubmit="return false;" id="dailyCheckForm">
 <input type="hidden" id="fromWebFlg" name="fromWebFlg" value="true" /><input type="hidden" id="puncRepairKitLimitCheckYM" name="puncRepairKitLimitCheckYM" value="2026-03" /><input type="hidden" id="flaresLimitCheckYM" name="flaresLimitCheckYM" value="2026-03" /><input type="hidden" id="nowLimitCheckYM" name="nowLimitCheckYM" value="2026-01" /><input type="hidden" id="noSafeEqpChkFlg" name="noSafeEqpChkFlg" value="false" />
 
 <div class="maintenance">
@@ -119,7 +119,7 @@ input[type="checkbox"].check-select { -webkit-appearance: checkbox !important; a
 <h2 class="contents-title"><span class="badge-required">必須</span>三角停止板</h2><div class="contents-block"><p class="contents-inner-text"><span class="notice-text">破損または紛失の場合は「NG（稼動停止）」</span></p><div class="content-radio twoChoices"><div class="content-radio-block"><input type="radio" class="radio-select" value="1" id="warningTrianglePlateDamage1" name="warningTrianglePlateDamage" /><label for="warningTrianglePlateDamage1">OK</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="9" id="warningTrianglePlateDamage2" name="warningTrianglePlateDamage" /><label for="warningTrianglePlateDamage2">NG（稼動停止）</label></div></div></div><br>
 <h2 class="contents-title"><span class="badge-required">必須</span>パンク修理キット</h2><div class="contents-block"><p class="contents-inner-text"><span class="notice-text">使用済み、搭載されていない場合は「NG（稼動停止）」</span></p><div class="content-radio tripleChoices"><div class="content-radio-block"><input type="radio" class="radio-select" value="1" id="puncRepairKitExist1" name="puncRepairKitExist" /><label for="puncRepairKitExist1">OK</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="9" id="puncRepairKitExist2" name="puncRepairKitExist" /><label for="puncRepairKitExist2">NG（稼動停止）</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="0" id="puncRepairKitExist3" name="puncRepairKitExist" /><label for="puncRepairKitExist3">対象外</label></div></div></div><br>
 <h2 class="contents-title"><span class="badge-required">必須</span>パンク修理キット有効期限</h2><div class="contents-block"><p class="contents-inner-text"><span class="notice-text">期限切れは、担当部署にて交換対応します（稼動停止は不要）</span></p><div class="expiration-date"><input type="month" step="1" id="puncRepairKitLimit" name="puncRepairKitLimit" value="" class="single-input required-red" /></div></div><br>
-<h2 class="contents-title"><span class="badge-required">必須</span>スペアタイヤの亀裂、損傷</h2><div class="contents-block"><p class="contents-inner-text"><span class="notice-text">亀裂、損傷がある場合は「NG（稼動停止）」</span></p><div class="content-radio tripleChoices"><div class="content-radio-block"><input type="radio" class="radio-select" value="1" id="spearTireDamage1" name="spearTireDamage" /><label for="spearTireDamage1">OK</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="9" id="spearTireDamage2" name="spearTireDamage" /><label for="spearTireDamage2">NG（稼動停止）</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="0" id="spearTireDamage3" name="spearTireDamage" /><label for="spearTireDamage3">対象外</label></div></div></div><br>
+<h2 class="contents-title">スペアタイヤの亀裂、損傷</h2><div class="contents-block"><p class="contents-inner-text"><span class="notice-text">亀裂、損傷がある場合は「NG（稼動停止）」</span></p><div class="content-radio tripleChoices"><div class="content-radio-block"><input type="radio" class="radio-select" value="1" id="spearTireDamage1" name="spearTireDamage" /><label for="spearTireDamage1">OK</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="9" id="spearTireDamage2" name="spearTireDamage" /><label for="spearTireDamage2">NG（稼動停止）</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="0" id="spearTireDamage3" name="spearTireDamage" checked="checked" /><label for="spearTireDamage3">対象外</label></div></div></div><br>
 <h2 class="contents-title">スペアタイヤの指定空気圧</h2><div class="contents-block tire"><p class="contents-inner-text"><span class="notice-text">テンパータイヤの場合は420kPa</span><br /><span class="notice-text">装着タイヤと同じ場合は車種により異なる</span><br /><span class="notice-text txt-red">※複数記載されている場合は高い方を入力</span></p><input type="number" class="airPressure single-input" id="frontSpearRegularPressure" name="frontSpearRegularPressure" value="" />kPa</div><br>
 <h2 class="contents-title">スペアタイヤの空気圧</h2><div class="contents-block tire"><p class="contents-inner-text"><span class="notice-text">指定空気圧+0 ～ +20kPaの間で調整</span><br /><span class="notice-text txt-red">調整前の空気圧が指定空気圧より40kPa以上低い場合は「NG（稼動停止）」</span></p><ul class="contents-list"><li><p class="contents-item-title">調整前</p><input type="number" class="airPressure single-input spearTireGroup spearFrontTire" id="frontSpearPressure" name="frontSpearPressure" value="" />kPa</li><li><p class="contents-item-title">調整後<span class="setAsterisk"></span></p><input type="number" class="airPressure single-input spearTireGroup spearFrontTireAdj" id="frontSpearPressureAdjusted" name="frontSpearPressureAdjusted" value="" />kPa</li></ul></div><br>
 <h2 class="contents-title">車載工具類・ジャッキ</h2><div class="contents-block"><p class="contents-inner-text"><span class="notice-text">ジャッキ・ジャッキハンドル・スパナがすべて揃っているか確認</span><br /><span class="notice-text txt-red">※揃っていない場合、スペアタイヤを搭載している車両は「NG（稼動停止）」</span></p><div class="content-radio tripleChoices"><div class="content-radio-block"><input type="radio" class="radio-select" value="1" id="tireJackupSetExist1" name="tireJackupSetExist" /><label for="tireJackupSetExist1">OK</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="9" id="tireJackupSetExist2" name="tireJackupSetExist" /><label for="tireJackupSetExist2">NG（稼動停止）</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="0" id="tireJackupSetExist3" name="tireJackupSetExist" checked="checked" /><label for="tireJackupSetExist3">対象外</label></div></div></div><br>
@@ -141,6 +141,9 @@ input[type="checkbox"].check-select { -webkit-appearance: checkbox !important; a
 
 <script type="text/javascript">
 $(function () {
+  // 保存されたデータがあれば復元
+  loadFormData();
+
   // タブ切り替え処理
   $('.tab-button').on('click', function(e) {
     e.preventDefault();
@@ -217,8 +220,54 @@ $(function () {
   $(document).on('input change', 'input', function() { updateHighlights(); });
 });
 
+// フォームデータを保存する関数
+function saveFormData() {
+    const formData = {};
+    $('input, select, textarea').each(function() {
+        const type = $(this).attr('type');
+        const name = $(this).attr('name');
+        if (!name) return;
+
+        if (type === 'radio') {
+            if ($(this).is(':checked')) {
+                formData[name] = $(this).val();
+            }
+        } else if (type === 'checkbox') {
+            if ($(this).is(':checked')) {
+                formData[name] = $(this).val(); 
+            }
+        } else {
+            formData[name] = $(this).val();
+        }
+    });
+    sessionStorage.setItem('dailyCheckFormData', JSON.stringify(formData));
+}
+
+// フォームデータを読み込む関数
+function loadFormData() {
+    const savedData = sessionStorage.getItem('dailyCheckFormData');
+    if (savedData) {
+        const formData = JSON.parse(savedData);
+        for (const name in formData) {
+            const val = formData[name];
+            const $el = $('[name="' + name + '"]');
+            
+            if ($el.attr('type') === 'radio') {
+                $el.filter('[value="' + val + '"]').prop('checked', true);
+            } else if ($el.attr('type') === 'checkbox') {
+                $el.filter('[value="' + val + '"]').prop('checked', true);
+            } else {
+                $el.val(val);
+            }
+        }
+    }
+}
+
 // 一時保存ボタンの処理
 function saveDraft() {
+  // 入力内容を保存
+  saveFormData();
+  
   // 一時保存フラグを立てる（トップページで一時保存ボタンを表示するため）
   sessionStorage.setItem('dailyCheckDraft', 'true');
   // 完了フラグは消しておく（誤動作防止）
@@ -232,6 +281,8 @@ function completeDailyCheck() {
   sessionStorage.setItem('dailyCheckCompleted', 'true');
   // 一時保存フラグを消す（トップページのif文で完了表示を優先させるため）
   sessionStorage.removeItem('dailyCheckDraft');
+  // 完了時はフォームデータをクリアする（必要に応じて保持しても良いが、完了＝リセットとみなす場合）
+  // sessionStorage.removeItem('dailyCheckFormData'); 
   // アラート表示を全削除し、無言でトップ画面へ遷移
   window.location.href = 'index.html';
 }
