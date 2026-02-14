@@ -20,13 +20,37 @@
   <script src="js/maintenance.js"></script>
   <script src="js/carDetail.js"></script>
   <meta name="format-detection" content="telephone=no" />
+  <style>
+      /* 点検OKバッジのスタイル補正（CSSファイルがない場合用） */
+      .result-ok {
+          background-color: #2c7cb8;
+          color: #fff;
+          font-size: 12px;
+          padding: 2px 8px;
+          border-radius: 10px;
+          margin-left: 10px;
+          font-weight: bold;
+          display: inline-block;
+          vertical-align: middle;
+      }
+      /* ボタン無効化時のスタイル補正 */
+      .info-button.disable {
+          background-color: #ccc;
+          color: #888;
+          border: 1px solid #bbb;
+          cursor: not-allowed;
+      }
+      .info-button.disable span {
+          color: #888;
+      }
+  </style>
 </head>
 <body>
   <header class="new-wb-header">
     <nav>
       <p class="userName2">
         <span>【ＴＳ委託】カーケアジャパン 
-(練習用ダミー <a href="javascript:void(0);" onclick="resetPractice();" style="color:inherit; text-decoration:underline;" title="クリックで初期状態にリセット">v2.9</a>)</span>
+(練習用ダミー <a href="javascript:void(0);" onclick="resetPractice();" style="color:inherit; text-decoration:underline;" title="クリックで初期状態にリセット">v3.0</a>)</span>
       </p>
       <br>
       <div class="nav-menu">
@@ -483,28 +507,51 @@ font-weight: bold;">OK</span>
     $(function() {
       // ページ読み込み時に状態を判定してボタンを切り替え
       var isStarted = sessionStorage.getItem('maintenanceStarted') === 'true';
+      
       if (isStarted) {
-        // 開始済み：開始ボタンを無効化、各点検・終了ボタンを有効化
-        $('#startBtnContainer').html('<p class="info-button disable">開始</p>');
-        // --- 日常点検ボタンの動的生成（一時保存・完了フラグのチェック） ---
-        var dailyBtnHtml = '<div class="info-button"><a href="daily_check.html"><span>点検</span></a></div>';
-        if (sessionStorage.getItem('dailyCheckDraft') === 'true') {
-           // 一時保存状態の場合（黄色系で注意を引くスタイルに変更）
-           dailyBtnHtml = '<div class="info-button"><a href="daily_check.html" style="background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba;"><span>一時保存</span></a></div>';
-        } else if (sessionStorage.getItem('dailyCheckCompleted') === 'true') {
-           // 完了状態の場合（緑色系で完了を示すスタイルに変更）
-           dailyBtnHtml = '<div class="info-button"><a href="daily_check.html" style="background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb;"><span>点検済</span></a></div>';
-        }
-        $('#dailyBtnContainer').html(dailyBtnHtml);
+        // 開始済み：開始ボタンを無効化
+        $('#startBtnContainer').html('<div class="info-button disable"><span>開始</span></div>');
 
-        // その他の点検ボタン
-        $('#interiorBtnContainer').html('<div class="info-button"><a href="interior.html"><span>点検</span></a></div>');
-        $('#washBtnContainer').html('<div class="info-button"><a href="wash.html"><span>点検</span></a></div>');
-        $('#exteriorBtnContainer').html('<div class="info-button"><a href="exterior.html"><span>点検</span></a></div>');
-        $('#lendBtnContainer').html('<div class="info-button"><a href="lend_prep.html"><span>点検</span></a></div>');
+        // 各項目の状態管理を行う関数
+        function updateTaskStatus(keyPrefix, containerId, url) {
+            var isDraft = sessionStorage.getItem(keyPrefix + 'CheckDraft') === 'true';
+            var isCompleted = sessionStorage.getItem(keyPrefix + 'CheckCompleted') === 'true';
+            
+            var $container = $('#' + containerId);
+            var $titleArea = $container.closest('.check-state-area').find('.info-title-area');
+            var $badge = $titleArea.find('.result-ok');
+
+            if (isCompleted) {
+                // 完了状態：バッジを表示し、ボタンをグレーアウト（無効化）
+                $badge.show(); // 点検OKバッジ表示
+                $container.html('<div class="info-button disable"><span>点検</span></div>');
+            } else if (isDraft) {
+                // 一時保存状態：バッジ非表示、ボタンを一時保存スタイルに
+                $badge.hide();
+                $container.html('<div class="info-button"><a href="' + url + '" style="background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba;"><span>一時保存</span></a></div>');
+            } else {
+                // 未実施状態：バッジ非表示、通常ボタン
+                $badge.hide();
+                $container.html('<div class="info-button"><a href="' + url + '"><span>点検</span></a></div>');
+            }
+        }
+
+        // 各項目のステータス更新を実行
+        updateTaskStatus('daily', 'dailyBtnContainer', 'daily_check.html');
+        updateTaskStatus('interior', 'interiorBtnContainer', 'interior.html');
+        updateTaskStatus('wash', 'washBtnContainer', 'wash.html');
+        updateTaskStatus('exterior', 'exteriorBtnContainer', 'exterior.html');
+        updateTaskStatus('lendPrep', 'lendBtnContainer', 'lend_prep.html');
+
+        // 点検終了ボタン（全項目完了時に活性化させるロジックが必要ならここに追加可能）
+        // 現状は有効化のみ
         $('#endBtnContainer').html('<div class="info-button"><a href="end.html"><span>終了</span></a></div>');
+
+      } else {
+        // 開始前：デフォルトの状態（HTMLの初期状態のまま）
       }
     });
+
     // 点検開始ボタンの処理
     function goStartMaintenance() {
       $('#loading-view').show();
