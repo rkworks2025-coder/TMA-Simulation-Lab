@@ -41,7 +41,7 @@ input[type="checkbox"].check-select { -webkit-appearance: checkbox !important; a
 </style>
 </head>
 <body>
-<header class="new-wb-header"><nav><p class="userName2"><span>【ＴＳ委託】カーケアジャパン (練習用ダミー v2.6)</span></p><br><div class="nav-menu"><div id="nav-drawer"><input id="nav-input" type="checkbox" class="nav-unshown" /><label id="nav-open" for="nav-input"><span></span></label><div id="nav-content"><br><div class="modal-header"><p>メニュー</p></div><br><ul class="modalList"><li><a class="nav-link" href="index.html">トップ</a></li><li><input type="button" value="ログアウト" /></li></ul></div></div></div></nav></header>
+<header class="new-wb-header"><nav><p class="userName2"><span>【ＴＳ委託】カーケアジャパン (練習用ダミー v2.7)</span></p><br><div class="nav-menu"><div id="nav-drawer"><input id="nav-input" type="checkbox" class="nav-unshown" /><label id="nav-open" for="nav-input"><span></span></label><div id="nav-content"><br><div class="modal-header"><p>メニュー</p></div><br><ul class="modalList"><li><a class="nav-link" href="index.html">トップ</a></li><li><input type="button" value="ログアウト" /></li></ul></div></div></div></nav></header>
 
 <main class="main">
 <form method="POST" action="" accept-charset="utf-8" onsubmit="return false;">
@@ -67,7 +67,6 @@ input[type="checkbox"].check-select { -webkit-appearance: checkbox !important; a
 <div class="tab-contents" id="tire">
 <h2 class="contents-title"><span class="badge-required">必須</span>タイヤ種別</h2><div class="contents-block"><p class="contents-inner-text"><span class="notice-text">車両に装着されているタイヤの種別を選択</span></p><div class="content-radio twoChoices"><div class="content-radio-block"><input type="radio" class="radio-select" value="1" id="tireType1" name="tireType" /><label for="tireType1">ノーマル</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="2" id="tireType2" name="tireType" /><label for="tireType2">スタッドレス</label></div></div><p class="contents-inner-text"><br /><span class="notice-text">ランフラットタイヤの場合は下記を選択</span></p><div class="contents-checkbox-box"><label for="runFlatTireFlg"><input type="checkbox" class="check-select" id="runFlatTireFlg" name="runFlatTireFlg" value="true" /><span class="check-title">ランフラットタイヤ</span></label></div></div><br>
 <h2 class="contents-title"><span class="badge-required">必須</span>指定空気圧</h2><div class="contents-block tire"><p class="contents-inner-text"><span class="notice-text">運転席ドアを開けたボディ側に貼付されているラベルを確認</span><br /><span class="notice-text txt-red">※貨物車は「最大積載量」、輸入車は「最大乗車定員数＋最大荷物量」を基準値とする</span><br /><span class="notice-text txt-red">※複数記載されている場合は高い方を入力</span></p><ul class="contents-list"><li><h3>前輪</h3><input type="number" class="airPressure" min="0" max="999" step="1" id="tireFrontRegularPressure" name="tireFrontRegularPressure" value="250" />kPa</li><li><h3>後輪</h3><input type="number" class="airPressure" min="0" max="999" step="1" id="tireRearRegularPressure" name="tireRearRegularPressure" value="240" />kPa</li></ul></div><br>
-<h2 class="contents-title"><span class="badge-required">必須</span>亀裂、損傷、変形、干渉</h2><div class="contents-block"><p class="contents-inner-text"><span>タイヤに亀裂、損傷、変形、ホイールナット、ホイール周りの変形、いずれかに異常がある場合は「NG（稼動停止）」</span><br /><span>エアバルブとホイールキャップが干渉していた場合は付け直し</span></p><div class="content-radio twoChoices"><div class="content-radio-block"><input type="radio" class="radio-select" value="1" id="tireDamage1" name="tireDamage" /><label for="tireDamage1">OK</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="9" id="tireDamage2" name="tireDamage" /><label for="tireDamage2">NG（稼動停止）</label></div></div></div><br>
 
 <section><h2 class="contents-stickyTitle">右前タイヤ</h2><h2 class="contents-title"><span class="badge-required">必須</span>（右前）製造年週</h2><div class="contents-block tire"><p class="contents-inner-text"><span class="notice-text">4桁数値（週2桁＋年2桁）を入力</span><br /><span class="notice-text">製造年週が外側に記載されていない場合、内側に記載のため確認不可にチェック</span><br /><span class="notice-text txt-red">※製造年週が5年以上経過している場合は、稼動停止</span></p><ul class="contents-list full-line-innerItem"><li><h3>右前</h3><input type="number" class="single-input required-red" min="0" max="9999" step="1" oninput="javascript: this.value = this.value.slice(0, 4);" autocomplete="off" id="tireMfrFrontRightCm" name="tireMfrFrontRightCm" value="" /></li><li><div class="contents-checkbox-box"><label for="tireMfrCheckRowFlgFrontRightCm"><input type="checkbox" class="check-select" id="tireMfrCheckRowFlgFrontRightCm" name="tireMfrCheckRowFlgFrontRightCm" value="true" /><span class="check-title">確認不可</span></label></div></li></ul></div><h2 class="contents-title"><span class="badge-required">必須</span>（右前）亀裂、損傷、変形、干渉</h2><div class="contents-block"><p class="contents-inner-text"><span>タイヤに亀裂、損傷、変形、ホイールナット、ホイール周りの変形、いずれかに異常がある場合は「NG（稼動停止）」</span><br /><span>エアバルブとホイールキャップが干渉していた場合は付け直し</span></p><div class="content-radio twoChoices"><div class="content-radio-block"><input type="radio" class="radio-select" value="1" id="tireDamage1_FR" name="tireDamage_FR" /><label for="tireDamage1_FR">OK</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="9" id="tireDamage2_FR" name="tireDamage_FR" /><label for="tireDamage2_FR">NG（稼動停止）</label></div></div></div><h2 class="contents-title"><span class="badge-required">必須</span>（右前）溝</h2><div class="contents-block tire"><p class="contents-inner-text"><span class="notice-text">主溝（スリップサインがある溝）を全て測定し、残溝が一番少ない数値を入力</span><br /><span class="notice-text txt-red">※残溝の差が1㎜以上ある場合は偏摩耗の恐れあり</span></p><ul class="contents-list full-line"><li style="width: 65%"><h3>右前</h3><input type="number" class="single-input required-red" min="0" max="99" step="1" style="width: 80px;text-align: center;" id="tireGrooveFrontRightCmIp" name="tireGrooveFrontRightCmIp" value="" />.<input type="number" class="single-input required-red" min="0" max="9" step="1" style="width: 80px;text-align: center;" id="tireGrooveFrontRightCmFp" name="tireGrooveFrontRightCmFp" value="" />mm</li></ul></div><h2 class="contents-title"><span class="badge-required">必須</span>（右前）空気圧</h2><div class="contents-block tire"><p class="contents-inner-text"><span class="notice-text">指定空気圧+0 ～ +20kPaの間で調整</span><br /><span class="notice-text txt-red">調整前の空気圧が指定空気圧より40kPa以上低い場合は「NG（稼動停止）」</span><br /><span class="notice-text txt-red">「NG（稼動停止）」の際は不備詳細へタイヤサイズ、自走可否を記載</span></p><ul class="contents-list"><li><h3>右前</h3><p class="contents-item-title">調整前</p><input type="number" class="airPressureInput single-input required-red frontTire" min="0" max="999" step="1" id="tirePressureFrontRightCm" name="tirePressureFrontRightCm" value="" />kPa</li><li><p class="contents-item-title">調整後<span class="setAsterisk"></span></p><input type="number" class="airPressureInput single-input frontTireAdj" min="0" max="999" step="1" id="tirePressureAdjustedFrontRightCm" name="tirePressureAdjustedFrontRightCm" value="" />kPa</li></ul></div></section><br>
 
@@ -152,23 +151,11 @@ $(function () {
     $('#' + targetId).addClass('active').show();
   });
 
-  // ラジオボタンのグループ同期処理 (tireDamageなどの共通項目用)
+  // ラジオボタンのグループ同期処理 (通常項目のみ、タイヤ亀裂等の連動は削除)
   $(document).on('change', 'input[type="radio"]', function() {
     var name = $(this).attr('name');
     var val = $(this).val();
-
-    // タイヤの亀裂・損傷グループの連動処理
-    if (name.indexOf('tireDamage') === 0) {
-      $('input[name="tireDamage"][value="' + val + '"]').prop('checked', true);
-      $('input[name="tireDamage_FR"][value="' + val + '"]').prop('checked', true);
-      $('input[name="tireDamage_FL"][value="' + val + '"]').prop('checked', true);
-      $('input[name="tireDamage_RL"][value="' + val + '"]').prop('checked', true);
-      $('input[name="tireDamage_RR"][value="' + val + '"]').prop('checked', true);
-    } else {
-      // その他の通常のラジオボタン
-      $('input[name="' + name + '"][value="' + val + '"]').prop('checked', true);
-    }
-    
+    $('input[name="' + name + '"][value="' + val + '"]').prop('checked', true);
     updateHighlights();
   });
 
