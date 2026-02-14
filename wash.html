@@ -1,127 +1,123 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>洗車（入力）</title>
-    
-    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
-    <link rel="stylesheet" type="text/css" href="css/reset.css" />
-    <link rel="stylesheet" type="text/css" href="css/common.css" />
-    
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="robots" content="noindex"/>
+<title>洗車 - 入力練習用TMA</title>
+<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="css/reset.css" />
+<link rel="stylesheet" type="text/css" href="css/common.css" />
+<link rel="stylesheet" type="text/css" href="css/taw0101002.css" />
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<style>
+/* iOSの自動ズーム防止用スタイル */
+input[type="text"], input[type="number"], input[type="month"], select, textarea { font-size: 16px !important; }
+/* チェックボックス強制表示用スタイル */
+input[type="checkbox"].check-select { -webkit-appearance: checkbox !important; appearance: checkbox !important; display: inline-block !important; width: 20px !important; height: 20px !important; vertical-align: middle; margin-right: 5px; }
+.contents-checkbox-box label { display: inline-flex; align-items: center; }
 
-    <script>
-        $(function() {
-            // 初期化：データ復元
-            loadFormData();
-
-            // 一時保存ボタン
-            $('#btn-temporary').on('click', function(e) {
-                e.preventDefault();
-                saveFormData();
-                localStorage.setItem('dummy_status_wash', 'temporary');
-                alert('入力内容を一時保存しました。');
-                location.href = 'index.html';
-            });
-
-            // 完了ボタン
-            $('#btn-complete').on('click', function(e) {
-                e.preventDefault();
-                saveFormData();
-
-                // 完了時は常にOKとする（NGの概念がこの項目にない場合）
-                // ※もし「洗車不要」などもOK扱いなら、単純にOK保存
-                localStorage.setItem('dummy_status_wash', 'ok');
-                alert('洗車報告を完了しました。\nステータス：点検OK');
-                
-                location.href = 'index.html';
-            });
-        });
-
-        function saveFormData() {
-            var formData = {};
-            $('input[type="radio"]:checked').each(function() {
-                formData[$(this).attr('name')] = $(this).val();
-            });
-            localStorage.setItem('dummy_form_data_wash', JSON.stringify(formData));
-        }
-
-        function loadFormData() {
-            var data = localStorage.getItem('dummy_form_data_wash');
-            if (data) {
-                var formData = JSON.parse(data);
-                $.each(formData, function(key, value) {
-                    if ($('input[name="' + key + '"][type="radio"]').length) {
-                        $('input[name="' + key + '"][value="' + value + '"]').prop('checked', true);
-                    }
-                });
-            }
-        }
-    </script>
-    
-    <style>
-        /* ページ固有の微調整 */
-        .footer {
-            position: fixed; bottom: 0; left: 0; width: 100%;
-            background: #fff; padding: 10px 0; border-top: 1px solid #ddd;
-            z-index: 999; box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
-        }
-        .footer-button { display: flex; justify-content: center; gap: 15px; }
-        .footer-btn-link {
-            display: flex; justify-content: center; align-items: center;
-            width: 45%; max-width: 200px; height: 45px;
-            text-decoration: none; font-weight: bold; border-radius: 4px; cursor: pointer;
-        }
-        .is-stop { background: #fff; color: #333; border: 1px solid #ccc; }
-        .is-complete { background: #d00; color: #fff; border: 1px solid #a00; }
-        body { padding-bottom: 100px; }
-    </style>
+.main { padding-bottom: 100px; }
+.footer-button-triple { display: flex !important; width: 100%; height: 60px; background: #fff; border-top: 1px solid #ccc; }
+.footer-button-triple a { flex: 1; display: flex; align-items: center; justify-content: center; text-decoration: none; color: #333; border-right: 1px solid #ccc; font-weight: bold; font-size: 16px; }
+.footer-button-triple a:last-child { border-right: none; }
+.footer-button-triple a.btn-complete { background-color: #ffd700; color: #000; }
+.footer-button-triple a::before { display: none !important; }
+.footer-button-triple p { margin: 0; padding: 0; }
+.footer { position: fixed; bottom: 0; width: 100%; z-index: 1000; }
+.error-highlight .content-radio-block { border: 1px solid #e60012 !important; background-color: #fce8e8 !important; }
+.error-highlight-input { border: 1px solid #e60012 !important; background-color: #fce8e8 !important; }
+.badge-required { display: inline-block; background-color: #e60012; color: #fff; font-size: 11px; font-weight: bold; padding: 2px 5px; border-radius: 2px; margin-right: 6px; vertical-align: 1px; }
+</style>
 </head>
 <body>
-    
-    <header class="new-wb-header">
-      <nav>
-        <p class="userName2"><span>【ＴＳ委託】カーケアジャパン (Test)</span></p>
-      </nav>
-    </header>
-    
-    <main class="main">
-        <div class="info-area">
-            <h1 class="car-another-title">洗車（入力）</h1>
-            <p class="car-number-text">相模 501 ワ 7725</p>
-        </div>
+<header class="new-wb-header"><nav><p class="userName2"><span>【ＴＳ委託】カーケアジャパン (練習用ダミー v3.0)</span></p><br><div class="nav-menu"><div id="nav-drawer"><input id="nav-input" type="checkbox" class="nav-unshown" /><label id="nav-open" for="nav-input"><span></span></label><div id="nav-content"><br><div class="modal-header"><p>メニュー</p></div><br><ul class="modalList"><li><a class="nav-link" href="index.html">トップ</a></li><li><input type="button" value="ログアウト" /></li></ul></div></div></div></nav></header>
 
-        <form id="washForm">
-            <div class="contents-block">
-                <h2 class="contents-title">外装の汚れ</h2>
-                <div class="contents-inner-block">
-                    <p class="contents-inner-text">
-                        <span class="notice-text">車体・ホイール・外窓・サイドミラーの汚れ、油膜を確認</span>
-                    </p>
-                    
-                    <div class="content-radio twoChoices">
-                        <div class="content-radio-block">
-                            <input type="radio" class="radio-select" name="exteriorDirt" id="exteriorDirt01" value="1">
-                            <label for="exteriorDirt01">洗車済み</label>
-                        </div>
-                        <div class="content-radio-block">
-                            <input type="radio" class="radio-select" name="exteriorDirt" id="exteriorDirt02" value="2">
-                            <label for="exteriorDirt02">洗車不要</label>
-                        </div>
-                    </div>
-                </div>
+<main class="main">
+<form method="POST" action="" accept-charset="utf-8" onsubmit="return false;">
+<input type="hidden" id="fromWebFlg" name="fromWebFlg" value="true" />
+
+<div class="maintenance">
+<div class="info-area"><h1 class="car-another-title">洗車</h1><p class="car-number-text">相模 501 ワ 7725</p></div>
+
+<div class="tab-contents car-another-contents is-inquiry" style="display:block;">
+
+    <h2 class="contents-title">外装の汚れ</h2>
+    <div class="contents-block">
+        <p class="contents-inner-text">車体・ホイール・外窓・サイドミラーの汚れ、油膜を確認</p>
+        
+        <div class="content-radio twoChoices">
+            <div class="content-radio-block">
+                <input type="radio" class="radio-select" name="exteriorDirt" id="exteriorDirt01" value="1">
+                <label for="exteriorDirt01">洗車済み</label>
             </div>
-        </form>
-
-        <div class="footer">
-            <div class="footer-button">
-                <a id="btn-temporary" class="footer-btn-link is-stop">一時保存</a>
-                <a id="btn-complete" class="footer-btn-link is-complete">完了</a>
+            <div class="content-radio-block">
+                <input type="radio" class="radio-select" name="exteriorDirt" id="exteriorDirt02" value="2">
+                <label for="exteriorDirt02">洗車不要</label>
             </div>
         </div>
-    </main>
+    </div>
+
+</div>
+</div>
+
+<footer class="footer">
+<div class="footer-button-triple">
+<a href="index.html" class="btn-cancel"><p>中止</p></a>
+<a href="javascript:void(0);" onclick="saveDraft();" class="btn-save"><p>一時保存</p></a>
+<a href="javascript:void(0);" onclick="completeTask();" class="btn-complete"><p>完了</p></a>
+</div>
+</footer>
+</form>
+</main>
+
+<script type="text/javascript">
+$(function () {
+  // ラジオボタンの変更処理 (エラー解除の更新等)
+  $(document).on('change', 'input[type="radio"]', function() {
+    updateHighlights();
+  });
+
+  // 未選択の必須項目をピンク色にするリアルタイムバリデーション
+  function updateHighlights() {
+    $('.content-radio').each(function() {
+      var $radios = $(this).find('input[type="radio"]');
+      if ($radios.length > 0) {
+        var radioName = $radios.first().attr('name');
+        if ($('input[name="' + radioName + '"]:checked').length === 0) {
+          $(this).addClass('error-highlight');
+        } else {
+          $(this).removeClass('error-highlight');
+        }
+      }
+    });
+  }
+
+  // 初回読み込み時にピンク色にする
+  updateHighlights();
+});
+
+// 一時保存ボタンの処理
+function saveDraft() {
+  // 一時保存フラグを立てる
+  sessionStorage.setItem('washCheckDraft', 'true');
+  // 完了フラグは消しておく
+  sessionStorage.removeItem('washCheckCompleted');
+  // トップ画面へ遷移
+  window.location.href = 'index.html';
+}
+
+// 完了ボタンの処理
+function completeTask() {
+  // 完了フラグを保存
+  sessionStorage.setItem('washCheckCompleted', 'true');
+  // 一時保存フラグを消す
+  sessionStorage.removeItem('washCheckDraft');
+  // トップ画面へ遷移
+  window.location.href = 'index.html';
+}
+</script>
 </body>
 </html>
