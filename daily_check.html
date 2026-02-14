@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <meta name="robots" content="noindex"/>
 <title>日常点検（入力） - 入力練習用TMA</title>
 <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
@@ -13,6 +13,8 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <style>
+/* iOSの自動ズーム防止用スタイル */
+input[type="text"], input[type="number"], input[type="month"], select, textarea { font-size: 16px !important; }
 .tab-container { overflow-x: auto !important; -webkit-overflow-scrolling: touch; background-color: #fff; border-bottom: 1px solid #ccc; }
 .tab { display: flex !important; width: max-content; margin: 0; padding: 0; }
 .tab-button { flex: 0 0 auto; list-style: none; }
@@ -34,7 +36,7 @@
 </style>
 </head>
 <body>
-<header class="new-wb-header"><nav><p class="userName2"><span>【ＴＳ委託】カーケアジャパン (練習用ダミー v2.3)</span></p><br><div class="nav-menu"><div id="nav-drawer"><input id="nav-input" type="checkbox" class="nav-unshown" /><label id="nav-open" for="nav-input"><span></span></label><div id="nav-content"><br><div class="modal-header"><p>メニュー</p></div><br><ul class="modalList"><li><a class="nav-link" href="index.html">トップ</a></li><li><input type="button" value="ログアウト" /></li></ul></div></div></div></nav></header>
+<header class="new-wb-header"><nav><p class="userName2"><span>【ＴＳ委託】カーケアジャパン (練習用ダミー v2.4)</span></p><br><div class="nav-menu"><div id="nav-drawer"><input id="nav-input" type="checkbox" class="nav-unshown" /><label id="nav-open" for="nav-input"><span></span></label><div id="nav-content"><br><div class="modal-header"><p>メニュー</p></div><br><ul class="modalList"><li><a class="nav-link" href="index.html">トップ</a></li><li><input type="button" value="ログアウト" /></li></ul></div></div></div></nav></header>
 
 <main class="main">
 <form method="POST" action="" accept-charset="utf-8" onsubmit="return false;">
