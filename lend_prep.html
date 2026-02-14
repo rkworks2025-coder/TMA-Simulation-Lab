@@ -3,94 +3,262 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>貸出準備</title>
-    <link rel="stylesheet" href="style.css">
+    <title>貸出準備（入力）</title>
+    
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="css/common.css" />
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script>
+        $(function() {
+            // 初期化：データ復元
+            loadFormData();
+
+            // 一時保存ボタン
+            $('#btn-temporary').on('click', function(e) {
+                e.preventDefault();
+                saveFormData();
+                localStorage.setItem('dummy_status_lend', 'temporary');
+                alert('入力内容を一時保存しました。');
+                location.href = 'index.html';
+            });
+
+            // 完了ボタン
+            $('#btn-complete').on('click', function(e) {
+                e.preventDefault();
+                saveFormData();
+
+                // NG判定
+                var isNG = false;
+                $('input[type="radio"]:checked').each(function() {
+                    // value=9 (NG) が選ばれているか
+                    if ($(this).val() === "9") {
+                        isNG = true;
+                    }
+                });
+
+                if (isNG) {
+                    localStorage.setItem('dummy_status_lend', 'ng');
+                    alert('異常（NG）項目が含まれています。\nステータス：点検NG で登録します。');
+                } else {
+                    localStorage.setItem('dummy_status_lend', 'ok');
+                    alert('貸出準備を完了しました。\nステータス：点検OK');
+                }
+                
+                location.href = 'index.html';
+            });
+        });
+
+        function saveFormData() {
+            var formData = {};
+            // ラジオボタン
+            $('input[type="radio"]:checked').each(function() {
+                formData[$(this).attr('name')] = $(this).val();
+            });
+            // チェックボックス
+            $('input[type="checkbox"]:checked').each(function() {
+                formData[$(this).attr('name')] = true;
+            });
+            // テキスト・数値・セレクト
+            $('input[type="text"], input[type="number"], select').each(function() {
+                var name = $(this).attr('name') || $(this).attr('id');
+                if(name) {
+                    formData[name] = $(this).val();
+                }
+            });
+
+            localStorage.setItem('dummy_form_data_lend', JSON.stringify(formData));
+        }
+
+        function loadFormData() {
+            var data = localStorage.getItem('dummy_form_data_lend');
+            if (data) {
+                var formData = JSON.parse(data);
+                $.each(formData, function(key, value) {
+                    if ($('input[name="' + key + '"][type="radio"]').length) {
+                        $('input[name="' + key + '"][value="' + value + '"]').prop('checked', true);
+                    } else if ($('input[name="' + key + '"][type="checkbox"]').length) {
+                        $('input[name="' + key + '"]').prop('checked', true);
+                    } else {
+                        $('[name="' + key + '"]').val(value);
+                        $('#' + key).val(value);
+                    }
+                });
+            }
+        }
+    </script>
+    
+    <style>
+        /* ページ固有スタイル */
+        .footer {
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            background: #fff; padding: 10px 0; border-top: 1px solid #ddd;
+            z-index: 999; box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+        }
+        .footer-button { display: flex; justify-content: center; gap: 15px; }
+        .footer-btn-link {
+            display: flex; justify-content: center; align-items: center;
+            width: 45%; max-width: 200px; height: 45px;
+            text-decoration: none; font-weight: bold; border-radius: 4px; cursor: pointer;
+        }
+        .is-stop { background: #fff; color: #333; border: 1px solid #ccc; }
+        .is-complete { background: #d00; color: #fff; border: 1px solid #a00; }
+        body { padding-bottom: 100px; }
+        
+        /* 参照ファイル(common.css)にない場合の補完 */
+        .refuel-number { display: flex; align-items: center; gap: 5px; }
+        .refuel-number input { width: 60px; text-align: center; }
+        .expiration-date--refuel .select-group { display: flex; gap: 10px; }
+    </style>
 </head>
 <body>
-    <header class="header">
-        <div class="header-inner">
-            <p>【ＴＳ委託】カーケアジャパン</p>
-            <div class="menu-icon">≡</div>
-        </div>
+    
+    <header class="new-wb-header">
+      <nav>
+        <p class="userName2"><span>【ＴＳ委託】カーケアジャパン (Test)</span></p>
+      </nav>
     </header>
-
-    <main class="main-container">
-        <div class="page-header">
-            <h1>貸出準備</h1>
-            <span class="car-no">相模 6815</span>
+    
+    <main class="main">
+        <div class="info-area">
+            <h1 class="car-another-title">貸出準備（入力）</h1>
+            <p class="car-number-text">相模 6815</p>
         </div>
 
-        <form>
-            <div class="content-section">
-                <h3 class="required">走行距離</h3>
-                <p class="desc">ODO（オド）メーター（積算走行距離計）に表示されている距離を入力</p>
-                <div class="input-unit"><input type="number" class="input-bg-pink"> km</div>
-            </div>
-
-            <div class="content-section">
-                <h3 class="required">給油</h3>
-                <p class="desc">エンプティランプが点灯している場合は、満タン給油</p>
-                <p class="desc"><strong>給油</strong></p>
-                <div class="radio-group">
-                    <label><input type="radio" name="refuel"> 実施</label>
-                    <label><input type="radio" name="refuel" checked> 未実施</label>
+        <form id="lendForm">
+            
+            <h2 class="contents-title">走行距離</h2>
+            <div class="contents-block">
+                <p class="contents-inner-text">
+                    <span class="notice-text">ODO（オド）メーター（積算走行距離計）に表示されている距離を入力</span>
+                </p>
+                <div class="contents-single-input">
+                    <input type="number" class="single-input" min="0" max="999999" step="1" id="mileage" name="mileage" value="" /> km
                 </div>
             </div>
 
-            <div class="content-section">
-                <h3 class="required">給油カード</h3>
-                <p class="desc">車載されているカード情報（番号・有効期限）が以下入力項目と一致しているか確認<br>有効期限切れ・不一致、または新しくカードを車載する場合、OK（交換）を選択してカード情報を入力<br>車載可能なカードが無い場合は「NG（稼動停止）」</p>
-                <div class="radio-group">
-                    <label><input type="radio" name="fuel_card" checked> OK</label>
-                    <label><input type="radio" name="fuel_card"> OK (交換)</label>
-                    <label><input type="radio" name="fuel_card"> NG (稼動停止)</label>
-                </div>
-                <div class="input-row mt-10">
-                    <label>給油カード番号</label>
-                    <div class="card-inputs">
-                        <input type="text" value="2368"> - <input type="text" value="7268"> - <input type="text" value="3360">
+            <h2 class="contents-title">給油</h2>
+            <div class="contents-block">
+                <p class="contents-inner-text">
+                    <span class="notice-text">エンプティランプが点灯している場合は、満タン給油</span>
+                </p>
+                <p class="category-text category-text--refuel mb5">給油</p>
+                <div class="content-radio twoChoices">
+                    <div class="content-radio-block">
+                        <input type="radio" class="radio-select" name="fuelLevelCheck" id="fuelLevelCheck1" value="1">
+                        <label for="fuelLevelCheck1">実施</label>
                     </div>
-                </div>
-                <div class="input-row mt-10">
-                    <label>給油カードの有効期限</label>
-                    <div class="date-selects">
-                        <select><option>2028年</option></select>
-                        <select><option>5月</option></select>
+                    <div class="content-radio-block">
+                        <input type="radio" class="radio-select" name="fuelLevelCheck" id="fuelLevelCheck2" value="0">
+                        <label for="fuelLevelCheck2">未実施</label>
                     </div>
                 </div>
             </div>
 
-            <div class="content-section">
-                <h3 class="required">車両確認</h3>
-                <p class="desc">ルームスイッチモードがDOOR設定になっているか確認</p>
-                <p class="desc"><strong>ルームスイッチ</strong></p>
-                <label class="checkbox-box"><input type="checkbox"> OK</label>
-            </div>
+            <h2 class="contents-title">給油カード</h2>
+            <div class="contents-block">
+                <p class="contents-inner-text">
+                    <span>車載されているカード情報（番号・有効期限）が以下入力項目と一致しているか確認</span><br>
+                    <span>有効期限切れ・不一致、または新しくカードを車載する場合、OK（交換）を選択してカード情報を入力</span><br>
+                    <span>車載可能なカードが無い場合は「NG（稼動停止）」</span>
+                </p>
+                
+                <div class="content-radio tripleChoices">
+                    <div class="content-radio-block">
+                        <input type="radio" class="radio-select" name="fuelCardCondition" id="fuelCardCondition1" value="1">
+                        <label for="fuelCardCondition1">OK</label>
+                    </div>
+                    <div class="content-radio-block">
+                        <input type="radio" class="radio-select" name="fuelCardCondition" id="fuelCardCondition2" value="2">
+                        <label for="fuelCardCondition2">OK(交換)</label>
+                    </div>
+                    <div class="content-radio-block">
+                        <input type="radio" class="radio-select error" name="fuelCardCondition" id="fuelCardCondition3" value="9">
+                        <label for="fuelCardCondition3">NG(停止)</label>
+                    </div>
+                </div>
 
-            <div class="content-section">
-                <h3 class="required">車室シール</h3>
-                <div class="radio-group">
-                    <label><input type="radio" name="room_seal" checked> OK</label>
-                    <label><input type="radio" name="room_seal"> NG</label>
-                    <label><input type="radio" name="room_seal"> 対象外</label>
+                <p class="category-text mb5">給油カード番号</p>
+                <div class="refuel-number">
+                    <input type="number" name="fuelCardNumber1" value="2368"> - 
+                    <input type="number" name="fuelCardNumber2" value="7268"> - 
+                    <input type="number" name="fuelCardNumber3" value="3360">
+                </div>
+
+                <p class="category-text mb5">給油カードの有効期限</p>
+                <div class="expiration-date expiration-date--refuel">
+                    <div class="select-group">
+                        <select name="fuelCardLimitYear">
+                            <option value="2028">2028年</option>
+                            <option value="2029">2029年</option>
+                            <option value="2030">2030年</option>
+                        </select>
+                        <select name="fuelCardLimitMonth">
+                            <option value="5">5月</option>
+                            <option value="6">6月</option>
+                            <option value="7">7月</option>
+                        </select>
+                    </div>
                 </div>
             </div>
 
-            <div class="content-section">
-                <h3 class="required">駐車時確認</h3>
-                <p class="desc">スリットボックスに鍵をセット・バリアポップの設置を確認</p>
-                <div class="radio-group">
-                    <label><input type="radio" name="park_check" checked> OK</label>
-                    <label><input type="radio" name="park_check"> 対象外</label>
+            <h2 class="contents-title">車両確認</h2>
+            <div class="contents-block">
+                <p class="contents-inner-text">ルームスイッチモードがDOOR設定になっているか確認</p>
+                <h3>ルームスイッチ</h3>
+                <div class="contents-checkbox-box">
+                    <label for="roomSwitch1">
+                        <input type="checkbox" class="check-select" id="roomSwitch1" name="roomSwitch" value="true">
+                        <span class="check-title">OK</span>
+                    </label>
                 </div>
             </div>
+
+            <h2 class="contents-title needs">車室シール</h2>
+            <div class="contents-block">
+                <div class="content-radio tripleChoices">
+                    <div class="content-radio-block">
+                        <input type="radio" class="radio-select" name="interiorSeal" id="interiorSeal1" value="1">
+                        <label for="interiorSeal1">OK</label>
+                    </div>
+                    <div class="content-radio-block">
+                        <input type="radio" class="radio-select" name="interiorSeal" id="interiorSeal2" value="8">
+                        <label for="interiorSeal2">NG</label>
+                    </div>
+                    <div class="content-radio-block">
+                        <input type="radio" class="radio-select" name="interiorSeal" id="interiorSeal3" value="0">
+                        <label for="interiorSeal3">対象外</label>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="contents-title needs">駐車時確認</h2>
+            <div class="contents-block">
+                <p class="contents-inner-text">スリットボックスに鍵をセット・バリアポップの設置を確認</p>
+                <div class="content-radio twoChoices">
+                    <div class="content-radio-block">
+                        <input type="radio" class="radio-select" name="parkingCheck" id="parkingCheck1" value="1">
+                        <label for="parkingCheck1">OK</label>
+                    </div>
+                    <div class="content-radio-block">
+                        <input type="radio" class="radio-select" name="parkingCheck" id="parkingCheck2" value="0">
+                        <label for="parkingCheck2">対象外</label>
+                    </div>
+                </div>
+            </div>
+
         </form>
 
-        <div class="fixed-footer">
-            <button class="footer-btn btn-white" onclick="location.href='index.html'">中止</button>
-            <button class="footer-btn btn-yellow" onclick="completeTask('lend')">完了</button>
+        <div class="footer">
+            <div class="footer-button">
+                <a id="btn-temporary" class="footer-btn-link is-stop">一時保存</a>
+                <a id="btn-complete" class="footer-btn-link is-complete">完了</a>
+            </div>
         </div>
     </main>
-    <script src="script.js"></script>
 </body>
 </html>
