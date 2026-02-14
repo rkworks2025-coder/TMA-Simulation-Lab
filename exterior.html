@@ -1,75 +1,137 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>外装確認</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="robots" content="noindex"/>
+<title>外装確認 - 入力練習用TMA</title>
+<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="css/reset.css" />
+<link rel="stylesheet" type="text/css" href="css/common.css" />
+<link rel="stylesheet" type="text/css" href="css/taw0101002.css" />
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<style>
+/* iOSの自動ズーム防止用スタイル */
+input[type="text"], input[type="number"], input[type="month"], select, textarea { font-size: 16px !important; }
+/* チェックボックス強制表示用スタイル */
+input[type="checkbox"].check-select { -webkit-appearance: checkbox !important; appearance: checkbox !important; display: inline-block !important; width: 20px !important; height: 20px !important; vertical-align: middle; margin-right: 5px; }
+.contents-checkbox-box label { display: inline-flex; align-items: center; }
+
+.main { padding-bottom: 100px; }
+.footer-button-triple { display: flex !important; width: 100%; height: 60px; background: #fff; border-top: 1px solid #ccc; }
+.footer-button-triple a { flex: 1; display: flex; align-items: center; justify-content: center; text-decoration: none; color: #333; border-right: 1px solid #ccc; font-weight: bold; font-size: 16px; }
+.footer-button-triple a:last-child { border-right: none; }
+.footer-button-triple a.btn-complete { background-color: #ffd700; color: #000; }
+.footer-button-triple a::before { display: none !important; }
+.footer-button-triple p { margin: 0; padding: 0; }
+.footer { position: fixed; bottom: 0; width: 100%; z-index: 1000; }
+.error-highlight .content-radio-block { border: 1px solid #e60012 !important; background-color: #fce8e8 !important; }
+.error-highlight-input { border: 1px solid #e60012 !important; background-color: #fce8e8 !important; }
+.badge-required { display: inline-block; background-color: #e60012; color: #fff; font-size: 11px; font-weight: bold; padding: 2px 5px; border-radius: 2px; margin-right: 6px; vertical-align: 1px; }
+</style>
 </head>
 <body>
-    <header class="header">
-        <div class="header-inner">
-            <p>【ＴＳ委託】カーケアジャパン</p>
-            <div class="menu-icon">≡</div>
-        </div>
-    </header>
+<header class="new-wb-header"><nav><p class="userName2"><span>【ＴＳ委託】カーケアジャパン (練習用ダミー v3.0)</span></p><br><div class="nav-menu"><div id="nav-drawer"><input id="nav-input" type="checkbox" class="nav-unshown" /><label id="nav-open" for="nav-input"><span></span></label><div id="nav-content"><br><div class="modal-header"><p>メニュー</p></div><br><ul class="modalList"><li><a class="nav-link" href="index.html">トップ</a></li><li><input type="button" value="ログアウト" /></li></ul></div></div></div></nav></header>
 
-    <main class="main-container">
-        <div class="page-header">
-            <h1>外装確認</h1>
-            <span class="car-no">相模 7725</span>
-        </div>
+<main class="main">
+<form method="POST" action="" accept-charset="utf-8" onsubmit="return false;">
+<input type="hidden" id="fromWebFlg" name="fromWebFlg" value="true" />
 
-        <form id="exterior-check-form">
-            
-            <div class="content-section">
-                <h2 class="contents-title">状態</h2>
-                <div class="contents-block" style="box-shadow:none; padding:0; margin:0;">
-                    <p class="contents-inner-text">
-                        【重要チェック箇所】<br>
-                        下回り・アンダーカバー・タイヤハウスの損傷を確認
-                    </p>
-                    <p class="contents-inner-text">
-                        走行に支障がでる損傷の場合は「NG（稼動停止）」
-                    </p>
-                    
-                    <div class="content-radio twoChoices">
-                        <div class="content-radio-block">
-                            <input type="radio" class="radio-select" name="exteriorState" id="exteriorState01" value="1">
-                            <label for="exteriorState01">OK</label>
-                        </div>
-                        <div class="content-radio-block">
-                            <input type="radio" class="radio-select error" name="exteriorState" id="exteriorState02" value="9">
-                            <label for="exteriorState02">NG（稼動停止）</label>
-                        </div>
-                    </div>
-                </div>
+<div class="maintenance">
+<div class="info-area"><h1 class="car-another-title">外装確認</h1><p class="car-number-text">相模 501 ワ 7725</p></div>
+
+<div class="tab-contents car-another-contents is-inquiry" style="display:block;">
+
+    <h2 class="contents-title">状態</h2>
+    <div class="contents-block">
+        <p class="contents-inner-text">
+            【重要チェック箇所】<br>
+            下回り・アンダーカバー・タイヤハウスの損傷を確認
+        </p>
+        <p class="contents-inner-text">
+            走行に支障がでる損傷の場合は「NG（稼動停止）」
+        </p>
+        
+        <div class="content-radio twoChoices">
+            <div class="content-radio-block">
+                <input type="radio" class="radio-select" name="exteriorState" id="exteriorState01" value="1">
+                <label for="exteriorState01">OK</label>
             </div>
-
-            <div class="content-section">
-                <h2 class="contents-title">損傷箇所</h2>
-                <div class="contents-block" style="box-shadow:none; padding:0; margin:0;">
-                    <p class="contents-inner-text">
-                        ※ここに損傷箇所の詳細や画像が表示されます（テスト用ダミー）
-                    </p>
-                </div>
-            </div>
-
-        </form>
-
-        <div class="footer">
-            <div class="footer-button">
-                <a href="index.html" class="is-stop">
-                    <p style="margin:0;">一時保存</p>
-                </a>
-                <a href="#" class="is-complete" onclick="completeTask('exterior'); return false;">
-                    <p style="margin:0;">完了</p>
-                </a>
+            <div class="content-radio-block">
+                <input type="radio" class="radio-select error" name="exteriorState" id="exteriorState02" value="9">
+                <label for="exteriorState02">NG（稼動停止）</label>
             </div>
         </div>
-    </main>
+    </div>
+    <br>
 
-    <script src="script.js"></script>
+    <h2 class="contents-title">損傷箇所</h2>
+    <div class="contents-block">
+        <p class="contents-inner-text">
+            ※ここに損傷箇所の詳細や画像が表示されます（テスト用ダミー）
+        </p>
+    </div>
+
+</div>
+</div>
+
+<footer class="footer">
+<div class="footer-button-triple">
+<a href="index.html" class="btn-cancel"><p>中止</p></a>
+<a href="javascript:void(0);" onclick="saveDraft();" class="btn-save"><p>一時保存</p></a>
+<a href="javascript:void(0);" onclick="completeTask();" class="btn-complete"><p>完了</p></a>
+</div>
+</footer>
+</form>
+</main>
+
+<script type="text/javascript">
+$(function () {
+  // ラジオボタンの変更処理 (エラー解除の更新等)
+  $(document).on('change', 'input[type="radio"]', function() {
+    updateHighlights();
+  });
+
+  // 未選択の必須項目をピンク色にするリアルタイムバリデーション
+  function updateHighlights() {
+    $('.content-radio').each(function() {
+      var $radios = $(this).find('input[type="radio"]');
+      if ($radios.length > 0) {
+        var radioName = $radios.first().attr('name');
+        if ($('input[name="' + radioName + '"]:checked').length === 0) {
+          $(this).addClass('error-highlight');
+        } else {
+          $(this).removeClass('error-highlight');
+        }
+      }
+    });
+  }
+
+  // 初回読み込み時にピンク色にする
+  updateHighlights();
+});
+
+// 一時保存ボタンの処理
+function saveDraft() {
+  // 一時保存フラグを立てる
+  sessionStorage.setItem('exteriorCheckDraft', 'true');
+  // 完了フラグは消しておく
+  sessionStorage.removeItem('exteriorCheckCompleted');
+  // トップ画面へ遷移
+  window.location.href = 'index.html';
+}
+
+// 完了ボタンの処理
+function completeTask() {
+  // 完了フラグを保存
+  sessionStorage.setItem('exteriorCheckCompleted', 'true');
+  // 一時保存フラグを消す
+  sessionStorage.removeItem('exteriorCheckDraft');
+  // トップ画面へ遷移
+  window.location.href = 'index.html';
+}
+</script>
 </body>
 </html>
