@@ -19,23 +19,12 @@
   <script src="js/common.js"></script>
   <script src="js/maintenance.js"></script>
   <script src="js/carDetail.js"></script>
-  
-  <style>
-    /* ダミー環境用の微調整（本物のCSSを崩さない程度の補完） */
-    .tab-contents { display: none; }
-    .tab-contents.active { display: block; }
-    .footer-button { display: flex; justify-content: space-around; width: 100%; padding: 10px; background-color: #333; position: fixed; bottom: 0; left: 0; z-index: 100; }
-    .footer-button a { width: 45%; text-align: center; border-radius: 4px; padding: 10px 0; text-decoration: none; font-weight: bold; }
-    .footer-button a.is-stop { background-color: #fff; color: #333; border: 1px solid #ccc; }
-    .footer-button a.is-complete { background-color: #ffcc00; color: #333; }
-    main.main { padding-bottom: 80px; } /* フッター被り防止 */
-  </style>
 </head>
 <body>
   <header class="new-wb-header">
     <nav>
       <p class="userName2">
-        <span>【ＴＳ委託】カーケアジャパン (練習用ダミー)</span>
+        <span>【ＴＳ委託】カーケアジャパン (練習用ダミー v1.2)</span>
       </p>
       <br>
       <div class="nav-menu">
@@ -62,31 +51,32 @@
     </nav>
   </header>
   
-  <main class="main">
+  <main class="detail-main">
     <div class="maintenance">
+      <br>
       <div class="info-area">
         <h1 class="car-another-title">日常点検（入力）</h1>
         <p class="car-number-text">相模 501 ワ 7725</p>
       </div>
 
-      <div class="container">
-        <div class="tab-container" style="overflow-x: auto; white-space: nowrap;">
+      <div class="tab-contents car-another-contents">
+        <div class="tab-container" style="overflow-x: auto; white-space: nowrap; border-bottom: 2px solid #ccc;">
           <div class="tab" style="display: inline-flex;">
-            <div class="tab-button active" data-name="engine"><a href="javascript:void(0);">エンジンルーム</a></div>
-            <div class="tab-button" data-name="tire"><a href="javascript:void(0);">タイヤ</a></div>
-            <div class="tab-button" data-name="motion"><a href="javascript:void(0);">動作確認</a></div>
-            <div class="tab-button" data-name="in-car"><a href="javascript:void(0);">車載品（運転席）</a></div>
-            <div class="tab-button" data-name="equipment"><a href="javascript:void(0);">装備確認</a></div>
-            <div class="tab-button" data-name="light"><a href="javascript:void(0);">灯火装置</a></div>
-            <div class="tab-button" data-name="perimeter"><a href="javascript:void(0);">車両周り他</a></div>
-            <div class="tab-button" data-name="trunk"><a href="javascript:void(0);">車載品（トランク）</a></div>
+            <div class="tab-button active" data-name="engine" style="padding: 10px; cursor: pointer;">エンジンルーム</div>
+            <div class="tab-button" data-name="tire" style="padding: 10px; cursor: pointer;">タイヤ</div>
+            <div class="tab-button" data-name="motion" style="padding: 10px; cursor: pointer;">動作確認</div>
+            <div class="tab-button" data-name="in-car" style="padding: 10px; cursor: pointer;">車載品（運転席）</div>
+            <div class="tab-button" data-name="equipment" style="padding: 10px; cursor: pointer;">装備確認</div>
+            <div class="tab-button" data-name="light" style="padding: 10px; cursor: pointer;">灯火装置</div>
+            <div class="tab-button" data-name="perimeter" style="padding: 10px; cursor: pointer;">車両周り他</div>
+            <div class="tab-button" data-name="trunk" style="padding: 10px; cursor: pointer;">車載品（トランク）</div>
           </div>
         </div>
-
         <br>
+
         <div class="click-change-contents">
 
-          <div class="tab-contents active" id="engine">
+          <div class="tab-content active" id="engine">
             <h2 class="contents-title">冷却水量</h2>
             <div class="contents-block">
               <p class="contents-inner-text">
@@ -166,7 +156,7 @@
             </div>
           </div>
 
-          <div class="tab-contents" id="tire">
+          <div class="tab-content" id="tire" style="display:none;">
             <h2 class="contents-title">タイヤ種別</h2>
             <div class="contents-block">
               <div class="content-radio twoChoices">
@@ -192,11 +182,11 @@
               <ul class="contents-list">
                 <li>
                   <h3>前輪</h3>
-                  <input type="number" class="airPressure" id="tireFrontRegularPressure" value="250" /> kPa
+                  <input type="number" class="airPressure single-input" id="tireFrontRegularPressure" value="250" /> kPa
                 </li>
                 <li>
                   <h3>後輪</h3>
-                  <input type="number" class="airPressure" id="tireRearRegularPressure" value="240" /> kPa
+                  <input type="number" class="airPressure single-input" id="tireRearRegularPressure" value="240" /> kPa
                 </li>
               </ul>
             </div>
@@ -222,30 +212,113 @@
                 <ul class="contents-list full-line-innerItem">
                   <li>
                     <h3>製造年週</h3>
-                    <input type="number" class="single-input required-red" placeholder="例:1224" />
+                    <input type="number" class="single-input required-red" id="rfManufactureYearWeek" placeholder="例:1224" />
                   </li>
                   <li style="width: 65%">
                     <h3>残溝</h3>
-                    <input type="number" class="single-input required-red" style="width:50px; text-align:center;" /> . 
-                    <input type="number" class="single-input required-red" style="width:50px; text-align:center;" /> mm
+                    <input type="number" class="single-input required-red" id="rfGroove1" style="width:50px; text-align:center;" /> . 
+                    <input type="number" class="single-input required-red" id="rfGroove2" style="width:50px; text-align:center;" /> mm
                   </li>
                 </ul>
                 <ul class="contents-list mt-10">
                   <li>
                     <p class="contents-item-title">調整前</p>
-                    <input type="number" class="airPressureInput single-input required-red" placeholder="250" /> kPa
+                    <input type="number" class="airPressureInput single-input required-red" id="rfPressureBefore" placeholder="250" /> kPa
                   </li>
                   <li>
                     <p class="contents-item-title">調整後</p>
-                    <input type="number" class="airPressureInput single-input" /> kPa
+                    <input type="number" class="airPressureInput single-input" id="rfPressureAfter" /> kPa
                   </li>
                 </ul>
               </div>
             </section>
-            <div style="padding:10px; color:#666;">（※左前、左後、右後タイヤの入力欄は右前と同様の構造です）</div>
+
+            <section>
+              <h2 class="contents-stickyTitle">左前タイヤ</h2>
+              <h2 class="contents-title">製造年週 / 溝 / 空気圧</h2>
+              <div class="contents-block tire">
+                <ul class="contents-list full-line-innerItem">
+                  <li>
+                    <h3>製造年週</h3>
+                    <input type="number" class="single-input required-red" id="lfManufactureYearWeek" placeholder="例:1224" />
+                  </li>
+                  <li style="width: 65%">
+                    <h3>残溝</h3>
+                    <input type="number" class="single-input required-red" id="lfGroove1" style="width:50px; text-align:center;" /> . 
+                    <input type="number" class="single-input required-red" id="lfGroove2" style="width:50px; text-align:center;" /> mm
+                  </li>
+                </ul>
+                <ul class="contents-list mt-10">
+                  <li>
+                    <p class="contents-item-title">調整前</p>
+                    <input type="number" class="airPressureInput single-input required-red" id="lfPressureBefore" placeholder="250" /> kPa
+                  </li>
+                  <li>
+                    <p class="contents-item-title">調整後</p>
+                    <input type="number" class="airPressureInput single-input" id="lfPressureAfter" /> kPa
+                  </li>
+                </ul>
+              </div>
+            </section>
+
+            <section>
+              <h2 class="contents-stickyTitle">右後タイヤ</h2>
+              <h2 class="contents-title">製造年週 / 溝 / 空気圧</h2>
+              <div class="contents-block tire">
+                <ul class="contents-list full-line-innerItem">
+                  <li>
+                    <h3>製造年週</h3>
+                    <input type="number" class="single-input required-red" id="rrManufactureYearWeek" placeholder="例:1224" />
+                  </li>
+                  <li style="width: 65%">
+                    <h3>残溝</h3>
+                    <input type="number" class="single-input required-red" id="rrGroove1" style="width:50px; text-align:center;" /> . 
+                    <input type="number" class="single-input required-red" id="rrGroove2" style="width:50px; text-align:center;" /> mm
+                  </li>
+                </ul>
+                <ul class="contents-list mt-10">
+                  <li>
+                    <p class="contents-item-title">調整前</p>
+                    <input type="number" class="airPressureInput single-input required-red" id="rrPressureBefore" placeholder="240" /> kPa
+                  </li>
+                  <li>
+                    <p class="contents-item-title">調整後</p>
+                    <input type="number" class="airPressureInput single-input" id="rrPressureAfter" /> kPa
+                  </li>
+                </ul>
+              </div>
+            </section>
+
+            <section>
+              <h2 class="contents-stickyTitle">左後タイヤ</h2>
+              <h2 class="contents-title">製造年週 / 溝 / 空気圧</h2>
+              <div class="contents-block tire">
+                <ul class="contents-list full-line-innerItem">
+                  <li>
+                    <h3>製造年週</h3>
+                    <input type="number" class="single-input required-red" id="lrManufactureYearWeek" placeholder="例:1224" />
+                  </li>
+                  <li style="width: 65%">
+                    <h3>残溝</h3>
+                    <input type="number" class="single-input required-red" id="lrGroove1" style="width:50px; text-align:center;" /> . 
+                    <input type="number" class="single-input required-red" id="lrGroove2" style="width:50px; text-align:center;" /> mm
+                  </li>
+                </ul>
+                <ul class="contents-list mt-10">
+                  <li>
+                    <p class="contents-item-title">調整前</p>
+                    <input type="number" class="airPressureInput single-input required-red" id="lrPressureBefore" placeholder="240" /> kPa
+                  </li>
+                  <li>
+                    <p class="contents-item-title">調整後</p>
+                    <input type="number" class="airPressureInput single-input" id="lrPressureAfter" /> kPa
+                  </li>
+                </ul>
+              </div>
+            </section>
           </div>
 
-          <div class="tab-contents" id="motion">
+          <div class="tab-content" id="motion" style="display:none;">
             <h2 class="contents-title">エンジンのかかり具合、異音</h2>
             <div class="contents-block">
               <div class="content-radio twoChoices">
@@ -303,7 +376,7 @@
             </div>
           </div>
 
-          <div class="tab-contents" id="in-car">
+          <div class="tab-content" id="in-car" style="display:none;">
             <h2 class="contents-title">車検証（適合証）</h2>
             <div class="contents-block">
               <div class="content-radio twoChoices">
@@ -363,7 +436,7 @@
                 </div>
               </div>
               <div class="expiration-date" style="margin-top:15px;">
-                <input type="month" id="flaresLimit" name="flaresLimit" value="2029-01" class="single-input" style="width:150px;" />
+                <input type="month" id="flaresLimit" name="flaresLimit" class="single-input" style="width:150px;" />
               </div>
             </div>
 
@@ -386,7 +459,7 @@
             </div>
           </div>
 
-          <div class="tab-contents" id="equipment">
+          <div class="tab-content" id="equipment" style="display:none;">
             <h2 class="contents-title">バックモニター</h2>
             <div class="contents-block">
               <div class="content-radio twoChoices">
@@ -416,7 +489,7 @@
             </div>
           </div>
 
-          <div class="tab-contents" id="light">
+          <div class="tab-content" id="light" style="display:none;">
             <h2 class="contents-title">点灯状態</h2>
             <div class="contents-block">
               <div class="content-radio twoChoices">
@@ -432,7 +505,7 @@
             </div>
           </div>
 
-          <div class="tab-contents" id="perimeter">
+          <div class="tab-content" id="perimeter" style="display:none;">
             <h2 class="contents-title">給油口</h2>
             <div class="contents-block">
               <div class="content-radio twoChoices">
@@ -448,7 +521,7 @@
             </div>
           </div>
 
-          <div class="tab-contents" id="trunk">
+          <div class="tab-content" id="trunk" style="display:none;">
             <h2 class="contents-title">三角停止板</h2>
             <div class="contents-block">
               <div class="content-radio twoChoices">
@@ -498,40 +571,38 @@
 
         </div>
       </div>
+      
+      <br>
+      
+      <div class="footer-button">
+        <p class="is-stop"><a href="index.html">一時保存</a></p>
+        <p class="is-complete"><a href="javascript:void(0);" onclick="completeDailyCheck();">完了</a></p>
+      </div>
+
     </div>
-
-    <footer class="footer-button">
-      <a href="index.html" class="is-stop">一時保存</a>
-      <a href="javascript:void(0);" onclick="completeDailyCheck();" class="is-complete">完了</a>
-    </footer>
-
-    <script type="text/javascript">
-      // タブ切り替えのダミー処理
-      $(function () {
-        $('.tab-button').on('click', function(e) {
-          e.preventDefault();
-          // タブの見た目変更
-          $('.tab-button').removeClass('active');
-          $(this).addClass('active');
-          // コンテンツの切り替え
-          var targetId = $(this).attr('data-name');
-          $('.tab-contents').removeClass('active').hide();
-          $('#' + targetId).addClass('active').fadeIn(200);
-        });
-      });
-
-      // 完了ボタン押下時のダミー処理
-      function completeDailyCheck() {
-        alert('【ダミー動作】日常点検の入力内容を保存しました！');
-        
-        // ※実際にはここで「点検OK」マークを出すためのフラグを
-        // ローカルストレージ等に保存する処理を入れると、index.htmlで読み込ませて
-        // 青いマークを表示させることが可能です。
-        // （今回は単純にindex.htmlへ遷移します）
-        
-        window.location.href = 'index.html';
-      }
-    </script>
   </main>
+
+  <script type="text/javascript">
+    $(function () {
+      // タブ切り替えのダミー処理（CSSの余計な追加なしで動かすためJSで制御）
+      $('.tab-button').on('click', function() {
+        var targetId = $(this).attr('data-name');
+        
+        // タブ自体の見た目変更
+        $('.tab-button').removeClass('active');
+        $(this).addClass('active');
+        
+        // コンテンツの表示/非表示切り替え
+        $('.tab-content').hide();
+        $('#' + targetId).show();
+      });
+    });
+
+    // 完了ボタン押下時のダミー処理
+    function completeDailyCheck() {
+      alert('【ダミー動作】日常点検の入力内容を保存しました！');
+      window.location.href = 'index.html';
+    }
+  </script>
 </body>
 </html>
