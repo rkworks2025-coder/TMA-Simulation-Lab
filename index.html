@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="robots" content="noindex"/>
   
-  <title>点検詳細 (Test Mode)</title>
+  <title>点検トップ (Training Mode)</title>
 
   <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
   <link rel="stylesheet" type="text/css" href="css/reset.css" />
@@ -14,106 +14,84 @@
   <link rel="stylesheet" type="text/css" href="css/taw0101002.css" />
 
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   
   <script>
-    // --------------------------------------------------
-    // 状態管理用ロジック（ダミー用）
-    // localStorageを使用して、各項目の作業状態を再現する
-    // --------------------------------------------------
+    /**
+     * 新人教育用：状態連動ロジック
+     * 各作業画面（daily_check.html等）での保存状態をトップ画面に反映します。
+     */
     $(function() {
-      // 画面読み込み時に各ボタンの状態をレンダリング
-      renderButtonState('daily', 'dailyBtnContainer', 'dailyTitleArea');      // 日常点検
-      
-      // 他の項目も同様にIDを付与すれば拡張可能
-      renderButtonState('interior', 'interiorBtnContainer', 'interiorTitleArea'); // 車内清掃
-      renderButtonState('wash', 'washBtnContainer', 'washTitleArea');         // 洗車
-      renderButtonState('exterior', 'exteriorBtnContainer', 'exteriorTitleArea'); // 外装確認
-      renderButtonState('lend', 'lendBtnContainer', 'lendTitleArea');         // 貸出準備
-      renderButtonState('end', 'endBtnContainer', 'endTitleArea');            // 点検終了
+        // 監視対象の項目定義
+        const tasks = [
+            { id: 'daily', container: 'dailyBtnContainer', title: 'dailyTitleArea', url: 'daily_check.html', label: '日常点検' },
+            { id: 'interior', container: 'interiorBtnContainer', title: 'interiorTitleArea', url: 'interior.html', label: '車内清掃' },
+            { id: 'wash', container: 'washBtnContainer', title: 'washTitleArea', url: 'wash.html', label: '洗車' },
+            { id: 'exterior', container: 'exteriorBtnContainer', title: 'exteriorTitleArea', url: 'exterior.html', label: '外装確認' },
+            { id: 'lend', container: 'lendBtnContainer', title: 'lendTitleArea', url: 'lend_prep.html', label: '貸出準備' }
+        ];
+
+        tasks.forEach(task => {
+            renderTaskState(task);
+        });
+
+        // 点検終了ボタンの制御
+        renderEndButton();
     });
 
-    /**
-     * ステータスに応じてボタンと表示エリアを更新する関数
-     */
-    function renderButtonState(keyName, btnContainerId, titleAreaId) {
-      // localStorageから状態を取得（キー名は daily_check.html と合わせる）
-      var status = localStorage.getItem('dummy_status_' + keyName) || '';
+    function renderTaskState(task) {
+        const status = localStorage.getItem('dummy_status_' + task.id) || '';
+        const $container = $('#' + task.container);
+        const $titleArea = $('#' + task.title);
 
-      var $btnContainer = $('#' + btnContainerId);
-      var $titleArea = $('#' + titleAreaId);
+        let btnHtml = '';
+        let statusHtml = '';
 
-      var btnHtml = '';
-      var statusHtml = '';
+        if (status === 'temporary') {
+            // 一時保存時
+            btnHtml = `<div class="info-button"><a href="${task.url}"><span>一時保存</span></a></div>`;
+        } else if (status === 'ok') {
+            // 完了(OK)時
+            btnHtml = `<p class="info-button disable">点検</p>`;
+            statusHtml = `<p class="info-status-temporarily result-ok">点検OK</p>`;
+        } else if (status === 'ng') {
+            // 完了(NG)時
+            btnHtml = `<p class="info-button disable">点検</p>`;
+            statusHtml = `<p class="info-status-temporarily result-ng">点検NG</p>`;
+        } else {
+            // 未着手
+            btnHtml = `<div class="info-button"><a href="${task.url}"><span>点検</span></a></div>`;
+        }
 
-      switch (status) {
-        case 'temporary':
-          // ■一時保存
-          // 本来のスタイルに合わせてボタンを生成
-          btnHtml = '<div class="info-button"><a href="' + getTargetUrl(keyName) + '"><span>一時保存</span></a></div>';
-          break;
-
-        case 'ok':
-          // ■完了(OK)
-          btnHtml = '<p class="info-button disable">点検</p>';
-          statusHtml = '<br><p class="info-status-temporarily result-ok">点検OK</p>';
-          
-          if(keyName === 'end') {
-             btnHtml = '<p class="info-button disable">終了</p>';
-          }
-          break;
-
-        case 'ng':
-          // ■NG
-          btnHtml = '<p class="info-button disable">点検</p>';
-          statusHtml = '<br><p class="info-status-temporarily result-ng">点検NG</p>';
-          break;
-
-        default:
-          // ■未実施
-          var btnText = (keyName === 'end') ? '終了' : '点検';
-          btnHtml = '<div class="info-button"><a href="' + getTargetUrl(keyName) + '"><span>' + btnText + '</span></a></div>';
-          break;
-      }
-
-      // DOM更新
-      $btnContainer.html(btnHtml);
-      
-      // ステータス表示の重複防止処理
-      $titleArea.find('.info-status-temporarily').remove();
-      $titleArea.find('br').remove();
-      if (statusHtml) {
-        $titleArea.append(statusHtml);
-      }
+        $container.html(btnHtml);
+        $titleArea.find('.info-status-temporarily').remove();
+        if (statusHtml) {
+            $titleArea.append('<br>' + statusHtml);
+        }
     }
 
-    function getTargetUrl(keyName) {
-      switch(keyName) {
-        case 'daily': return 'daily_check.html'; // ここが次のファイルへ飛ぶ
-        case 'interior': return 'interior.html';
-        case 'wash': return 'wash.html';
-        case 'exterior': return 'exterior.html';
-        case 'lend': return 'lend_prep.html';
-        case 'end': return 'end.html';
-        default: return '#';
-      }
+    function renderEndButton() {
+        const status = localStorage.getItem('dummy_status_end') || '';
+        const $container = $('#endBtnContainer');
+        if (status === 'ok') {
+            $container.html('<p class="info-button disable">終了</p>');
+        } else {
+            $container.html('<div class="info-button"><a href="end.html"><span>終了</span></a></div>');
+        }
     }
   </script>
 </head>
 <body>
-    
     <header class="new-wb-header">
       <nav>
-        <p class="userName2"><span>【ＴＳ委託】カーケアジャパン (Test)</span></p>
+        <p class="userName2"><span>【ＴＳ委託】カーケアジャパン (練習用)</span></p>
         <div class="nav-menu">
             <div id="nav-drawer">
                 <input id="nav-input" type="checkbox" class="nav-unshown" />
                 <label id="nav-open" for="nav-input"><span></span></label>
                 <div id="nav-content">
                     <ul class="modalList">
-                        <li><a class="nav-link" href="menu.html">メニューへ戻る</a></li>
-                        <li><a class="nav-link" href="#" onclick="localStorage.clear(); location.reload();" style="color:red;">状態リセット(Debug)</a></li>
+                        <li><a href="#" onclick="localStorage.clear(); location.reload();" style="color:red;">データをリセットする</a></li>
+                        <li><a href="menu.html">メニューへ戻る</a></li>
                     </ul>
                 </div>
             </div>
@@ -121,13 +99,12 @@
       </nav>
     </header>
     
-  <main class="detail-main">
+    <main class="detail-main">
       <div class="info-area">
         <h1 class="car-another-title">点検トップ</h1>
       </div>
 
       <div class="tab-contents car-another-contents">
-          
           <div class="car-list">
             <h2 class="car-detail-title">車両情報</h2>
             <div class="car-contents">
@@ -152,13 +129,13 @@
                 <div class="info-title-area">
                   <p class="info-title">点検開始</p>
                 </div>
-                <div class="start-button-area" id="startBtnContainer">
+                <div class="start-button-area">
                     <p class="info-button disable">開始</p>
                 </div>
               </div>
               <div class="check-history-area">
                   <div class="history-contents reservation">
-                    <p class="inquiry-text">01月03日 06:15 ～ 06:45</p>
+                    <p class="inquiry-text">02月14日 16:15 ～ 16:45</p>
                     <p class="inquiry-text"><span>予約中</span></p>
                   </div>
               </div>
@@ -171,317 +148,61 @@
                 
                 <div class="info-box">
                   <div class="check-state-area">
-                    <div class="info-title-area" id="dailyTitleArea">
-                      <p class="info-title">日常点検</p>
-                    </div>
+                    <div class="info-title-area" id="dailyTitleArea"><p class="info-title">日常点検</p></div>
                     <div class="start-button-area" id="dailyBtnContainer">
                         <div class="info-button"><a href="daily_check.html"><span>点検</span></a></div>
                     </div>
                   </div>
-                  <div class="check-history-area">
-                    <div class="history-state">
-                      <p>前回</p>
-                      <div>
-                        <div class="state-mark"><img src="https://dailycheck.tc-extsys.jp/images/icon-history-ok.png" alt="OK" /></div>
-                      </div>
-                    </div>
-                    <div class="history-contents">
-                      <p>2025/12/20 23:02</p>
-                    </div>
-                  </div>
                 </div>
 
-                <div class="info-box">
-                    <div class="check-state-area">
-                        <div class="info-title-area" id="interiorTitleArea"><p class="info-title">車内清掃</p></div>
-                        <div class="start-button-area" id="interiorBtnContainer">
-                            <div class="info-button"><a href="interior.html"><span>点検</span></a></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="info-box">
-                    <div class="check-state-area">
-                        <div class="info-title-area" id="washTitleArea"><p class="info-title">洗車</p></div>
-                        <div class="start-button-area" id="washBtnContainer">
-                            <div class="info-button"><a href="wash.html"><span>点検</span></a></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="info-box">
-                    <div class="check-state-area">
-                        <div class="info-title-area" id="exteriorTitleArea"><p class="info-title">外装確認</p></div>
-                        <div class="start-button-area" id="exteriorBtnContainer">
-                            <div class="info-button"><a href="exterior.html"><span>点検</span></a></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="info-box">
-                    <div class="check-state-area">
-                        <div class="info-title-area" id="lendTitleArea"><p class="info-title">貸出準備</p></div>
-                        <div class="start-button-area" id="lendBtnContainer">
-                            <div class="info-button"><a href="lend_prep.html"><span>点検</span></a></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="info-box">
-                    <div class="check-state-area">
-                        <div class="info-title-area" id="endTitleArea"><p class="info-title">点検終了</p></div>
-                        <div class="start-button-area" id="endBtnContainer">
-                            <div class="info-button"><a href="end.html"><span>終了</span></a></div>
-                        </div>
-                    </div>
-                </div>
-
-              </div>
-            </div>
-          </div>
-  </main>
-</body>
-</html><!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="robots" content="noindex"/>
-  
-  <title>点検詳細 (Test Mode)</title>
-
-  <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
-  <link rel="stylesheet" type="text/css" href="css/reset.css" />
-  <link rel="stylesheet" type="text/css" href="css/common.css" />
-  <link rel="stylesheet" type="text/css" href="css/taw0101002.css" />
-
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-  
-  <script>
-    // --------------------------------------------------
-    // 状態管理用ロジック（ダミー用）
-    // localStorageを使用して、各項目の作業状態を再現する
-    // --------------------------------------------------
-    $(function() {
-      // 画面読み込み時に各ボタンの状態をレンダリング
-      renderButtonState('daily', 'dailyBtnContainer', 'dailyTitleArea');      // 日常点検
-      
-      // 他の項目も同様にIDを付与すれば拡張可能
-      renderButtonState('interior', 'interiorBtnContainer', 'interiorTitleArea'); // 車内清掃
-      renderButtonState('wash', 'washBtnContainer', 'washTitleArea');         // 洗車
-      renderButtonState('exterior', 'exteriorBtnContainer', 'exteriorTitleArea'); // 外装確認
-      renderButtonState('lend', 'lendBtnContainer', 'lendTitleArea');         // 貸出準備
-      renderButtonState('end', 'endBtnContainer', 'endTitleArea');            // 点検終了
-    });
-
-    /**
-     * ステータスに応じてボタンと表示エリアを更新する関数
-     */
-    function renderButtonState(keyName, btnContainerId, titleAreaId) {
-      // localStorageから状態を取得（キー名は daily_check.html と合わせる）
-      var status = localStorage.getItem('dummy_status_' + keyName) || '';
-
-      var $btnContainer = $('#' + btnContainerId);
-      var $titleArea = $('#' + titleAreaId);
-
-      var btnHtml = '';
-      var statusHtml = '';
-
-      switch (status) {
-        case 'temporary':
-          // ■一時保存
-          // 本来のスタイルに合わせてボタンを生成
-          btnHtml = '<div class="info-button"><a href="' + getTargetUrl(keyName) + '"><span>一時保存</span></a></div>';
-          break;
-
-        case 'ok':
-          // ■完了(OK)
-          btnHtml = '<p class="info-button disable">点検</p>';
-          statusHtml = '<br><p class="info-status-temporarily result-ok">点検OK</p>';
-          
-          if(keyName === 'end') {
-             btnHtml = '<p class="info-button disable">終了</p>';
-          }
-          break;
-
-        case 'ng':
-          // ■NG
-          btnHtml = '<p class="info-button disable">点検</p>';
-          statusHtml = '<br><p class="info-status-temporarily result-ng">点検NG</p>';
-          break;
-
-        default:
-          // ■未実施
-          var btnText = (keyName === 'end') ? '終了' : '点検';
-          btnHtml = '<div class="info-button"><a href="' + getTargetUrl(keyName) + '"><span>' + btnText + '</span></a></div>';
-          break;
-      }
-
-      // DOM更新
-      $btnContainer.html(btnHtml);
-      
-      // ステータス表示の重複防止処理
-      $titleArea.find('.info-status-temporarily').remove();
-      $titleArea.find('br').remove();
-      if (statusHtml) {
-        $titleArea.append(statusHtml);
-      }
-    }
-
-    function getTargetUrl(keyName) {
-      switch(keyName) {
-        case 'daily': return 'daily_check.html'; // ここが次のファイルへ飛ぶ
-        case 'interior': return 'interior.html';
-        case 'wash': return 'wash.html';
-        case 'exterior': return 'exterior.html';
-        case 'lend': return 'lend_prep.html';
-        case 'end': return 'end.html';
-        default: return '#';
-      }
-    }
-  </script>
-</head>
-<body>
-    
-    <header class="new-wb-header">
-      <nav>
-        <p class="userName2"><span>【ＴＳ委託】カーケアジャパン (Test)</span></p>
-        <div class="nav-menu">
-            <div id="nav-drawer">
-                <input id="nav-input" type="checkbox" class="nav-unshown" />
-                <label id="nav-open" for="nav-input"><span></span></label>
-                <div id="nav-content">
-                    <ul class="modalList">
-                        <li><a class="nav-link" href="menu.html">メニューへ戻る</a></li>
-                        <li><a class="nav-link" href="#" onclick="localStorage.clear(); location.reload();" style="color:red;">状態リセット(Debug)</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-      </nav>
-    </header>
-    
-  <main class="detail-main">
-      <div class="info-area">
-        <h1 class="car-another-title">点検トップ</h1>
-      </div>
-
-      <div class="tab-contents car-another-contents">
-          
-          <div class="car-list">
-            <h2 class="car-detail-title">車両情報</h2>
-            <div class="car-contents">
-              <table>
-                <tr>
-                  <th colspan="2">車両ナンバー</th>
-                  <td>相模 501 ワ 7725</td>
-                </tr>
-                <tr>
-                  <th colspan="2">車種名</th>
-                  <td>ヤリス(ハイブリッド)</td>
-                </tr>
-              </table>
-            </div>
-          </div>
-
-          <div class="car-list history">
-            <h2 class="car-detail-title">点検詳細</h2>
-            
-            <div class="info-box">
-              <div class="check-state-area">
-                <div class="info-title-area">
-                  <p class="info-title">点検開始</p>
-                </div>
-                <div class="start-button-area" id="startBtnContainer">
-                    <p class="info-button disable">開始</p>
-                </div>
-              </div>
-              <div class="check-history-area">
-                  <div class="history-contents reservation">
-                    <p class="inquiry-text">01月03日 06:15 ～ 06:45</p>
-                    <p class="inquiry-text"><span>予約中</span></p>
-                  </div>
-              </div>
-            </div>
-            
-            <div class="is-rental">
-                <div>
-                  <p class="mt15 txt-red">ブレーキ点灯確認バーを使用する際は、車両が動かないよう点検開始前にタイヤストッパーを必ず設置してください</p>
-                </div>
-                
                 <div class="info-box">
                   <div class="check-state-area">
-                    <div class="info-title-area" id="dailyTitleArea">
-                      <p class="info-title">日常点検</p>
-                    </div>
-                    <div class="start-button-area" id="dailyBtnContainer">
-                        <div class="info-button"><a href="daily_check.html"><span>点検</span></a></div>
-                    </div>
-                  </div>
-                  <div class="check-history-area">
-                    <div class="history-state">
-                      <p>前回</p>
-                      <div>
-                        <div class="state-mark"><img src="https://dailycheck.tc-extsys.jp/images/icon-history-ok.png" alt="OK" /></div>
-                      </div>
-                    </div>
-                    <div class="history-contents">
-                      <p>2025/12/20 23:02</p>
+                    <div class="info-title-area" id="interiorTitleArea"><p class="info-title">車内清掃</p></div>
+                    <div class="start-button-area" id="interiorBtnContainer">
+                        <div class="info-button"><a href="interior.html"><span>点検</span></a></div>
                     </div>
                   </div>
                 </div>
 
                 <div class="info-box">
-                    <div class="check-state-area">
-                        <div class="info-title-area" id="interiorTitleArea"><p class="info-title">車内清掃</p></div>
-                        <div class="start-button-area" id="interiorBtnContainer">
-                            <div class="info-button"><a href="interior.html"><span>点検</span></a></div>
-                        </div>
+                  <div class="check-state-area">
+                    <div class="info-title-area" id="washTitleArea"><p class="info-title">洗車</p></div>
+                    <div class="start-button-area" id="washBtnContainer">
+                        <div class="info-button"><a href="wash.html"><span>点検</span></a></div>
                     </div>
+                  </div>
                 </div>
 
                 <div class="info-box">
-                    <div class="check-state-area">
-                        <div class="info-title-area" id="washTitleArea"><p class="info-title">洗車</p></div>
-                        <div class="start-button-area" id="washBtnContainer">
-                            <div class="info-button"><a href="wash.html"><span>点検</span></a></div>
-                        </div>
+                  <div class="check-state-area">
+                    <div class="info-title-area" id="exteriorTitleArea"><p class="info-title">外装確認</p></div>
+                    <div class="start-button-area" id="exteriorBtnContainer">
+                        <div class="info-button"><a href="exterior.html"><span>点検</span></a></div>
                     </div>
+                  </div>
                 </div>
 
                 <div class="info-box">
-                    <div class="check-state-area">
-                        <div class="info-title-area" id="exteriorTitleArea"><p class="info-title">外装確認</p></div>
-                        <div class="start-button-area" id="exteriorBtnContainer">
-                            <div class="info-button"><a href="exterior.html"><span>点検</span></a></div>
-                        </div>
+                  <div class="check-state-area">
+                    <div class="info-title-area" id="lendTitleArea"><p class="info-title">貸出準備</p></div>
+                    <div class="start-button-area" id="lendBtnContainer">
+                        <div class="info-button"><a href="lend_prep.html"><span>点検</span></a></div>
                     </div>
+                  </div>
                 </div>
 
                 <div class="info-box">
-                    <div class="check-state-area">
-                        <div class="info-title-area" id="lendTitleArea"><p class="info-title">貸出準備</p></div>
-                        <div class="start-button-area" id="lendBtnContainer">
-                            <div class="info-button"><a href="lend_prep.html"><span>点検</span></a></div>
-                        </div>
+                  <div class="check-state-area">
+                    <div class="info-title-area"><p class="info-title">点検終了</p></div>
+                    <div class="start-button-area" id="endBtnContainer">
+                        <div class="info-button"><a href="end.html"><span>終了</span></a></div>
                     </div>
-                </div>
-
-                <div class="info-box">
-                    <div class="check-state-area">
-                        <div class="info-title-area" id="endTitleArea"><p class="info-title">点検終了</p></div>
-                        <div class="start-button-area" id="endBtnContainer">
-                            <div class="info-button"><a href="end.html"><span>終了</span></a></div>
-                        </div>
-                    </div>
+                  </div>
                 </div>
 
               </div>
             </div>
           </div>
-  </main>
+    </main>
 </body>
 </html>
