@@ -1,0 +1,90 @@
+.detail-main .info-area {
+    margin: 0 auto 0 10px;
+}
+
+.detail-main .device-info-area {
+    width: 94%;
+    margin: 0 3%;
+    overflow: hidden;
+    padding: 20px 0 2px;
+}
+
+.detail-main .car-list .car-detail-title {
+    height: 47px;
+    line-height: 27px;
+}
+
+.detail-main .device-info-area .info-title-area {
+    float: right;
+    margin-right: 6px;
+    min-width: 250px;
+    font-size: 14px;
+}
+.detail-main .device-info-area .info-title-area .info-title {
+    height: 27px;
+    line-height: 27px;
+}
+.detail-main .device-info-area .start-button-area {
+    float: right;
+}
+
+.detail-main .device-info-area .start-button-area .info-button a {
+    display: inline-block;
+    height: 27px;
+    line-height: 27px;
+    padding: 0 14px;
+    border-radius: 3px;
+    font-size: 14px;
+    box-shadow: 0px 1px 0px #00000033;
+    font-weight: bold;
+    background-color: #FED600;
+    color: #333;
+    text-decoration: none;
+}
+
+.detail-main .car-list .check-history-area .history-contents.reservation {
+    padding-left: 0;
+}
+
+.detail-main .car-list .inquiry-block .inquiry-text:before {
+    margin-right: 4px;
+}
+
+.alert-modal .alert-modal-content {
+    transform: translate(-50%, -50%);
+    margin-left: 0;
+}
+
+.alert-modal .alert-modal-content .alert-info-area {
+    overflow-y: auto;
+    max-height: 400px;
+}
+
+.alert-modal.checker-modal .checker-name-inputList {
+    margin-top: 0;
+    padding: 0;
+    width: 94%;
+    margin: 0 3%;
+}
+
+.alert-danger p.alert-title {
+    margin-bottom: 10px;
+}
+
+.alert-danger p.alert-note {
+    margin-top: 10px;
+    font-size: 13px;
+}
+
+.alert-danger .alert-list {
+    margin-top: 6px;
+}
+
+.car-another-contents .alert-modal-content textarea {
+    box-sizing: border-box;
+}
+
+.car-another-contents .alert-modal-content textarea.error-textarea {
+    border: 1px solid #d10606;
+    background: #fdeef0;
+}
