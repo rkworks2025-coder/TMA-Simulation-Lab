@@ -1,199 +1,189 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>車内清掃（入力）</title>
-    
-    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
-    <link rel="stylesheet" type="text/css" href="css/reset.css" />
-    <link rel="stylesheet" type="text/css" href="css/common.css" />
-    
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="robots" content="noindex"/>
+<title>車内清掃 - 入力練習用TMA</title>
+<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="css/reset.css" />
+<link rel="stylesheet" type="text/css" href="css/common.css" />
+<link rel="stylesheet" type="text/css" href="css/taw0101002.css" />
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<style>
+/* iOSの自動ズーム防止用スタイル */
+input[type="text"], input[type="number"], input[type="month"], select, textarea { font-size: 16px !important; }
+/* チェックボックス強制表示用スタイル */
+input[type="checkbox"].check-select { -webkit-appearance: checkbox !important; appearance: checkbox !important; display: inline-block !important; width: 20px !important; height: 20px !important; vertical-align: middle; margin-right: 5px; }
+.contents-checkbox-box label { display: inline-flex; align-items: center; }
 
-    <script>
-        $(function() {
-            // 初期化：データ復元
-            loadFormData();
-
-            // 一時保存ボタン
-            $('#btn-temporary').on('click', function(e) {
-                e.preventDefault();
-                saveFormData();
-                localStorage.setItem('dummy_status_interior', 'temporary');
-                alert('入力内容を一時保存しました。');
-                location.href = 'index.html';
-            });
-
-            // 完了ボタン
-            $('#btn-complete').on('click', function(e) {
-                e.preventDefault();
-                saveFormData();
-
-                // NG判定（value="9"が含まれていればNG）
-                var isNG = false;
-                $('input[type="radio"]:checked').each(function() {
-                    if ($(this).val() === "9") {
-                        isNG = true;
-                    }
-                });
-
-                if (isNG) {
-                    localStorage.setItem('dummy_status_interior', 'ng');
-                    alert('異常（NG）項目が含まれています。\nステータス：点検NG で登録します。');
-                } else {
-                    localStorage.setItem('dummy_status_interior', 'ok');
-                    alert('車内清掃を完了しました。\nステータス：点検OK');
-                }
-                
-                location.href = 'index.html';
-            });
-        });
-
-        function saveFormData() {
-            var formData = {};
-            $('input[type="radio"]:checked').each(function() {
-                formData[$(this).attr('name')] = $(this).val();
-            });
-            localStorage.setItem('dummy_form_data_interior', JSON.stringify(formData));
-        }
-
-        function loadFormData() {
-            var data = localStorage.getItem('dummy_form_data_interior');
-            if (data) {
-                var formData = JSON.parse(data);
-                $.each(formData, function(key, value) {
-                    if ($('input[name="' + key + '"][type="radio"]').length) {
-                        $('input[name="' + key + '"][value="' + value + '"]').prop('checked', true);
-                    }
-                });
-            }
-        }
-    </script>
-    
-    <style>
-        /* ページ固有の微調整 */
-        .footer {
-            position: fixed; bottom: 0; left: 0; width: 100%;
-            background: #fff; padding: 10px 0; border-top: 1px solid #ddd;
-            z-index: 999; box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
-        }
-        .footer-button { display: flex; justify-content: center; gap: 15px; }
-        .footer-btn-link {
-            display: flex; justify-content: center; align-items: center;
-            width: 45%; max-width: 200px; height: 45px;
-            text-decoration: none; font-weight: bold; border-radius: 4px; cursor: pointer;
-        }
-        .is-stop { background: #fff; color: #333; border: 1px solid #ccc; }
-        .is-complete { background: #d00; color: #fff; border: 1px solid #a00; }
-        body { padding-bottom: 100px; }
-    </style>
+.main { padding-bottom: 100px; }
+.footer-button-triple { display: flex !important; width: 100%; height: 60px; background: #fff; border-top: 1px solid #ccc; }
+.footer-button-triple a { flex: 1; display: flex; align-items: center; justify-content: center; text-decoration: none; color: #333; border-right: 1px solid #ccc; font-weight: bold; font-size: 16px; }
+.footer-button-triple a:last-child { border-right: none; }
+.footer-button-triple a.btn-complete { background-color: #ffd700; color: #000; }
+.footer-button-triple a::before { display: none !important; }
+.footer-button-triple p { margin: 0; padding: 0; }
+.footer { position: fixed; bottom: 0; width: 100%; z-index: 1000; }
+.error-highlight .content-radio-block { border: 1px solid #e60012 !important; background-color: #fce8e8 !important; }
+.error-highlight-input { border: 1px solid #e60012 !important; background-color: #fce8e8 !important; }
+.badge-required { display: inline-block; background-color: #e60012; color: #fff; font-size: 11px; font-weight: bold; padding: 2px 5px; border-radius: 2px; margin-right: 6px; vertical-align: 1px; }
+</style>
 </head>
 <body>
-    
-    <header class="new-wb-header">
-      <nav>
-        <p class="userName2"><span>【ＴＳ委託】カーケアジャパン (Test)</span></p>
-      </nav>
-    </header>
-    
-    <main class="main">
-        <div class="info-area">
-            <h1 class="car-another-title">車内清掃（入力）</h1>
-            <p class="car-number-text">相模 501 ワ 7725</p>
-        </div>
+<header class="new-wb-header"><nav><p class="userName2"><span>【ＴＳ委託】カーケアジャパン (練習用ダミー v3.0)</span></p><br><div class="nav-menu"><div id="nav-drawer"><input id="nav-input" type="checkbox" class="nav-unshown" /><label id="nav-open" for="nav-input"><span></span></label><div id="nav-content"><br><div class="modal-header"><p>メニュー</p></div><br><ul class="modalList"><li><a class="nav-link" href="index.html">トップ</a></li><li><input type="button" value="ログアウト" /></li></ul></div></div></div></nav></header>
 
-        <form id="interiorForm">
-            
-            <h2 class="contents-title needs">内装・窓ガラス清掃・異臭</h2>
-            <div class="contents-block">
-                <p class="contents-inner-text">
-                    内装の清掃（重要箇所：ドアポケット・センターコンソール・ダッシュボード・シート下・ヘッドレスト）<br>
-                    内窓・外窓（油膜）・サイドミラー・バックミラーの清掃<br>
-                    各種伝票の回収、破棄
-                </p>
-                <p class="contents-inner-text">
-                    <span class="notice-text txt-red">ヘッドレストがない、極端な異臭や汚れが残る場合は「NG（稼動停止）」</span>
-                </p>
-                <div class="content-radio twoChoices">
-                    <div class="content-radio-block">
-                        <input type="radio" class="radio-select" name="interiorDirt" id="interiorDirt01" value="1">
-                        <label for="interiorDirt01">OK</label>
-                    </div>
-                    <div class="content-radio-block">
-                        <input type="radio" class="radio-select error" name="interiorDirt" id="interiorDirt03" value="9">
-                        <label for="interiorDirt03">NG（稼動停止）</label>
-                    </div>
-                </div>
+<main class="main">
+<form method="POST" action="" accept-charset="utf-8" onsubmit="return false;">
+<input type="hidden" id="fromWebFlg" name="fromWebFlg" value="true" />
+
+<div class="maintenance">
+<div class="info-area"><h1 class="car-another-title">車内清掃</h1><p class="car-number-text">相模 501 ワ 7725</p></div>
+
+<div class="tab-contents car-another-contents is-inquiry" style="display:block;">
+
+    <h2 class="contents-title needs">内装・窓ガラス清掃・異臭</h2>
+    <div class="contents-block">
+        <p class="contents-inner-text">
+            内装の清掃（重要箇所：ドアポケット・センターコンソール・ダッシュボード・シート下・ヘッドレスト）<br>
+            内窓・外窓（油膜）・サイドミラー・バックミラーの清掃<br>
+            各種伝票の回収、破棄
+        </p>
+        <p class="contents-inner-text">
+            <span class="notice-text txt-red">ヘッドレストがない、極端な異臭や汚れが残る場合は「NG（稼動停止）」</span>
+        </p>
+        <div class="content-radio twoChoices">
+            <div class="content-radio-block">
+                <input type="radio" class="radio-select" name="interiorDirt" id="interiorDirt01" value="1">
+                <label for="interiorDirt01">OK</label>
             </div>
-
-            <h2 class="contents-title needs">車内不具合確認</h2>
-            <div class="contents-block">
-                <p class="contents-inner-text">
-                    運転席マットストッパー設置状況：破損、未設置がないか<br>
-                    エアコンの不具合確認：夏場は冷風が出るか、極端な異臭がないか
-                </p>
-                <p class="contents-inner-text">
-                    <span class="notice-text txt-red">上記の不具合が確認された場合は「NG（稼動停止）」</span>
-                </p>
-                <div class="content-radio twoChoices">
-                    <div class="content-radio-block">
-                        <input type="radio" class="radio-select" name="interiorCheckTrouble" id="interiorCheckTrouble01" value="1">
-                        <label for="interiorCheckTrouble01">OK</label>
-                    </div>
-                    <div class="content-radio-block">
-                        <input type="radio" class="radio-select error" name="interiorCheckTrouble" id="interiorCheckTrouble03" value="9">
-                        <label for="interiorCheckTrouble03">NG（稼動停止）</label>
-                    </div>
-                </div>
-            </div>
-
-            <h2 class="contents-title needs">カーナビ（ラジオ）・ETC・車内時計</h2>
-            <div class="contents-block">
-                <h3>設定</h3>
-                <p class="contents-inner-text">
-                    <span>カーナビ（ラジオ）・ETCの音量が0（ゼロ）でないことを確認</span><br>
-                    <span>車両時刻とカーナビ時刻を確認（相違の場合、カーナビの時刻に合わせる）</span>
-                </p>
-                <p class="contents-inner-text">
-                    <span class="notice-text txt-red">故障の場合は「NG（稼動停止）」</span>
-                </p>
-                <div class="content-radio twoChoices">
-                    <div class="content-radio-block">
-                        <input type="radio" class="radio-select" name="soundVolume" id="soundVolume01" value="1">
-                        <label for="soundVolume01">OK</label>
-                    </div>
-                    <div class="content-radio-block">
-                        <input type="radio" class="radio-select error" name="soundVolume" id="soundVolume03" value="9">
-                        <label for="soundVolume03">NG（稼動停止）</label>
-                    </div>
-                </div>
-            </div>
-
-            <h2 class="contents-title needs">忘れ物</h2>
-            <div class="contents-block">
-                <div class="content-radio twoChoices">
-                    <div class="content-radio-block">
-                        <input type="radio" class="radio-select" name="lostArticle" id="lostArticle01" value="1">
-                        <label for="lostArticle01">なし</label>
-                    </div>
-                    <div class="content-radio-block">
-                        <input type="radio" class="radio-select" name="lostArticle" id="lostArticle03" value="2">
-                        <label for="lostArticle03">あり</label>
-                    </div>
-                </div>
-            </div>
-
-        </form>
-
-        <div class="footer">
-            <div class="footer-button">
-                <a id="btn-temporary" class="footer-btn-link is-stop">一時保存</a>
-                <a id="btn-complete" class="footer-btn-link is-complete">完了</a>
+            <div class="content-radio-block">
+                <input type="radio" class="radio-select error" name="interiorDirt" id="interiorDirt03" value="9">
+                <label for="interiorDirt03">NG（稼動停止）</label>
             </div>
         </div>
-    </main>
+    </div>
+    <br>
+
+    <h2 class="contents-title needs">車内不具合確認</h2>
+    <div class="contents-block">
+        <p class="contents-inner-text">
+            運転席マットストッパー設置状況：破損、未設置がないか<br>
+            エアコンの不具合確認：夏場は冷風が出るか、極端な異臭がないか
+        </p>
+        <p class="contents-inner-text">
+            <span class="notice-text txt-red">上記の不具合が確認された場合は「NG（稼動停止）」</span>
+        </p>
+        <div class="content-radio twoChoices">
+            <div class="content-radio-block">
+                <input type="radio" class="radio-select" name="interiorCheckTrouble" id="interiorCheckTrouble01" value="1">
+                <label for="interiorCheckTrouble01">OK</label>
+            </div>
+            <div class="content-radio-block">
+                <input type="radio" class="radio-select error" name="interiorCheckTrouble" id="interiorCheckTrouble03" value="9">
+                <label for="interiorCheckTrouble03">NG（稼動停止）</label>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <h2 class="contents-title needs">カーナビ（ラジオ）・ETC・車内時計</h2>
+    <div class="contents-block stock-garage">
+        <h3>設定</h3>
+        <p class="contents-inner-text">
+            <span class="notice-text">カーナビ（ラジオ）・ETCの音量が0（ゼロ）でないことを確認</span><br>
+            <span class="notice-text">車両時刻とカーナビ時刻を確認（相違の場合、カーナビの時刻に合わせる）</span>
+        </p>
+        <p class="contents-inner-text">
+            <span class="notice-text"><span class="notice-text txt-red">故障の場合は「NG（稼動停止）」</span></span>
+        </p>
+        <div class="content-radio twoChoices">
+            <div class="content-radio-block">
+                <input type="radio" class="radio-select" name="soundVolume" id="soundVolume01" value="1">
+                <label for="soundVolume01">OK</label>
+            </div>
+            <div class="content-radio-block">
+                <input type="radio" class="radio-select error" name="soundVolume" id="soundVolume03" value="9">
+                <label for="soundVolume03">NG（稼動停止）</label>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <h2 class="contents-title needs">忘れ物</h2>
+    <div class="contents-block">
+        <div class="content-radio twoChoices">
+            <div class="content-radio-block">
+                <input type="radio" class="radio-select" name="lostArticle" id="lostArticle01" value="1">
+                <label for="lostArticle01">なし</label>
+            </div>
+            <div class="content-radio-block">
+                <input type="radio" class="radio-select" name="lostArticle" id="lostArticle03" value="2">
+                <label for="lostArticle03">あり</label>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+
+<footer class="footer">
+<div class="footer-button-triple">
+<a href="index.html" class="btn-cancel"><p>中止</p></a>
+<a href="javascript:void(0);" onclick="saveDraft();" class="btn-save"><p>一時保存</p></a>
+<a href="javascript:void(0);" onclick="completeTask();" class="btn-complete"><p>完了</p></a>
+</div>
+</footer>
+</form>
+</main>
+
+<script type="text/javascript">
+$(function () {
+  // ラジオボタンの変更処理 (エラー解除の更新等)
+  $(document).on('change', 'input[type="radio"]', function() {
+    updateHighlights();
+  });
+
+  // 未選択の必須項目をピンク色にするリアルタイムバリデーション
+  function updateHighlights() {
+    $('.content-radio').each(function() {
+      var $radios = $(this).find('input[type="radio"]');
+      if ($radios.length > 0) {
+        var radioName = $radios.first().attr('name');
+        if ($('input[name="' + radioName + '"]:checked').length === 0) {
+          $(this).addClass('error-highlight');
+        } else {
+          $(this).removeClass('error-highlight');
+        }
+      }
+    });
+  }
+
+  // 初回読み込み時にピンク色にする
+  updateHighlights();
+});
+
+// 一時保存ボタンの処理
+function saveDraft() {
+  // 一時保存フラグを立てる
+  sessionStorage.setItem('interiorCheckDraft', 'true');
+  // 完了フラグは消しておく
+  sessionStorage.removeItem('interiorCheckCompleted');
+  // トップ画面へ遷移
+  window.location.href = 'index.html';
+}
+
+// 完了ボタンの処理
+function completeTask() {
+  // 完了フラグを保存
+  sessionStorage.setItem('interiorCheckCompleted', 'true');
+  // 一時保存フラグを消す
+  sessionStorage.removeItem('interiorCheckDraft');
+  // トップ画面へ遷移
+  window.location.href = 'index.html';
+}
+</script>
 </body>
 </html>
