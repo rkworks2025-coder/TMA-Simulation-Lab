@@ -41,7 +41,7 @@ input[type="checkbox"].check-select { -webkit-appearance: checkbox !important; a
 </style>
 </head>
 <body>
-<header class="new-wb-header"><nav><p class="userName2"><span>【ＴＳ委託】カーケアジャパン (練習用ダミー v2.8)</span></p><br><div class="nav-menu"><div id="nav-drawer"><input id="nav-input" type="checkbox" class="nav-unshown" /><label id="nav-open" for="nav-input"><span></span></label><div id="nav-content"><br><div class="modal-header"><p>メニュー</p></div><br><ul class="modalList"><li><a class="nav-link" href="index.html">トップ</a></li><li><input type="button" value="ログアウト" /></li></ul></div></div></div></nav></header>
+<header class="new-wb-header"><nav><p class="userName2"><span>【ＴＳ委託】カーケアジャパン (練習用ダミー v2.9)</span></p><br><div class="nav-menu"><div id="nav-drawer"><input id="nav-input" type="checkbox" class="nav-unshown" /><label id="nav-open" for="nav-input"><span></span></label><div id="nav-content"><br><div class="modal-header"><p>メニュー</p></div><br><ul class="modalList"><li><a class="nav-link" href="index.html">トップ</a></li><li><input type="button" value="ログアウト" /></li></ul></div></div></div></nav></header>
 
 <main class="main">
 <form method="POST" action="" accept-charset="utf-8" onsubmit="return false;">
@@ -132,7 +132,7 @@ input[type="checkbox"].check-select { -webkit-appearance: checkbox !important; a
 <footer class="footer">
 <div class="footer-button-triple">
 <a href="index.html" class="btn-cancel"><p>中止</p></a>
-<a href="index.html" class="btn-save"><p>一時保存</p></a>
+<a href="javascript:void(0);" onclick="saveAsDraft();" class="btn-save"><p>一時保存</p></a>
 <a href="javascript:void(0);" onclick="completeDailyCheck();" class="btn-complete"><p>完了</p></a>
 </div>
 </footer>
@@ -165,7 +165,6 @@ $(function () {
       
       if (frontVal !== "" && regVal !== "") {
         const diff = parseFloat(frontVal) - parseFloat(regVal);
-        // 指定空気圧+0 ～ +20kPaの範囲を外れている場合（低い、または高すぎる）は調整が必要
         if (diff < 0 || diff > 20) {
           $adjInput.addClass('required-red');
         } else {
@@ -181,21 +180,16 @@ $(function () {
     checkTire('tirePressureFrontLeftCm', 'tirePressureAdjustedFrontLeftCm', 'tireFrontRegularPressure');
     checkTire('tirePressureRearLeftBi4', 'tirePressureAdjustedRearLeftBi4', 'tireRearRegularPressure');
     checkTire('tirePressureRearRightBi4', 'tirePressureAdjustedRearRightBi4', 'tireRearRegularPressure');
-    // スペアタイヤは必須ではないが、もし入力されて範囲外ならハイライトを出す仕様として維持
     checkTire('frontSpearPressure', 'frontSpearPressureAdjusted', 'frontSpearRegularPressure');
   }
 
   // 未選択・未入力の必須項目をピンク色にするリアルタイムバリデーション
   function updateHighlights() {
-    // 空気圧チェックを先に実行
     checkAirPressure();
-    
-    // ラジオボタン判定
     $('.content-radio').each(function() {
       var $radios = $(this).find('input[type="radio"]');
       if ($radios.length > 0) {
         var radioName = $radios.first().attr('name');
-        // デフォルトで「対象外」などがチェックされている場合は length === 0 にならないためピンクにならない
         if ($('input[name="' + radioName + '"]:checked').length === 0) {
           $(this).addClass('error-highlight');
         } else {
@@ -203,7 +197,6 @@ $(function () {
         }
       }
     });
-    // テキスト・数値の必須入力枠判定
     $('.required-red').each(function() {
       if ($(this).val() === '') {
         $(this).addClass('error-highlight-input');
@@ -213,13 +206,22 @@ $(function () {
     });
   }
 
-  // 初回読み込み時にピンク色にする
   updateHighlights();
   $(document).on('input change', 'input', function() { updateHighlights(); });
 });
 
+// 一時保存ボタン用のアクション
+function saveAsDraft() {
+  sessionStorage.setItem('dailyCheckDraft', 'true');
+  sessionStorage.removeItem('dailyCheckCompleted'); // 完了フラグを消す
+  alert('【ダミー動作】日常点検を一時保存しました。トップ画面に戻ります。');
+  window.location.href = 'index.html';
+}
+
+// 完了ボタン用のアクション
 function completeDailyCheck() {
   sessionStorage.setItem('dailyCheckCompleted', 'true');
+  sessionStorage.removeItem('dailyCheckDraft'); // 一時保存フラグを消す
   alert('【ダミー動作】日常点検の入力を完了しました。トップ画面に戻ります。');
   window.location.href = 'index.html';
 }
