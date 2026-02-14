@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="robots" content="noindex"/>
   
-  <title>日常点検（入力） - 入力練習用TMA</title>
+  <title>点検トップ - 入力練習用TMA</title>
   
   <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
   <link rel="stylesheet" type="text/css" href="css/reset.css" />
@@ -19,12 +19,13 @@
   <script src="js/common.js"></script>
   <script src="js/maintenance.js"></script>
   <script src="js/carDetail.js"></script>
+  <meta name="format-detection" content="telephone=no" />
 </head>
 <body>
   <header class="new-wb-header">
     <nav>
       <p class="userName2">
-        <span>【ＴＳ委託】カーケアジャパン (練習用ダミー v1.2)</span>
+        <span>【ＴＳ委託】カーケアジャパン (練習用ダミー <a href="javascript:void(0);" onclick="resetPractice();" style="color:inherit; text-decoration:underline;" title="クリックで初期状態にリセット">v1.3</a>)</span>
       </p>
       <br>
       <div class="nav-menu">
@@ -39,7 +40,13 @@
             </div>
             <br>
             <ul class="modalList">
-              <li><a class="nav-link" href="index.html">トップ</a></li>
+              <li><a class="nav-link" href="#">トップ</a></li>
+              <li class="nav-title">日常点検</li>
+              <li><a class="nav-link" href="#">車両検索</a></li>
+              <li><a class="nav-link" href="#">点検一覧</a></li>
+              <li><a class="nav-link" href="#">予約履歴</a></li>
+              <li><a class="nav-link" href="#">巡回ST管理</a></li>
+              <li class="nav-title">その他</li>
               <li>
                 <input type="button" value="ログアウト" />
               </li>
@@ -52,557 +59,354 @@
   </header>
   
   <main class="detail-main">
-    <div class="maintenance">
-      <br>
-      <div class="info-area">
-        <h1 class="car-another-title">日常点検（入力）</h1>
-        <p class="car-number-text">相模 501 ワ 7725</p>
-      </div>
+    <br>
+    <div class="info-area">
+      <h1 class="car-another-title">点検トップ</h1>
+    </div>
+    <br>
 
-      <div class="tab-contents car-another-contents">
-        <div class="tab-container" style="overflow-x: auto; white-space: nowrap; border-bottom: 2px solid #ccc;">
-          <div class="tab" style="display: inline-flex;">
-            <div class="tab-button active" data-name="engine" style="padding: 10px; cursor: pointer;">エンジンルーム</div>
-            <div class="tab-button" data-name="tire" style="padding: 10px; cursor: pointer;">タイヤ</div>
-            <div class="tab-button" data-name="motion" style="padding: 10px; cursor: pointer;">動作確認</div>
-            <div class="tab-button" data-name="in-car" style="padding: 10px; cursor: pointer;">車載品（運転席）</div>
-            <div class="tab-button" data-name="equipment" style="padding: 10px; cursor: pointer;">装備確認</div>
-            <div class="tab-button" data-name="light" style="padding: 10px; cursor: pointer;">灯火装置</div>
-            <div class="tab-button" data-name="perimeter" style="padding: 10px; cursor: pointer;">車両周り他</div>
-            <div class="tab-button" data-name="trunk" style="padding: 10px; cursor: pointer;">車載品（トランク）</div>
+    <div class="tab-contents car-another-contents">
+      <div>
+        <div id="loading-view" class="loading-view" style="display:none;">
+          <div class="loading-view-bg"></div>
+          <div class="loading-view-content">
+            <div class="loader">Loading...</div>
+            <p>Loading…</p>
+          </div>
+        </div>
+
+        <div id="loading-CarStatusGet-view" class="loading-view" style="display:none;">
+          <div class="loading-view-bg"></div>
+          <div class="loading-view-content">
+            <div class="loader"></div>
+            <p>Loading...<br /><br />車両状態更新信号を送信しました<br />しばらくお待ちください</p>
+          </div>
+        </div>
+
+        <div class="car-list">
+          <h2 class="car-detail-title">車両情報</h2>
+          <div class="device-info-area">
+            <div class="start-button-area">
+              <div class="info-button">
+                <a href="javascript:void(0);" onclick="goCarStatusGet();"><span>情報取得</span></a>
+              </div>
+            </div>
+            <div class="info-title-area">
+              <p class="info-title">車載機情報：2026/02/14 15:06 時点</p>
+            </div>
+          </div>
+          <div class="car-contents">
+            <table>
+              <tr>
+                <th colspan="2">車両ナンバー</th>
+                <td>相模 501 ワ 7725</td>
+              </tr>
+              <tr>
+                <th colspan="2">車種名</th>
+                <td>ヤリス(ハイブリッド)</td>
+              </tr>
+              <tr>
+                <th colspan="2">色</th>
+                <td>アバンギャルドブロンズメタリック</td>
+              </tr>
+              <tr>
+                <th colspan="2">車台番号</th>
+                <td>MXPH102128987</td>
+              </tr>
+              <tr>
+                <th colspan="2">燃料残量目安</th>
+                <td>
+                  <span class="car-oil-mark"><span>○</span>（50～75％）</span>
+                  <p class="car-oil-caption">燃料残量は目安となります、必ず現車を確認してください</p>
+                </td>
+              </tr>
+              <tr>
+                <th colspan="2">電圧</th>
+                <td>
+                  <span>12.4V</span>
+                  <p class="car-oil-caption">電圧は目安となります、必ず現車を確認してください</p>
+                </td>
+              </tr>
+              <tr>
+                <th colspan="2">運行状態</th>
+                <td>待機</td>
+              </tr>
+              <tr>
+                <th colspan="2">車両状態</th>
+                <td>
+                  <span>キーボックス状態：</span><span>返却中</span><br />
+                  <span>ドア状態：</span><span>クローズ</span><br />
+                  <span>ドアロック状態：</span><span>ロック</span><br />
+                  <span>IG状態：</span><span>OFF</span><br />
+                  <span>ACC：</span><span>OFF</span><br />
+                </td>
+              </tr>
+              <tr>
+               <th rowspan="2" class="schedule">後予定</th>
+                <th>開始日時</th>
+                <td><span>02月16日 07:30</span></td>
+              </tr>
+              <tr>
+                <th>出発店舗</th>
+                <td>アーバン長窪</td>
+              </tr>
+            </table>
           </div>
         </div>
         <br>
 
-        <div class="click-change-contents">
-
-          <div class="tab-content active" id="engine">
-            <h2 class="contents-title">冷却水量</h2>
-            <div class="contents-block">
-              <p class="contents-inner-text">
-                <span class="notice-text">タンク内の「FULL」と「LOW」の間が適量</span><br />
-                <span class="notice-text">液量が「LOW」より下回っている場合は、補充 <span class="txt-red">※水道水の補充は不可</span></span><br />
-              </p>
-              <div class="content-radio tripleChoices">
-                <div class="content-radio-block">
-                  <input type="radio" class="radio-select" value="2" id="coolantGauge1" name="coolantGauge" />
-                  <label for="coolantGauge1">OK（未補充）</label>
+        <div>
+          <div class="car-list history">
+            <h2 class="car-detail-title">点検詳細</h2>
+            <div class="info-box">
+              <div class="check-state-area">
+                <div class="info-title-area">
+                  <p class="info-title">点検開始</p>
                 </div>
-                <div class="content-radio-block">
-                  <input type="radio" class="radio-select" value="1" id="coolantGauge2" name="coolantGauge" />
-                  <label for="coolantGauge2">OK（補充）</label>
+                <div class="start-button-area" id="startBtnContainer">
+                  <div class="info-button"><a href="javascript:void(0);" onclick="goStartMaintenance();"><span>開始</span></a></div>
                 </div>
-                <div class="content-radio-block">
-                  <input type="radio" class="radio-select" value="9" id="coolantGauge3" name="coolantGauge" />
-                  <label for="coolantGauge3">NG（稼動停止）</label>
+              </div>
+              <br>
+              <div class="check-history-area">
+                <div class="history-contents reservation">
+                  <p class="inquiry-text">02月14日(土) 23時00分 ～ 02月14日(土) 23時30分</p>
+                  <p class="inquiry-text"><span>予約中</span></p>
+                </div>
+                <br>
+                <div class="inquiry-block">
+                  <a href="#"><p class="inquiry-text">予約変更</p></a>
                 </div>
               </div>
             </div>
+            <br>
 
-            <h2 class="contents-title">エンジンオイル量</h2>
-            <div class="contents-block">
-              <p class="contents-inner-text">
-                <span class="notice-text txt-red">エンジン稼動前に点検</span><br />
-                <span class="notice-text">タンクの「MAX」と「MIN」の間が適量</span>
-              </p>
-              <div class="content-radio twoChoices">
-                <div class="content-radio-block">
-                  <input type="radio" class="radio-select" value="1" id="engineOilGauge1" name="engineOilGauge" />
-                  <label for="engineOilGauge1">OK</label>
+            <div class="is-rental">
+              <div>
+                <p class="mt15 txt-red">ブレーキ点灯確認バーを使用する際は、車両が動かないよう点検開始前にタイヤストッパーを必ず設置してください</p>
+              </div>
+              
+              <div class="info-box">
+                <div class="check-state-area">
+                  <div class="info-title-area">
+                    <p class="info-title">日常点検</p>
+                    <p class="info-status-temporarily result-ok" style="display:none;">点検OK</p>
+                  </div>
+                  <br>
+                  <div class="start-button-area" id="dailyBtnContainer">
+                    <p class="info-button disable">点検</p>
+                  </div>
                 </div>
-                <div class="content-radio-block">
-                  <input type="radio" class="radio-select" value="9" id="engineOilGauge2" name="engineOilGauge" />
-                  <label for="engineOilGauge2">NG（稼動停止）</label>
+                <br>
+                <div class="check-history-area">
+                  <div class="history-state">
+                    <p>前回</p>
+                    <div>
+                      <div class="state-mark">
+                        <span style="color: green; font-weight: bold;">OK</span>
+                      </div>
+                    </div>
+                  </div>
+                  <br>
+                  <div class="history-contents">
+                    <p>2026/02/09 19:26</p>
+                  </div>
+                  <br>
+                  <div class="inquiry-block">
+                    <a href="#"><p class="inquiry-text">照会</p></a>
+                  </div>
                 </div>
               </div>
-            </div>
+              <br>
 
-            <h2 class="contents-title">ブレーキ液量</h2>
-            <div class="contents-block">
-              <p class="contents-inner-text">
-                <span class="notice-text">タンクの「MAX」と「MIN」の間が適量</span>
-              </p>
-              <div class="content-radio twoChoices">
-                <div class="content-radio-block">
-                  <input type="radio" class="radio-select" value="1" id="brakeFluidGauge1" name="brakeFluidGauge" />
-                  <label for="brakeFluidGauge1">OK</label>
+              <div class="info-box">
+                <div class="check-state-area">
+                  <div class="info-title-area">
+                    <p class="info-title">車内清掃</p>
+                    <p class="info-status-temporarily result-ok" style="display:none;">点検OK</p>
+                  </div>
+                  <br>
+                  <div class="start-button-area" id="interiorBtnContainer">
+                    <p class="info-button disable">点検</p>
+                  </div>
                 </div>
-                <div class="content-radio-block">
-                  <input type="radio" class="radio-select" value="9" id="brakeFluidGauge2" name="brakeFluidGauge" />
-                  <label for="brakeFluidGauge2">NG（稼動停止）</label>
+                <br>
+                <div class="check-history-area">
+                  <div class="history-state">
+                    <p>前回</p>
+                    <div>
+                      <div class="state-mark">
+                         <span style="color: green; font-weight: bold;">OK</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="history-contents">
+                    <p>2026/02/09 19:18</p>
+                  </div>
+                  <div class="inquiry-block">
+                    <a href="#"><p class="inquiry-text">照会</p></a>
+                  </div>
                 </div>
               </div>
-            </div>
+              <br>
 
-            <h2 class="contents-title">ウォッシャー液量</h2>
-            <div class="contents-block">
-              <p class="contents-inner-text">
-                <span class="notice-text">タンク内の水面が見えない場合は、補充</span>
-              </p>
-              <div class="content-radio tripleChoices">
-                <div class="content-radio-block">
-                  <input type="radio" class="radio-select" value="2" id="washerFluidGauge1" name="washerFluidGauge" />
-                  <label for="washerFluidGauge1">OK（未補充）</label>
+              <div class="info-box">
+                <div class="check-state-area">
+                  <div class="info-title-area">
+                    <p class="info-title">洗車</p>
+                    <p class="info-status-temporarily result-ok" style="display:none;">点検OK</p>
+                  </div>
+                  <br>
+                  <div class="start-button-area" id="washBtnContainer">
+                    <p class="info-button disable">点検</p>
+                  </div>
                 </div>
-                <div class="content-radio-block">
-                  <input type="radio" class="radio-select" value="1" id="washerFluidGauge2" name="washerFluidGauge" />
-                  <label for="washerFluidGauge2">OK（補充）</label>
-                </div>
-                <div class="content-radio-block">
-                  <input type="radio" class="radio-select" value="9" id="washerFluidGauge3" name="washerFluidGauge" />
-                  <label for="washerFluidGauge3">NG（稼動停止）</label>
+                <br>
+                <div class="check-history-area">
+                  <div class="history-state">
+                    <p>前回</p>
+                    <div>
+                      <div class="state-mark">
+                         <span style="color: green; font-weight: bold;">OK</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="history-contents">
+                    <p>2026/02/09 19:19</p>
+                  </div>
+                  <div class="inquiry-block">
+                    <a href="#"><p class="inquiry-text">照会</p></a>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
+              <br>
 
-          <div class="tab-content" id="tire" style="display:none;">
-            <h2 class="contents-title">タイヤ種別</h2>
-            <div class="contents-block">
-              <div class="content-radio twoChoices">
-                <div class="content-radio-block">
-                  <input type="radio" class="radio-select" value="1" id="tireType1" name="tireType" />
-                  <label for="tireType1">ノーマル</label>
+              <div class="info-box">
+                <div class="check-state-area">
+                  <div class="info-title-area">
+                    <p class="info-title">外装確認</p>
+                    <p class="info-status-temporarily result-ok" style="display:none;">点検OK</p>
+                  </div>
+                  <br>
+                  <div class="start-button-area" id="exteriorBtnContainer">
+                    <p class="info-button disable">点検</p>
+                  </div>
                 </div>
-                <div class="content-radio-block">
-                  <input type="radio" class="radio-select" value="2" id="tireType2" name="tireType" />
-                  <label for="tireType2">スタッドレス</label>
+                <br>
+                <div class="check-history-area">
+                  <div class="history-state">
+                    <p>前回</p>
+                    <div>
+                      <div class="state-mark">
+                         <span style="color: green; font-weight: bold;">OK</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="history-contents">
+                    <p>2026/02/09 19:19</p>
+                  </div>
+                  <div class="inquiry-block">
+                    <a href="#"><p class="inquiry-text">照会</p></a>
+                  </div>
                 </div>
               </div>
-              <div class="contents-checkbox-box" style="margin-top:10px;">
-                <label for="runFlatTireFlg">
-                  <input type="checkbox" class="check-select" id="runFlatTireFlg" name="runFlatTireFlg" value="true" />
-                  <span class="check-title">ランフラットタイヤ</span>
-                </label>
-              </div>
-            </div>
+              <br>
 
-            <h2 class="contents-title">指定空気圧</h2>
-            <div class="contents-block tire">
-              <ul class="contents-list">
-                <li>
-                  <h3>前輪</h3>
-                  <input type="number" class="airPressure single-input" id="tireFrontRegularPressure" value="250" /> kPa
-                </li>
-                <li>
-                  <h3>後輪</h3>
-                  <input type="number" class="airPressure single-input" id="tireRearRegularPressure" value="240" /> kPa
-                </li>
-              </ul>
-            </div>
+              <div class="info-box">
+                <div class="check-state-area">
+                  <div class="info-title-area">
+                    <p class="info-title">貸出準備</p>
+                    <p class="info-status-temporarily result-ok" style="display:none;">点検OK</p>
+                  </div>
+                  <br>
+                  <div class="start-button-area" id="lendBtnContainer">
+                    <p class="info-button disable">点検</p>
+                  </div>
+                </div>
+                <br>
+                <div class="check-history-area">
+                  <div class="history-state">
+                    <p>前回</p>
+                    <div>
+                      <div class="state-mark">
+                         <span style="color: green; font-weight: bold;">OK</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="history-contents">
+                    <p>2026/02/09 19:27</p>
+                  </div>
+                  <div class="inquiry-block">
+                    <a href="#"><p class="inquiry-text">照会</p></a>
+                  </div>
+                </div>
+              </div>
+              <br>
 
-            <h2 class="contents-title">亀裂、損傷、変形、干渉</h2>
-            <div class="contents-block">
-              <div class="content-radio twoChoices">
-                <div class="content-radio-block">
-                  <input type="radio" class="radio-select" value="1" id="tireDamage1" name="tireDamage" />
-                  <label for="tireDamage1">OK</label>
-                </div>
-                <div class="content-radio-block">
-                  <input type="radio" class="radio-select" value="9" id="tireDamage2" name="tireDamage" />
-                  <label for="tireDamage2">NG（稼動停止）</label>
+              <div class="main-contents mt10-imp">
+                <p class="mt15 txt-red">タイヤストッパーを設置した場合は、忘れずに回収してください</p>
+              </div>
+              
+              <div class="is-rental">
+                <br>
+                <div class="info-box">
+                  <div class="check-state-area">
+                    <div class="info-title-area">
+                      <p class="info-title"><span>点検終了</span></p>
+                    </div>
+                    <div class="start-button-area" id="endBtnContainer">
+                      <p class="info-button disable">終了</p>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <section>
-              <h2 class="contents-stickyTitle">右前タイヤ</h2>
-              <h2 class="contents-title">製造年週 / 溝 / 空気圧</h2>
-              <div class="contents-block tire">
-                <ul class="contents-list full-line-innerItem">
-                  <li>
-                    <h3>製造年週</h3>
-                    <input type="number" class="single-input required-red" id="rfManufactureYearWeek" placeholder="例:1224" />
-                  </li>
-                  <li style="width: 65%">
-                    <h3>残溝</h3>
-                    <input type="number" class="single-input required-red" id="rfGroove1" style="width:50px; text-align:center;" /> . 
-                    <input type="number" class="single-input required-red" id="rfGroove2" style="width:50px; text-align:center;" /> mm
-                  </li>
-                </ul>
-                <ul class="contents-list mt-10">
-                  <li>
-                    <p class="contents-item-title">調整前</p>
-                    <input type="number" class="airPressureInput single-input required-red" id="rfPressureBefore" placeholder="250" /> kPa
-                  </li>
-                  <li>
-                    <p class="contents-item-title">調整後</p>
-                    <input type="number" class="airPressureInput single-input" id="rfPressureAfter" /> kPa
-                  </li>
-                </ul>
-              </div>
-            </section>
-
-            <section>
-              <h2 class="contents-stickyTitle">左前タイヤ</h2>
-              <h2 class="contents-title">製造年週 / 溝 / 空気圧</h2>
-              <div class="contents-block tire">
-                <ul class="contents-list full-line-innerItem">
-                  <li>
-                    <h3>製造年週</h3>
-                    <input type="number" class="single-input required-red" id="lfManufactureYearWeek" placeholder="例:1224" />
-                  </li>
-                  <li style="width: 65%">
-                    <h3>残溝</h3>
-                    <input type="number" class="single-input required-red" id="lfGroove1" style="width:50px; text-align:center;" /> . 
-                    <input type="number" class="single-input required-red" id="lfGroove2" style="width:50px; text-align:center;" /> mm
-                  </li>
-                </ul>
-                <ul class="contents-list mt-10">
-                  <li>
-                    <p class="contents-item-title">調整前</p>
-                    <input type="number" class="airPressureInput single-input required-red" id="lfPressureBefore" placeholder="250" /> kPa
-                  </li>
-                  <li>
-                    <p class="contents-item-title">調整後</p>
-                    <input type="number" class="airPressureInput single-input" id="lfPressureAfter" /> kPa
-                  </li>
-                </ul>
-              </div>
-            </section>
-
-            <section>
-              <h2 class="contents-stickyTitle">右後タイヤ</h2>
-              <h2 class="contents-title">製造年週 / 溝 / 空気圧</h2>
-              <div class="contents-block tire">
-                <ul class="contents-list full-line-innerItem">
-                  <li>
-                    <h3>製造年週</h3>
-                    <input type="number" class="single-input required-red" id="rrManufactureYearWeek" placeholder="例:1224" />
-                  </li>
-                  <li style="width: 65%">
-                    <h3>残溝</h3>
-                    <input type="number" class="single-input required-red" id="rrGroove1" style="width:50px; text-align:center;" /> . 
-                    <input type="number" class="single-input required-red" id="rrGroove2" style="width:50px; text-align:center;" /> mm
-                  </li>
-                </ul>
-                <ul class="contents-list mt-10">
-                  <li>
-                    <p class="contents-item-title">調整前</p>
-                    <input type="number" class="airPressureInput single-input required-red" id="rrPressureBefore" placeholder="240" /> kPa
-                  </li>
-                  <li>
-                    <p class="contents-item-title">調整後</p>
-                    <input type="number" class="airPressureInput single-input" id="rrPressureAfter" /> kPa
-                  </li>
-                </ul>
-              </div>
-            </section>
-
-            <section>
-              <h2 class="contents-stickyTitle">左後タイヤ</h2>
-              <h2 class="contents-title">製造年週 / 溝 / 空気圧</h2>
-              <div class="contents-block tire">
-                <ul class="contents-list full-line-innerItem">
-                  <li>
-                    <h3>製造年週</h3>
-                    <input type="number" class="single-input required-red" id="lrManufactureYearWeek" placeholder="例:1224" />
-                  </li>
-                  <li style="width: 65%">
-                    <h3>残溝</h3>
-                    <input type="number" class="single-input required-red" id="lrGroove1" style="width:50px; text-align:center;" /> . 
-                    <input type="number" class="single-input required-red" id="lrGroove2" style="width:50px; text-align:center;" /> mm
-                  </li>
-                </ul>
-                <ul class="contents-list mt-10">
-                  <li>
-                    <p class="contents-item-title">調整前</p>
-                    <input type="number" class="airPressureInput single-input required-red" id="lrPressureBefore" placeholder="240" /> kPa
-                  </li>
-                  <li>
-                    <p class="contents-item-title">調整後</p>
-                    <input type="number" class="airPressureInput single-input" id="lrPressureAfter" /> kPa
-                  </li>
-                </ul>
-              </div>
-            </section>
-          </div>
-
-          <div class="tab-content" id="motion" style="display:none;">
-            <h2 class="contents-title">エンジンのかかり具合、異音</h2>
-            <div class="contents-block">
-              <div class="content-radio twoChoices">
-                <div class="content-radio-block">
-                  <input type="radio" class="radio-select" value="1" id="engineCondition1" name="engineCondition" />
-                  <label for="engineCondition1">OK</label>
-                </div>
-                <div class="content-radio-block">
-                  <input type="radio" class="radio-select" value="9" id="engineCondition2" name="engineCondition" />
-                  <label for="engineCondition2">NG（稼動停止）</label>
-                </div>
-              </div>
-            </div>
-
-            <h2 class="contents-title">ブレーキの踏みしろ、効き</h2>
-            <div class="contents-block">
-              <div class="content-radio twoChoices">
-                <div class="content-radio-block">
-                  <input type="radio" class="radio-select" value="1" id="brakeCondition1" name="brakeCondition" />
-                  <label for="brakeCondition1">OK</label>
-                </div>
-                <div class="content-radio-block">
-                  <input type="radio" class="radio-select" value="9" id="brakeCondition2" name="brakeCondition" />
-                  <label for="brakeCondition2">NG（稼動停止）</label>
-                </div>
-              </div>
-            </div>
-            
-            <h2 class="contents-title">ウォッシャーの噴霧状態</h2>
-            <div class="contents-block">
-              <div class="content-radio twoChoices">
-                <div class="content-radio-block">
-                  <input type="radio" class="radio-select" value="1" id="washerSprayCondition1" name="washerSprayCondition" />
-                  <label for="washerSprayCondition1">OK</label>
-                </div>
-                <div class="content-radio-block">
-                  <input type="radio" class="radio-select" value="9" id="washerSprayCondition2" name="washerSprayCondition" />
-                  <label for="washerSprayCondition2">NG</label>
-                </div>
-              </div>
-            </div>
-            
-            <h2 class="contents-title">ワイパーの払拭状態</h2>
-            <div class="contents-block">
-              <div class="content-radio twoChoices">
-                <div class="content-radio-block">
-                  <input type="radio" class="radio-select" value="1" id="wiperWipeCondition1" name="wiperWipeCondition" />
-                  <label for="wiperWipeCondition1">OK</label>
-                </div>
-                <div class="content-radio-block">
-                  <input type="radio" class="radio-select" value="9" id="wiperWipeCondition2" name="wiperWipeCondition" />
-                  <label for="wiperWipeCondition2">NG</label>
-                </div>
-              </div>
             </div>
           </div>
-
-          <div class="tab-content" id="in-car" style="display:none;">
-            <h2 class="contents-title">車検証（適合証）</h2>
-            <div class="contents-block">
-              <div class="content-radio twoChoices">
-                <div class="content-radio-block">
-                  <input type="radio" class="radio-select" value="1" id="inspectionCertificateExist1" name="inspectionCertificateExist" />
-                  <label for="inspectionCertificateExist1">OK</label>
-                </div>
-                <div class="content-radio-block">
-                  <input type="radio" class="radio-select" value="9" id="inspectionCertificateExist2" name="inspectionCertificateExist" />
-                  <label for="inspectionCertificateExist2">NG（稼動停止）</label>
-                </div>
-              </div>
-            </div>
-
-            <h2 class="contents-title">車検証シール</h2>
-            <div class="contents-block">
-              <div class="content-radio twoChoices">
-                <div class="content-radio-block">
-                  <input type="radio" class="radio-select" value="1" id="inspectionStickerExist1" name="inspectionStickerExist" />
-                  <label for="inspectionStickerExist1">OK</label>
-                </div>
-                <div class="content-radio-block">
-                  <input type="radio" class="radio-select" value="9" id="inspectionStickerExist2" name="inspectionStickerExist" />
-                  <label for="inspectionStickerExist2">NG（稼動停止）</label>
-                </div>
-              </div>
-            </div>
-
-            <h2 class="contents-title">自賠責保険証</h2>
-            <div class="contents-block">
-              <div class="content-radio twoChoices">
-                <div class="content-radio-block">
-                  <input type="radio" class="radio-select" value="1" id="autoLiabilityExist1" name="autoLiabilityExist" />
-                  <label for="autoLiabilityExist1">OK</label>
-                </div>
-                <div class="content-radio-block">
-                  <input type="radio" class="radio-select" value="9" id="autoLiabilityExist2" name="autoLiabilityExist" />
-                  <label for="autoLiabilityExist2">NG（稼動停止）</label>
-                </div>
-              </div>
-            </div>
-
-            <h2 class="contents-title">発炎筒の種別・有効期限</h2>
-            <div class="contents-block">
-              <div class="content-radio tripleChoices">
-                <div class="content-radio-block">
-                  <input type="radio" class="radio-select" value="1" id="flaresExist1" name="flaresExist" />
-                  <label for="flaresExist1">発炎式</label>
-                </div>
-                <div class="content-radio-block">
-                  <input type="radio" class="radio-select" value="2" id="flaresExist2" name="flaresExist" />
-                  <label for="flaresExist2">LED式</label>
-                </div>
-                <div class="content-radio-block">
-                  <input type="radio" class="radio-select" value="9" id="flaresExist3" name="flaresExist" />
-                  <label for="flaresExist3">紛失</label>
-                </div>
-              </div>
-              <div class="expiration-date" style="margin-top:15px;">
-                <input type="month" id="flaresLimit" name="flaresLimit" class="single-input" style="width:150px;" />
-              </div>
-            </div>
-
-            <h2 class="contents-title">消臭剤/除菌シート/ゴミ袋</h2>
-            <div class="contents-block">
-              <div class="content-radio tripleChoices">
-                <div class="content-radio-block">
-                  <input type="radio" class="radio-select" value="1" id="deodorantsExist1" name="deodorantsExist" />
-                  <label for="deodorantsExist1">OK(未交換)</label>
-                </div>
-                <div class="content-radio-block">
-                  <input type="radio" class="radio-select" value="2" id="deodorantsExist2" name="deodorantsExist" />
-                  <label for="deodorantsExist2">OK(交換)</label>
-                </div>
-                <div class="content-radio-block">
-                  <input type="radio" class="radio-select" value="8" id="deodorantsExist3" name="deodorantsExist" />
-                  <label for="deodorantsExist3">NG</label>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="tab-content" id="equipment" style="display:none;">
-            <h2 class="contents-title">バックモニター</h2>
-            <div class="contents-block">
-              <div class="content-radio twoChoices">
-                <div class="content-radio-block">
-                  <input type="radio" class="radio-select" value="1" id="backMonitor1" name="backMonitor" />
-                  <label for="backMonitor1">OK</label>
-                </div>
-                <div class="content-radio-block">
-                  <input type="radio" class="radio-select" value="9" id="backMonitor2" name="backMonitor" />
-                  <label for="backMonitor2">NG（稼動停止）</label>
-                </div>
-              </div>
-            </div>
-
-            <h2 class="contents-title">ドライブレコーダー</h2>
-            <div class="contents-block">
-              <div class="content-radio twoChoices">
-                <div class="content-radio-block">
-                  <input type="radio" class="radio-select" value="1" id="driveRecorder1" name="driveRecorder" />
-                  <label for="driveRecorder1">OK</label>
-                </div>
-                <div class="content-radio-block">
-                  <input type="radio" class="radio-select" value="9" id="driveRecorder2" name="driveRecorder" />
-                  <label for="driveRecorder2">NG（稼動停止）</label>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="tab-content" id="light" style="display:none;">
-            <h2 class="contents-title">点灯状態</h2>
-            <div class="contents-block">
-              <div class="content-radio twoChoices">
-                <div class="content-radio-block">
-                  <input type="radio" class="radio-select" value="1" id="turnSignal1" name="turnSignal" />
-                  <label for="turnSignal1">OK</label>
-                </div>
-                <div class="content-radio-block">
-                  <input type="radio" class="radio-select" value="9" id="turnSignal2" name="turnSignal" />
-                  <label for="turnSignal2">NG（稼動停止）</label>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="tab-content" id="perimeter" style="display:none;">
-            <h2 class="contents-title">給油口</h2>
-            <div class="contents-block">
-              <div class="content-radio twoChoices">
-                <div class="content-radio-block">
-                  <input type="radio" class="radio-select" value="1" id="fuelCap1" name="fuelCap" />
-                  <label for="fuelCap1">OK</label>
-                </div>
-                <div class="content-radio-block">
-                  <input type="radio" class="radio-select" value="9" id="fuelCap2" name="fuelCap" />
-                  <label for="fuelCap2">NG（稼動停止）</label>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="tab-content" id="trunk" style="display:none;">
-            <h2 class="contents-title">三角停止板</h2>
-            <div class="contents-block">
-              <div class="content-radio twoChoices">
-                <div class="content-radio-block">
-                  <input type="radio" class="radio-select" value="1" id="warningTrianglePlateDamage1" name="warningTrianglePlateDamage" />
-                  <label for="warningTrianglePlateDamage1">OK</label>
-                </div>
-                <div class="content-radio-block">
-                  <input type="radio" class="radio-select" value="9" id="warningTrianglePlateDamage2" name="warningTrianglePlateDamage" />
-                  <label for="warningTrianglePlateDamage2">NG（稼動停止）</label>
-                </div>
-              </div>
-            </div>
-
-            <h2 class="contents-title">パンク修理キット</h2>
-            <div class="contents-block">
-              <div class="content-radio tripleChoices">
-                <div class="content-radio-block">
-                  <input type="radio" class="radio-select" value="1" id="puncRepairKitExist1" name="puncRepairKitExist" />
-                  <label for="puncRepairKitExist1">OK</label>
-                </div>
-                <div class="content-radio-block">
-                  <input type="radio" class="radio-select" value="9" id="puncRepairKitExist2" name="puncRepairKitExist" />
-                  <label for="puncRepairKitExist2">NG（稼動停止）</label>
-                </div>
-                <div class="content-radio-block">
-                  <input type="radio" class="radio-select" value="0" id="puncRepairKitExist3" name="puncRepairKitExist" />
-                  <label for="puncRepairKitExist3">対象外</label>
-                </div>
-              </div>
-            </div>
-
-            <h2 class="contents-title">ジュニアシート</h2>
-            <div class="contents-block">
-              <div class="content-radio twoChoices">
-                <div class="content-radio-block">
-                  <input type="radio" class="radio-select" value="3" id="juniorSeat1" name="juniorSeat" />
-                  <label for="juniorSeat1">車載あり</label>
-                </div>
-                <div class="content-radio-block">
-                  <input type="radio" class="radio-select" value="4" id="juniorSeat2" name="juniorSeat" />
-                  <label for="juniorSeat2">車載なし</label>
-                </div>
-              </div>
-            </div>
-          </div>
-
         </div>
       </div>
-      
-      <br>
-      
-      <div class="footer-button">
-        <p class="is-stop"><a href="index.html">一時保存</a></p>
-        <p class="is-complete"><a href="javascript:void(0);" onclick="completeDailyCheck();">完了</a></p>
-      </div>
-
     </div>
   </main>
 
   <script type="text/javascript">
-    $(function () {
-      // タブ切り替えのダミー処理（CSSの余計な追加なしで動かすためJSで制御）
-      $('.tab-button').on('click', function() {
-        var targetId = $(this).attr('data-name');
-        
-        // タブ自体の見た目変更
-        $('.tab-button').removeClass('active');
-        $(this).addClass('active');
-        
-        // コンテンツの表示/非表示切り替え
-        $('.tab-content').hide();
-        $('#' + targetId).show();
-      });
+    /*<![CDATA[*/
+    $(function() {
+      var isStarted = sessionStorage.getItem('maintenanceStarted') === 'true';
+
+      if (isStarted) {
+        $('#startBtnContainer').html('<p class="info-button disable">開始</p>');
+        $('#dailyBtnContainer').html('<div class="info-button"><a href="daily_check.html"><span>点検</span></a></div>');
+        $('#interiorBtnContainer').html('<div class="info-button"><a href="interior.html"><span>点検</span></a></div>');
+        $('#washBtnContainer').html('<div class="info-button"><a href="wash.html"><span>点検</span></a></div>');
+        $('#exteriorBtnContainer').html('<div class="info-button"><a href="exterior.html"><span>点検</span></a></div>');
+        $('#lendBtnContainer').html('<div class="info-button"><a href="lend_prep.html"><span>点検</span></a></div>');
+        $('#endBtnContainer').html('<div class="info-button"><a href="end.html"><span>終了</span></a></div>');
+      }
     });
 
-    // 完了ボタン押下時のダミー処理
-    function completeDailyCheck() {
-      alert('【ダミー動作】日常点検の入力内容を保存しました！');
-      window.location.href = 'index.html';
+    function goStartMaintenance() {
+      $('#loading-view').show();
+      setTimeout(function() {
+        sessionStorage.setItem('maintenanceStarted', 'true');
+        window.location.reload();
+      }, 800);
     }
+
+    function goCarStatusGet() {
+      $('#loading-CarStatusGet-view').show();
+      setTimeout(function(){
+        $('#loading-CarStatusGet-view').hide();
+        alert('【ダミー動作】車両状態の更新が完了しました。');
+      }, 1500);
+    }
+
+    function resetPractice() {
+      if(confirm('【ダミー動作】点検状態を初期化して最初からやり直しますか？')) {
+        sessionStorage.clear();
+        window.location.reload();
+      }
+    }
+    /*]]>*/
   </script>
 </body>
 </html>
