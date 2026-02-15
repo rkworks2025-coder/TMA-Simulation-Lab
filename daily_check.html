@@ -20,7 +20,18 @@ input[type="text"], input[type="number"], input[type="month"], select, textarea 
 input[type="checkbox"].check-select { -webkit-appearance: checkbox !important; appearance: checkbox !important; display: inline-block !important; width: 20px !important; height: 20px !important; vertical-align: middle; margin-right: 5px; }
 .contents-checkbox-box label { display: inline-flex; align-items: center; }
 
-.tab-container { overflow-x: auto !important; -webkit-overflow-scrolling: touch; background-color: #fff; border-bottom: 1px solid #ccc; }
+/* タブの固定（案2: Sticky実装） */
+.tab-container { 
+    overflow-x: auto !important; 
+    -webkit-overflow-scrolling: touch; 
+    background-color: #fff; 
+    border-bottom: 1px solid #ccc;
+    position: -webkit-sticky; /* Safari用 */
+    position: sticky;
+    top: 0;
+    z-index: 1000; /* 他の要素より上に */
+}
+
 .tab { display: flex !important; width: max-content; margin: 0; padding: 0; }
 .tab-button { flex: 0 0 auto; list-style: none; }
 .tab-button a { display: block; padding: 10px 15px; text-decoration: none; color: #333; font-weight: normal; }
@@ -38,6 +49,14 @@ input[type="checkbox"].check-select { -webkit-appearance: checkbox !important; a
 .error-highlight .content-radio-block { border: 1px solid #e60012 !important; background-color: #fce8e8 !important; }
 .error-highlight-input { border: 1px solid #e60012 !important; background-color: #fce8e8 !important; }
 .badge-required { display: inline-block; background-color: #e60012; color: #fff; font-size: 11px; font-weight: bold; padding: 2px 5px; border-radius: 2px; margin-right: 6px; vertical-align: 1px; }
+
+/* エラーモーダル用のスタイル */
+.modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 9999; align-items: center; justify-content: center; }
+.modal-content { background: #fff; width: 90%; max-width: 400px; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.3); text-align: center; }
+.modal-title { font-weight: bold; font-size: 18px; margin-bottom: 15px; color: #333; }
+.error-list { text-align: left; margin-bottom: 20px; padding-left: 20px; color: #e60012; font-size: 14px; max-height: 300px; overflow-y: auto; }
+.error-list li { margin-bottom: 5px; list-style-type: disc; }
+.modal-close-btn { background: #666; color: #fff; border: none; padding: 10px 30px; border-radius: 4px; font-size: 16px; cursor: pointer; }
 </style>
 </head>
 <body>
@@ -121,7 +140,7 @@ input[type="checkbox"].check-select { -webkit-appearance: checkbox !important; a
 <h2 class="contents-title"><span class="badge-required">必須</span>パンク修理キット有効期限</h2><div class="contents-block"><p class="contents-inner-text"><span class="notice-text">期限切れは、担当部署にて交換対応します（稼動停止は不要）</span></p><div class="expiration-date"><input type="month" step="1" id="puncRepairKitLimit" name="puncRepairKitLimit" value="" class="single-input required-red" /></div></div><br>
 <h2 class="contents-title">スペアタイヤの亀裂、損傷</h2><div class="contents-block"><p class="contents-inner-text"><span class="notice-text">亀裂、損傷がある場合は「NG（稼動停止）」</span></p><div class="content-radio tripleChoices"><div class="content-radio-block"><input type="radio" class="radio-select" value="1" id="spearTireDamage1" name="spearTireDamage" /><label for="spearTireDamage1">OK</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="9" id="spearTireDamage2" name="spearTireDamage" /><label for="spearTireDamage2">NG（稼動停止）</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="0" id="spearTireDamage3" name="spearTireDamage" checked="checked" /><label for="spearTireDamage3">対象外</label></div></div></div><br>
 <h2 class="contents-title">スペアタイヤの指定空気圧</h2><div class="contents-block tire"><p class="contents-inner-text"><span class="notice-text">テンパータイヤの場合は420kPa</span><br /><span class="notice-text">装着タイヤと同じ場合は車種により異なる</span><br /><span class="notice-text txt-red">※複数記載されている場合は高い方を入力</span></p><input type="number" class="airPressure single-input" id="frontSpearRegularPressure" name="frontSpearRegularPressure" value="" />kPa</div><br>
-<h2 class="contents-title">スペアタイヤの空気圧</h2><div class="contents-block tire"><p class="contents-inner-text"><span class="notice-text">指定空気圧+0 ～ +20kPaの間で調整</span><br /><span class="notice-text txt-red">調整前の空気圧が指定空気圧より40kPa以上低い場合は「NG（稼動停止）」</span></p><ul class="contents-list"><li><p class="contents-item-title">調整前</p><input type="number" class="airPressure single-input spearTireGroup spearFrontTire" id="frontSpearPressure" name="frontSpearPressure" value="" />kPa</li><li><p class="contents-item-title">調整後<span class="setAsterisk"></span></p><input type="number" class="airPressure single-input spearTireGroup spearFrontTireAdj" id="frontSpearPressureAdjusted" name="frontSpearPressureAdjusted" value="" />kPa</li></ul></div><br>
+<h2 class="contents-title">スペアタイヤの空気圧</h2><div class="contents-block tire"><p class="contents-inner-text"><span class="notice-text">指定空気圧+0 ～ +20kPaの間で調整</span><br /><span class="notice-text txt-red">調整前の空気圧が指定空気圧より40kPa以上低い場合は「NG（稼動停止）」</span><br /><span class="notice-text txt-red">「NG（稼動停止）」の際は不備詳細へタイヤサイズ、自走可否を記載</span></p><ul class="contents-list"><li><p class="contents-item-title">調整前</p><input type="number" class="airPressure single-input spearTireGroup spearFrontTire" id="frontSpearPressure" name="frontSpearPressure" value="" />kPa</li><li><p class="contents-item-title">調整後<span class="setAsterisk"></span></p><input type="number" class="airPressure single-input spearTireGroup spearFrontTireAdj" id="frontSpearPressureAdjusted" name="frontSpearPressureAdjusted" value="" />kPa</li></ul></div><br>
 <h2 class="contents-title">車載工具類・ジャッキ</h2><div class="contents-block"><p class="contents-inner-text"><span class="notice-text">ジャッキ・ジャッキハンドル・スパナがすべて揃っているか確認</span><br /><span class="notice-text txt-red">※揃っていない場合、スペアタイヤを搭載している車両は「NG（稼動停止）」</span></p><div class="content-radio tripleChoices"><div class="content-radio-block"><input type="radio" class="radio-select" value="1" id="tireJackupSetExist1" name="tireJackupSetExist" /><label for="tireJackupSetExist1">OK</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="9" id="tireJackupSetExist2" name="tireJackupSetExist" /><label for="tireJackupSetExist2">NG（稼動停止）</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="0" id="tireJackupSetExist3" name="tireJackupSetExist" checked="checked" /><label for="tireJackupSetExist3">対象外</label></div></div></div><br>
 <h2 class="contents-title"><span class="badge-required">必須</span>清掃キット</h2><div class="contents-block"><p class="contents-inner-text"><span class="notice-text">「除菌シート、粘着コロコロテープ」が揃っているか確認</span></p><div class="content-radio tripleChoices"><div class="content-radio-block"><input type="radio" class="radio-select" value="1" id="cleaningKit1" name="cleaningKit" /><label for="cleaningKit1">OK（未交換）</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="2" id="cleaningKit2" name="cleaningKit" /><label for="cleaningKit2">OK（交換）</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="8" id="cleaningKit3" name="cleaningKit" /><label for="cleaningKit3">NG</label></div></div></div><br>
 <h2 class="contents-title"><span class="badge-required">必須</span>ジュニアシート</h2><div class="contents-block"><p class="contents-inner-text"><span class="notice-text">車載有無を確認。汚損、破損などで撤去した場合は「車載なし」を選択<br />次の予約がレンタカーの場合は、予約状況に応じて選択</span></p><div class="content-radio twoChoices"><div class="content-radio-block"><input type="radio" class="radio-select" value="3" id="juniorSeat1" name="juniorSeat" /><label for="juniorSeat1">車載あり</label></div><div class="content-radio-block"><input type="radio" class="radio-select" value="4" id="juniorSeat2" name="juniorSeat" /><label for="juniorSeat2">車載なし</label></div></div></div>
@@ -139,12 +158,20 @@ input[type="checkbox"].check-select { -webkit-appearance: checkbox !important; a
 </form>
 </main>
 
+<div class="modal-overlay" id="errorModal">
+    <div class="modal-content">
+        <p class="modal-title">以下の項目が入力されていません</p>
+        <ul class="error-list" id="errorList"></ul>
+        <button class="modal-close-btn" onclick="closeErrorModal()">閉じる</button>
+    </div>
+</div>
+
 <script type="text/javascript">
 $(function () {
   // 保存されたデータがあれば復元
   loadFormData();
 
-  // タブ切り替え処理
+  // タブ切り替え処理（JSで実装）
   $('.tab-button').on('click', function(e) {
     e.preventDefault();
     var targetId = $(this).attr('data-name');
@@ -152,6 +179,7 @@ $(function () {
     $(this).addClass('active');
     $('.tab-contents').removeClass('active').hide();
     $('#' + targetId).addClass('active').show();
+    // ページトップへ戻らないようにスクロール位置調整が必要ならここに追加
   });
 
   // ラジオボタンの変更処理 (エラー解除の更新等)
@@ -276,15 +304,75 @@ function saveDraft() {
   window.location.href = 'index.html';
 }
 
+// 必須項目のチェックを行い、未入力があればリストを返す
+function getMissingItems() {
+    var missingItems = [];
+
+    // ラジオボタンのチェック
+    $('.content-radio').each(function() {
+        var $radios = $(this).find('input[type="radio"]');
+        if ($radios.length > 0) {
+            var radioName = $radios.first().attr('name');
+            // 必須バッジがある親要素を探す
+            var $title = $(this).closest('.contents-block').prev('.contents-title').find('.badge-required').parent();
+            
+            // 必須項目かつ未選択の場合
+            if ($title.length > 0 && $('input[name="' + radioName + '"]:checked').length === 0) {
+                // タイトルテキストを取得（"必須"バッジのテキストを除く）
+                var label = $title.text().replace('必須', '').trim();
+                missingItems.push(label);
+            }
+        }
+    });
+
+    // テキスト・数値入力欄のチェック
+    $('.required-red').each(function() {
+        if ($(this).val() === '') {
+            // 親要素などを遡ってタイトルを探す
+            var $title = $(this).closest('.contents-block').prev('.contents-title').find('.badge-required').parent();
+            if ($title.length === 0) {
+                 // section内の場合など構造が違うケースへの対応
+                 $title = $(this).closest('section').find('.contents-stickyTitle');
+            }
+            if ($title.length === 0) {
+                 $title = $(this).closest('.contents-block').prev('.contents-title');
+            }
+
+            if ($title.length > 0) {
+                var label = $title.text().replace('必須', '').trim();
+                // 重複チェック
+                if (missingItems.indexOf(label) === -1) {
+                    missingItems.push(label);
+                }
+            }
+        }
+    });
+
+    return missingItems;
+}
+
 function completeDailyCheck() {
-  // セッションストレージに完了フラグを保存（トップページで点検OKマークを出すため）
-  sessionStorage.setItem('dailyCheckCompleted', 'true');
-  // 一時保存フラグを消す（トップページのif文で完了表示を優先させるため）
-  sessionStorage.removeItem('dailyCheckDraft');
-  // 完了時はフォームデータをクリアする（必要に応じて保持しても良いが、完了＝リセットとみなす場合）
-  // sessionStorage.removeItem('dailyCheckFormData'); 
-  // アラート表示を全削除し、無言でトップ画面へ遷移
-  window.location.href = 'index.html';
+    // 未入力項目のチェック
+    var missingItems = getMissingItems();
+
+    if (missingItems.length > 0) {
+        // エラーがある場合、モーダルを表示
+        var listHtml = '';
+        for (var i = 0; i < missingItems.length; i++) {
+            listHtml += '<li>' + missingItems[i] + '</li>';
+        }
+        $('#errorList').html(listHtml);
+        $('#errorModal').css('display', 'flex'); // Flexで中央寄せ表示
+    } else {
+        // エラーがない場合、完了処理
+        sessionStorage.setItem('dailyCheckCompleted', 'true');
+        sessionStorage.removeItem('dailyCheckDraft');
+        window.location.href = 'index.html';
+    }
+}
+
+function closeErrorModal() {
+    $('#errorModal').hide();
 }
 </script>
 </body>
