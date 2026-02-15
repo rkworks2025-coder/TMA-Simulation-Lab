@@ -30,13 +30,21 @@ input[type="checkbox"].check-select { -webkit-appearance: checkbox !important; a
 .error-highlight .content-radio-block { border: 1px solid #e60012 !important; background-color: #fce8e8 !important; }
 .error-highlight-input { border: 1px solid #e60012 !important; background-color: #fce8e8 !important; }
 .badge-required { display: inline-block; background-color: #e60012; color: #fff; font-size: 11px; font-weight: bold; padding: 2px 5px; border-radius: 2px; margin-right: 6px; vertical-align: 1px; }
+
+/* エラーモーダル用のスタイル */
+.modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 9999; align-items: center; justify-content: center; }
+.modal-content { background: #fff; width: 90%; max-width: 400px; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.3); text-align: center; }
+.modal-title { font-weight: bold; font-size: 18px; margin-bottom: 15px; color: #333; }
+.error-list { text-align: left; margin-bottom: 20px; padding-left: 20px; color: #e60012; font-size: 14px; max-height: 300px; overflow-y: auto; }
+.error-list li { margin-bottom: 5px; list-style-type: disc; }
+.modal-close-btn { background: #666; color: #fff; border: none; padding: 10px 30px; border-radius: 4px; font-size: 16px; cursor: pointer; }
 </style>
 </head>
 <body>
 <header class="new-wb-header"><nav><p class="userName2"><span>【ＴＳ委託】カーケアジャパン (練習用ダミー v3.0)</span></p><br><div class="nav-menu"><div id="nav-drawer"><input id="nav-input" type="checkbox" class="nav-unshown" /><label id="nav-open" for="nav-input"><span></span></label><div id="nav-content"><br><div class="modal-header"><p>メニュー</p></div><br><ul class="modalList"><li><a class="nav-link" href="index.html">トップ</a></li><li><input type="button" value="ログアウト" /></li></ul></div></div></div></nav></header>
 
 <main class="main">
-<form method="POST" action="" accept-charset="utf-8" onsubmit="return false;">
+<form method="POST" action="" accept-charset="utf-8" onsubmit="return false;" id="interiorCheckForm">
 <input type="hidden" id="fromWebFlg" name="fromWebFlg" value="true" />
 
 <div class="maintenance">
@@ -139,8 +147,19 @@ input[type="checkbox"].check-select { -webkit-appearance: checkbox !important; a
 </form>
 </main>
 
+<div class="modal-overlay" id="errorModal">
+    <div class="modal-content">
+        <p class="modal-title">以下の項目が入力されていません</p>
+        <ul class="error-list" id="errorList"></ul>
+        <button class="modal-close-btn" onclick="closeErrorModal()">閉じる</button>
+    </div>
+</div>
+
 <script type="text/javascript">
 $(function () {
+  // 保存データを復元
+  loadFormData();
+
   // ラジオボタンの変更処理 (エラー解除の更新等)
   $(document).on('change', 'input[type="radio"]', function() {
     updateHighlights();
@@ -165,24 +184,111 @@ $(function () {
   updateHighlights();
 });
 
+// フォームデータを保存する関数
+function saveFormData() {
+    const formData = {};
+    $('input').each(function() {
+        const type = $(this).attr('type');
+        const name = $(this).attr('name');
+        if (!name) return;
+
+        if (type === 'radio') {
+            if ($(this).is(':checked')) {
+                formData[name] = $(this).val();
+            }
+        } else {
+            formData[name] = $(this).val();
+        }
+    });
+    sessionStorage.setItem('interiorCheckFormData', JSON.stringify(formData));
+}
+
+// フォームデータを読み込む関数
+function loadFormData() {
+    const savedData = sessionStorage.getItem('interiorCheckFormData');
+    if (savedData) {
+        const formData = JSON.parse(savedData);
+        for (const name in formData) {
+            const val = formData[name];
+            const $el = $('[name="' + name + '"]');
+            
+            if ($el.attr('type') === 'radio') {
+                $el.filter('[value="' + val + '"]').prop('checked', true);
+            } else {
+                $el.val(val);
+            }
+        }
+    }
+}
+
 // 一時保存ボタンの処理
 function saveDraft() {
-  // 一時保存フラグを立てる
+  saveFormData();
   sessionStorage.setItem('interiorCheckDraft', 'true');
-  // 完了フラグは消しておく
   sessionStorage.removeItem('interiorCheckCompleted');
-  // トップ画面へ遷移
   window.location.href = 'index.html';
+}
+
+// 必須項目のチェックを行い、未入力があればリストを返す
+function getMissingItems() {
+    var missingItems = [];
+    $('.content-radio').each(function() {
+        var $radios = $(this).find('input[type="radio"]');
+        if ($radios.length > 0) {
+            var radioName = $radios.first().attr('name');
+            // 未選択の場合
+            if ($('input[name="' + radioName + '"]:checked').length === 0) {
+                // タイトル取得
+                var $title = $(this).closest('.contents-block').prev('.contents-title');
+                // stock-garageなどネスト構造が異なる場合の対応
+                if ($title.length === 0) {
+                    $title = $(this).closest('.contents-block').find('h3').first(); // カーナビ設定など
+                }
+                // それでも取れない場合（忘れ物など）
+                if ($title.length === 0) {
+                    $title = $(this).closest('.content-section').find('.contents-title'); // 元のHTML構造依存
+                }
+                
+                // タイトルが見つかったらリストに追加
+                var label = "";
+                if ($title.length > 0) {
+                    label = $title.text().trim();
+                } else {
+                    // 親を遡って探索
+                    label = $(this).parent().prev('.contents-title').text().trim();
+                }
+                
+                // 不要な文字の除去（"必須"バッジなどがあれば）
+                // interior.htmlにはバッジはないが、念のため
+                if (label && missingItems.indexOf(label) === -1) {
+                    missingItems.push(label);
+                }
+            }
+        }
+    });
+    return missingItems;
 }
 
 // 完了ボタンの処理
 function completeTask() {
-  // 完了フラグを保存
-  sessionStorage.setItem('interiorCheckCompleted', 'true');
-  // 一時保存フラグを消す
-  sessionStorage.removeItem('interiorCheckDraft');
-  // トップ画面へ遷移
-  window.location.href = 'index.html';
+  var missingItems = getMissingItems();
+
+  if (missingItems.length > 0) {
+      var listHtml = '';
+      for (var i = 0; i < missingItems.length; i++) {
+          listHtml += '<li>' + missingItems[i] + '</li>';
+      }
+      $('#errorList').html(listHtml);
+      $('#errorModal').css('display', 'flex');
+  } else {
+      sessionStorage.setItem('interiorCheckCompleted', 'true');
+      sessionStorage.removeItem('interiorCheckDraft');
+      window.location.href = 'index.html';
+  }
+}
+
+function closeErrorModal() {
+    $('#errorModal').hide();
 }
 </script>
 </body>
